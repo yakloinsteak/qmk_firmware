@@ -26,7 +26,7 @@
 #define LINE_BT_UART_RX A5  // Master RX, BLE TX
 
 // Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
 
 // SPI configuration
 #define SPI_DRIVER SPID1
@@ -48,7 +48,7 @@
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
 #define TAPPING_TERM 210
-#define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM_PER_KEY
 
 // https://docs.qmk.fm/tap_hold#permissive-hold
 // hitting another key before tap timeout will do the hold action, but you

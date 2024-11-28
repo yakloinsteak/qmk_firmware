@@ -45,8 +45,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-//#define MT_CTL_ESC MT(MOD_LCTL, KC_ESC)
-
 // clang-format off
 // Key symbols are based on QMK. Use them to remap your keyboard
 /*
@@ -69,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     KC_TAB,               KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I, KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
     MT(MOD_LCTL, KC_ESC), KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,              KC_Z,    KC_X, KC_C, KC_V, KC_B,   KC_N, KC_M, KC_COMM, KC_DOT,           KC_SLSH,          RSFT_T(KC_UP),
-    KC_LCTL,              KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), TT(MOUSE)
+    KC_LCTL,              KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), KC_K //TT(MOUSE)
 ),
   /*
   * Layer FN1
@@ -145,13 +143,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  // KC_BRID: brightness
  // DT_xx: adjust and print delay timing
 
- [MOUSE] = LAYOUT_60_ansi(
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1,
-    _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX,                                     MS_BTN2,                   XXXXXXX, XXXXXXX, XXXXXXX, _______
- ),
+ /* [MOUSE] = LAYOUT_60_ansi( */
+ /*    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
+ /*    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
+ /*    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1, */
+ /*    _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
+ /*    XXXXXXX, XXXXXXX, XXXXXXX,                                     MS_BTN2,                   XXXXXXX, XXXXXXX, XXXXXXX, _______ */
+ /* ), */
 
 };
 // clang-format on
@@ -274,13 +272,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // ************************************************* TAPS ************************************************* //
 // ******************************************************************************************************** //
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        /* case SFT_T(KC_SPC): */
-        /*     return TAPPING_TERM + 1250; */
-        /* case KC_ESC: */
-        /*     return TAPPING_TERM; */
-        default:
-            return TAPPING_TERM;
-    }
-}
+/* uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { */
+/*     switch (keycode) { */
+/*         [> case SFT_T(KC_SPC): <] */
+/*         [>     return TAPPING_TERM + 1250; <] */
+/*         [> case KC_ESC: <] */
+/*         [>     return TAPPING_TERM; <] */
+/*         default: */
+/*             return TAPPING_TERM; */
+/*     } */
+/* } */
