@@ -8,15 +8,15 @@ enum custom_keycodes {
 // Tap Dance
 /* enum { */
 /*   TD_JJ, */
-/*   GOATS, */
 /* }; */
-/*  */
+
+// https://docs.qmk.fm/features/tap_dance#how-to-use
 /* tap_dance_action_t tap_dance_actions[] = { */
 /*     // Tap once for j, twice for escape */
 /*     [TD_JJ] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_ESC), */
 /* }; */
 
-enum anne_pro_layers { BASE, FN1, FN2, MOUSE, };
+enum anne_pro_layers { BASE, FN1, FN2, FN3, };
 
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -58,7 +58,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 * |-----------------------------------------------------------------------------------------+
 * | Shift      |  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |    Shift       |
 * |-----------------------------------------------------------------------------------------+
-* | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | Mouse |
+* | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | FN3 |
 * \-----------------------------------------------------------------------------------------/
 */
  const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -67,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     KC_TAB,               KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I, KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
     MT(MOD_LCTL, KC_ESC), KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,              KC_Z,    KC_X, KC_C, KC_V, KC_B,   KC_N, KC_M, KC_COMM, KC_DOT,           KC_SLSH,          RSFT_T(KC_UP),
-    KC_LCTL,              KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), KC_K //TT(MOUSE)
+    KC_LCTL,              KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), TT(FN3)
 ),
   /*
   * Layer FN1
@@ -80,7 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   * |-----------------------------------------------------------------------------------------+
   * | Shift      |  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |INSRT| DEL |    Shift       |
   * |-----------------------------------------------------------------------------------------+
-  * | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | Mouse |
+  * | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | FN3 |
   * \-----------------------------------------------------------------------------------------/
   *
   */
@@ -105,32 +105,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   * | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | Ctrl  |
   * \-----------------------------------------------------------------------------------------/
   *
-  * DT_UP/DT_DOWN/DT_PRNT let you adjust tap timeout on the fly. probably can remove these once the settings are good.
-  * maybe disable in rules if we don't need it. Maybe that saves space? Not sure it really matters
-  *
-  *
-  *  KC_AP2_BT1: Switch to bluetooth 1
-  *  KC_AP2_BT2: Switch to bluetooth 2
-  *  KC_AP2_BT3: Switch to bluetooth 3
-  *  KC_AP2_BT4: Switch to bluetooth 4
-  *  KC_AP2_BT_UNPAIR: Unpair bluetooth
-  *  KC_AP2_USB: Switch to device using the USB
-  *
-  *  KC_AP_LED_ON: Enable LEDs
-  *  KC_AP_LED_OFF: Disable LEDs
-  *  KC_AP_LED_NEXT_PROFILE: Go to next profile
-  *  KC_AP_LED_PREV_PROFILE: Go to previous profile
-  *  KC_AP_LED_NEXT_INTENSITY: Go to next brightness intensity
-  *  KC_AP_LED_SPEED: Go to next speed
-  *
-  *  KC_AP_LED_TOG,
-  *  KC_AP_LED_NEXT_INTENSITY,
-  *  KC_AP_LED_SPEED,
-  *  KC_AP_RGB_VAI,
-  *  KC_AP_RGB_VAD,
-  *  KC_AP_RGB_TOG,
-  *  KC_AP_RGB_MOD,
-  *
   */
  [FN2] = LAYOUT_60_ansi( /* FN2 */
     QK_BOOT, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
@@ -143,13 +117,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  // KC_BRID: brightness
  // DT_xx: adjust and print delay timing
 
- /* [MOUSE] = LAYOUT_60_ansi( */
+ // mouse that takes up too much ram I think
+ /* [FN3] = LAYOUT_60_ansi( */
  /*    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
  /*    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
  /*    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1, */
  /*    _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
  /*    XXXXXXX, XXXXXXX, XXXXXXX,                                     MS_BTN2,                   XXXXXXX, XXXXXXX, XXXXXXX, _______ */
  /* ), */
+
+ [FN3] = LAYOUT_60_ansi(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______,                                     _______,                   _______, _______, _______, _______
+ ),
 
 };
 // clang-format on
@@ -227,19 +210,6 @@ combo_t key_combos[] = {
 
 void keyboard_post_init_user(void) {
     ap2_led_enable();
-
-    /* 0: Full red */
-    /* 1: Full green */
-    /* 2: Full blue */
-    /* 3: Horizontal rainbow */
-    /* 4: Vertical Rainbow */
-    /* 5: Low-FPS Animated Vertical Rainbow */
-    /* 6: Animated Vertical Rainbow */
-    /* 7: Animated Horizontal Rainbow */
-    /* 8: Animated Breathing */
-    /* 9: Animated Red Vertical Wave */
-    /* 10: Animated Spectrum */
-    /* 11: Reactive Fade */
     // ap2_led_set_profile(0);
 
     ap2_led_set_foreground_color(0xAA, 0x00, 0x00);
@@ -255,7 +225,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // Set the leds to blue
             ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
             break;
-        case MOUSE:
+        case FN3:
             // Set the leds to
             ap2_led_set_foreground_color(0xFF, 0x00, 0xFF);
             break;
