@@ -19,3 +19,10 @@ SRC = \
 	ap2_led.c \
 	protocol.c \
 	rgb_driver.c \
+
+COMBO_ENABLE = yes
+DIGITIZER_ENABLE = no
+DYNAMIC_TAPPING_TERM_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = no
+# CONSOLE_ENABEL = yes
