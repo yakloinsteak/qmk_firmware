@@ -1,9 +1,8 @@
 #include QMK_KEYBOARD_H
-#include "home_row_mods.h"
 
 enum custom_keycodes {
-  SNIPPETS = SAFE_RANGE,
-  SWITCH_WINDOW,
+    SNIPPETS = SAFE_RANGE,
+    SWITCH_WINDOW,
 };
 
 // Tap Dance
@@ -46,6 +45,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+#define C_ESC MT(MOD_LCTL, KC_ESC)
+
 // clang-format off
 // Key symbols are based on QMK. Use them to remap your keyboard
 /*
@@ -66,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [BASE] = LAYOUT_60_ansi( /* Base */
     KC_ESC,               KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,             KC_MINS,          KC_EQL,        KC_BSPC,
     KC_TAB,               KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I, KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
-    MT(MOD_LCTL, KC_ESC), KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
+    C_ESC,                KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,              KC_Z,    KC_X, KC_C, KC_V, KC_B,   KC_N, KC_M, KC_COMM, KC_DOT,           KC_SLSH,          RSFT_T(KC_UP),
     KC_LCTL,              KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), TT(FN3)
 ),
@@ -145,40 +146,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END};
 
-/* const uint16_t PROGMEM hrm1l[4][3] = { */
-/*     {KC_SPC, KC_F, COMBO_END}, */
-/*     {KC_SPC, KC_D, COMBO_END}, */
-/*     {KC_SPC, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_A, COMBO_END}, */
-/* }; */
-/* const uint16_t PROGMEM hrm1r[4][3] = { */
-/*     {KC_SPC, KC_J, COMBO_END}, */
-/*     {KC_SPC, KC_K, COMBO_END}, */
-/*     {KC_SPC, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_SCLN, COMBO_END}, */
-/* }; */
-/* const uint16_t PROGMEM hrm2l[6][4] = { */
-/*     {KC_SPC, KC_F, KC_D, COMBO_END}, */
-/*     {KC_SPC, KC_F, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_F, KC_A, COMBO_END}, */
-/*     {KC_SPC, KC_D, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_D, KC_A, COMBO_END}, */
-/*     {KC_SPC, KC_S, KC_A, COMBO_END} */
-/* }; */
-/* const uint16_t PROGMEM hrm2r[6][4] = { */
-/*     {KC_SPC, KC_J, KC_K, COMBO_END}, */
-/*     {KC_SPC, KC_J, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_J, KC_SCLN, COMBO_END}, */
-/*     {KC_SPC, KC_K, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_K, KC_SCLN, COMBO_END}, */
-/*     {KC_SPC, KC_L, KC_SCLN, COMBO_END} */
-/* }; */
-/*  */
+const uint16_t PROGMEM hrm1l[4][3] = {
+    {KC_SPC, KC_F, COMBO_END},
+    {KC_SPC, KC_D, COMBO_END},
+    {KC_SPC, KC_S, COMBO_END},
+    {KC_SPC, KC_A, COMBO_END},
+};
+const uint16_t PROGMEM hrm1r[4][3] = {
+    {KC_SPC, KC_J, COMBO_END},
+    {KC_SPC, KC_K, COMBO_END},
+    {KC_SPC, KC_L, COMBO_END},
+    {KC_SPC, KC_SCLN, COMBO_END},
+};
+const uint16_t PROGMEM hrm2l[6][4] = {
+    {KC_SPC, KC_F, KC_D, COMBO_END},
+    {KC_SPC, KC_F, KC_S, COMBO_END},
+    {KC_SPC, KC_F, KC_A, COMBO_END},
+    {KC_SPC, KC_D, KC_S, COMBO_END},
+    {KC_SPC, KC_D, KC_A, COMBO_END},
+    {KC_SPC, KC_S, KC_A, COMBO_END}
+};
+const uint16_t PROGMEM hrm2r[6][4] = {
+    {KC_SPC, KC_J, KC_K, COMBO_END},
+    {KC_SPC, KC_J, KC_L, COMBO_END},
+    {KC_SPC, KC_J, KC_SCLN, COMBO_END},
+    {KC_SPC, KC_K, KC_L, COMBO_END},
+    {KC_SPC, KC_K, KC_SCLN, COMBO_END},
+    {KC_SPC, KC_L, KC_SCLN, COMBO_END}
+};
+
 combo_t key_combos[] = {
     COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
     COMBO(snippets_combo, SNIPPETS), // snippets in tmux
     COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
+    COMBO(enter_combo, KC_ENT), // Enter
 
     // Single mods
     COMBO(hrm1l[0], KC_LGUI),
@@ -204,6 +207,7 @@ combo_t key_combos[] = {
     COMBO(hrm2r[4], S(KC_RALT)),
     COMBO(hrm2r[5], C(KC_RALT))
 };
+
 
 // ******************************************************************************************************** //
 // ************************************************* LEDs ************************************************* //
