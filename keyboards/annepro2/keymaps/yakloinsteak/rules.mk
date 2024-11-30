@@ -4,6 +4,7 @@ SRC = \
 	ap2_led.c \
 	protocol.c \
 	rgb_driver.c \
+	home_row_mods.c
 
 COMBO_ENABLE = yes
 DIGITIZER_ENABLE = no
