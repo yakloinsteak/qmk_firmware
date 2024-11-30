@@ -175,33 +175,33 @@ const uint16_t PROGMEM hrm2r[6][4] = {
 };
 
 combo_t key_combos[] = {
-  COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
-  COMBO(snippets_combo, SNIPPETS), // snippets in tmux
-  COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
+    COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
+    COMBO(snippets_combo, SNIPPETS), // snippets in tmux
+    COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
 
-  // Single mods
-  COMBO(hrm1l[0], KC_LGUI),
-  COMBO(hrm1l[1], KC_LSFT),
-  COMBO(hrm1l[2], KC_LCTL),
-  COMBO(hrm1l[3], KC_LALT),
-  COMBO(hrm1r[0], KC_RGUI),
-  COMBO(hrm1r[1], KC_RSFT),
-  COMBO(hrm1r[2], KC_RCTL),
-  COMBO(hrm1r[3], KC_RALT),
+    // Single mods
+    COMBO(hrm1l[0], KC_LGUI),
+    COMBO(hrm1l[1], KC_LSFT),
+    COMBO(hrm1l[2], KC_LCTL),
+    COMBO(hrm1l[3], KC_LALT),
+    COMBO(hrm1r[0], KC_RGUI),
+    COMBO(hrm1r[1], KC_RSFT),
+    COMBO(hrm1r[2], KC_RCTL),
+    COMBO(hrm1r[3], KC_RALT),
 
-  // Dual mods
-  COMBO(hrm2l[0], G(KC_LSFT)),
-  COMBO(hrm2l[1], G(KC_LCTL)),
-  COMBO(hrm2l[2], G(KC_LALT)),
-  COMBO(hrm2l[3], S(KC_LCTL)),
-  COMBO(hrm2l[4], S(KC_LALT)),
-  COMBO(hrm2l[5], C(KC_LALT)),
-  COMBO(hrm2r[0], G(KC_RSFT)),
-  COMBO(hrm2r[1], G(KC_RCTL)),
-  COMBO(hrm2r[2], G(KC_RALT)),
-  COMBO(hrm2r[3], S(KC_RCTL)),
-  COMBO(hrm2r[4], S(KC_RALT)),
-  COMBO(hrm2r[5], C(KC_RALT))
+    // Dual mods
+    COMBO(hrm2l[0], G(KC_LSFT)),
+    COMBO(hrm2l[1], G(KC_LCTL)),
+    COMBO(hrm2l[2], G(KC_LALT)),
+    COMBO(hrm2l[3], S(KC_LCTL)),
+    COMBO(hrm2l[4], S(KC_LALT)),
+    COMBO(hrm2l[5], C(KC_LALT)),
+    COMBO(hrm2r[0], G(KC_RSFT)),
+    COMBO(hrm2r[1], G(KC_RCTL)),
+    COMBO(hrm2r[2], G(KC_RALT)),
+    COMBO(hrm2r[3], S(KC_RCTL)),
+    COMBO(hrm2r[4], S(KC_RALT)),
+    COMBO(hrm2r[5], C(KC_RALT))
 };
 
 // ******************************************************************************************************** //

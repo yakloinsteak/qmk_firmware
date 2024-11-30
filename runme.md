@@ -8,14 +8,21 @@ lsusb
 qmk compile -kb annepro2/c18 -km default
 
 qmk config user.keyboard=annepro2/c18
+OR
+qmk config user.keyboard=lily58/rev1
 
 qmk config user.keymap=yakloinsteak
 
 qmk new-keymap
 
 qmk compile -kb annepro2/c18 -km yakloinsteak
+make annepro2/c18:yakloinsteak
+make lily58/rev1:yakloinsteak
 
 n $HOME/prj/qmk_firmware/keyboards/annepro2/keymaps/yakloinsteak/keymap.c
+
+n -p /home/blackman/prj/qmk/keyboards/lily58/keymaps/yakloinsteak/keymap.c \
+  /home/blackman/prj/qmk/keyboards/lily58/keymaps/yakloinsteak/rules.mk
 
 qmk compile
 ```
