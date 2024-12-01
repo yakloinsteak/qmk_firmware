@@ -1,0 +1,14 @@
+#pragma once
+
+#include QMK_KEYBOARD_H
+
+enum custom_keycodes {
+    SNIPPETS = SAFE_RANGE,
+    SWITCH_WINDOW,
+    MAGIC_QUOTE
+};
+
+// YL == yakloin
+//
+// MT == mod-tap (mod if held, tap the keycode otherwise)
+#define YL_ESC MT(MOD_LCTL, KC_ESC)
