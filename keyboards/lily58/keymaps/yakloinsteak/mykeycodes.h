@@ -5,7 +5,9 @@
 enum custom_keycodes {
     SNIPPETS = SAFE_RANGE,
     SWITCH_WINDOW,
-    MAGIC_QUOTE
+    MAGIC_QUOTE,
+    UPDIR,
+    DBLCLK
 };
 
 // YL == yakloin

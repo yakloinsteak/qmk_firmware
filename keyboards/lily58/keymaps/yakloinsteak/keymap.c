@@ -22,6 +22,10 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, MAGIC_QUOTE),
 };
 
+// ********************************************************************************************************** //
+// ************************************************* Core        ******************************************** //
+// ********************************************************************************************************** //
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -34,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |sh/ent| <- right shift act as enter
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |MOUSE |  SYM | UTIL | /?????? /       \Space \  | UTIL |  SYM | RGUI |
+ *                   |MOUSE |  SYM | UTIL | /?????? /       \Space \  | UTIL |  SYM |      |
  *                   |TOGGLE|      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -44,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   YL_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TD_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
-                        TG(MS), MO(SYM), MO(UTIL), KC_SPC,  KC_SPC, MO(UTIL), MO(SYM), KC_RGUI
+                        TG(MS), MO(SYM), MO(UTIL), KC_SPC,  KC_SPC, MO(UTIL), MO(SYM), TG(MS)
 ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -89,26 +93,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
-/* MOUSE
+/* MOUSE / GUI
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+ * |      |      |      |      |      |      |-------.    ,-------| Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /       /       \      \  |      |      |      |
- *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   |MOUSE |      |      | /       /       \      \  |      |      |      |
+ *                   |TOGGLE|      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
   [MS] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                             _______, _______, _______, MS_BTN1, MS_BTN2,  _______, _______, _______
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                             _______, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 
@@ -152,7 +156,36 @@ bool oled_task_user(void) {
     return false;
 }
 #endif // OLED_ENABLE
+       //
 
+/* tap_code(kc) to tap an individual key
+   register_code(kc) and unregister_code(kc) to press down and release a key.
+
+   record->event.pressed is true if the event is a press (key down), and false if it is a release (key up).
+
+   record->event.time is a 16-bit timestamp in units of milliseconds of when the event occurred
+
+   record->event.key.row and record->event.key.col are the matrix position of the key, counting from 0.
+
+   If the event comes from a mod-tap (MT) or layer-tap (LT) key, then
+   record->tap.count is zero if the key is considered held, otherwise it is
+   considered tapped (see also Intercepting Mod-Taps and Achordion).
+
+   get_mods() returns a bitfield of which modifiers are currently active, and
+   similarly get_oneshot_mods() for one-shot modifiers (see also Checking
+   Modifier State and the next section, Macros that respond to mods).
+
+   Get the layer associated with the key event:
+   uint8_t layer = read_source_layers_cache(record->event.key);
+
+   IS_LAYER_ON(layer) returns whether layer is currently on, and
+
+   get_highest_layer(layer_state) returns the highest layer that is currently
+   on (see also Working with Layers).
+
+   get_repeat_key_count() indicates whether the key is being invoked through
+   Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
+ */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef OLED_ENABLE
@@ -178,16 +211,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MAGIC_QUOTE:
         if (record->event.pressed) {
-            if ( (keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
-               SEND_STRING("\"\"\b");
-            } else {
-               SEND_STRING("''\b");
-            }
+            SEND_STRING("''\b");
+            /* if ( (keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) { */
+            /*    SEND_STRING("\"\"\b"); */
+            /* } else { */
+            /*    SEND_STRING("''\b"); */
+            /* } */
         }
         break;
 
-    }
+    case UPDIR:
+        if (record->event.pressed) {
+           SEND_STRING("../");
+        }
+        return false; // skip any further pipeline processing which wouldn't be happening for custom keys anyway
+        /* break; */
 
+    case DBLCLK:  // Double click the left mouse button.
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1));
+        }
+        return false;
+    }
 
   return true;
 }
