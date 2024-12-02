@@ -12,3 +12,5 @@ enum custom_keycodes {
 //
 // MT == mod-tap (mod if held, tap the keycode otherwise)
 #define YL_ESC MT(MOD_LCTL, KC_ESC)
+
+#define YL_RSFT MT(MOD_RSFT, KC_ENT)
