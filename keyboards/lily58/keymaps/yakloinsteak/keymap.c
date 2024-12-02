@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |sh/ent| <- right shift act as enter
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |MOUSE |  SYM | UTIL | /?????? /       \Space \  | UTIL |  SYM |DIGITS|
+ *                   |MOUSE |  SYM | UTIL | /  TMUX /       \Space \  | UTIL |  SYM |DIGITS|
  *                   |TOGGLE|      |      |/       /         \      \ |      |      |TOGGLE|
  *                   `----------------------------'           '------''--------------------'
  */
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   YL_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   YL_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TD_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
-                        TG(MS), MO(SYM), MO(UTIL), KC_SPC,  KC_SPC, MO(UTIL), MO(SYM), TG(DIGITS)
+                        TG(MS), MO(SYM), MO(UTIL), MO(TMUX),  KC_SPC, MO(UTIL), MO(SYM), TG(DIGITS)
 ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -154,6 +154,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______
   ),
 
+  // ^a before all key-presses
+  // See process_record_user
+  [TMUX] = LAYOUT(
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                             _______, _______, _______, _______, _______, _______, _______, _______
+  ),
+
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -227,6 +237,10 @@ bool oled_task_user(void) {
    Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (IS_LAYER_ON(TMUX) && record->event.pressed) {
+        tap_code16(C(KC_A));  // Tap Ctrl+A.
+    }
+
     if (record->event.pressed) {
 #ifdef OLED_ENABLE
       set_keylog(keycode, record);
