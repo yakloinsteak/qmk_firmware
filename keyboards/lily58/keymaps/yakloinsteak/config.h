@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 #define HOLD_ON_OTHER_KEY_PRESS
 
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY 5 //Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_INTERVAL 10 //Time between cursor movements in milliseconds
