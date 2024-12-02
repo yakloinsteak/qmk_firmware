@@ -3,9 +3,10 @@
 
 enum layer_number {
     BASE = 0,
-    SYM,  // symbols
-    UTIL, // Utility/misc.
-    MS,   // Mouse
+    SYM,    // symbols
+    UTIL,   // Utility/misc.
+    MS,     // Mouse
+    DIGITS, // Digits
 };
 
 // ********************************************************************************************************** //
@@ -38,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |sh/ent| <- right shift act as enter
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |MOUSE |  SYM | UTIL | /?????? /       \Space \  | UTIL |  SYM |      |
- *                   |TOGGLE|      |      |/       /         \      \ |      |      |      |
+ *                   |MOUSE |  SYM | UTIL | /?????? /       \Space \  | UTIL |  SYM |DIGITS|
+ *                   |TOGGLE|      |      |/       /         \      \ |      |      |TOGGLE|
  *                   `----------------------------'           '------''--------------------'
  */
 
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   YL_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TD_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
-                        TG(MS), MO(SYM), MO(UTIL), KC_SPC,  KC_SPC, MO(UTIL), MO(SYM), TG(MS)
+                        TG(MS), MO(SYM), MO(UTIL), KC_SPC,  KC_SPC, MO(UTIL), MO(SYM), TG(DIGITS)
 ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   |      |      |      | /Space  /       \Enter \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -113,7 +114,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                              _______, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX
-  )
+  ),
+
+  [DIGITS] = LAYOUT(
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  KC_0,    KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                             _______, _______, _______, _______, _______, _______, _______, _______
+  ),
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
