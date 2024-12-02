@@ -1,6 +1,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
+#include "mylayers.h"
 
 enum custom_keycodes {
     SNIPPETS = SAFE_RANGE,
@@ -16,3 +17,5 @@ enum custom_keycodes {
 #define YL_ESC MT(MOD_LCTL, KC_ESC)
 
 #define YL_RSFT MT(MOD_RSFT, KC_ENT)
+
+#define YL_TAB LT(SLACK, KC_TAB)
