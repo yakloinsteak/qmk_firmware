@@ -15,33 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// #pragma once
-//
-// #include "pin_defs.h"
-//
-// #define LINE_UART_TX B0
-// #define LINE_UART_RX B1
-//
-// #define LINE_BT_UART_TX A4  // Master TX, BLE RX
-// #define LINE_BT_UART_RX A5  // Master RX, BLE TX
-//
-// // Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
-// // #define PERMISSIVE_HOLD
-//
-// // SPI configuration
-// #define SPI_DRIVER SPID1
-// #define SPI_SCK_PIN A0
-// #define SPI_MOSI_PIN A1
-// #define SPI_MISO_PIN A2
-//
-// // Flash configuration
-// #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN A3
-// #define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 16
-// #define EXTERNAL_FLASH_PAGE_SIZE 256
-// #define EXTERNAL_FLASH_SECTOR_SIZE 4096
-// #define EXTERNAL_FLASH_BLOCK_SIZE 4096
-// #define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
-
 #define TAPPING_TOGGLE 2
 
 // https://docs.qmk.fm/tap_hold
