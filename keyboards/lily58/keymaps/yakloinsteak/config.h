@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define TRI_LAYER_LOWER_LAYER SYM
+#define TRI_LAYER_UPPER_LAYER DIGITS
+#define TRI_LAYER_ADJUST_LAYER MS
+
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 210
 #define TAPPING_TOGGLE 2
