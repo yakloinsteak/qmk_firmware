@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// #undef RGB_MATRIX_ENABLE
+// #undef RGB_LIGHT_ENABLE
+
 #define TAPPING_TOGGLE 2
 
 // https://docs.qmk.fm/tap_hold

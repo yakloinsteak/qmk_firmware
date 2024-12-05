@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "custom_keycodes.h"
+#include "mykeycodes.h"
 
 const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};

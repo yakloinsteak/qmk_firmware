@@ -1,9 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "mylayers.h"
 #include "mykeycodes.h"
+#include "combos.h"
 
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (IS_LAYER_ON(TMUX) && record->event.pressed && keycode != MOD_RSFT && keycode != MOD_LSFT) {
+        tap_code16(C(KC_A));  // Tap Ctrl+A.
+    }
+
     switch (keycode) {
     case SNIPPETS:
         if (record->event.pressed) {
@@ -35,16 +40,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 * |-----------------------------------------------------------------------------------------+
 * | Shift      |  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |    Shift/Enter |
 * |-----------------------------------------------------------------------------------------+
-* | Ctrl  |  GUI  |  Alt  |               space             |  Alt  |  FN1  |  FN2  | FN3 |
+* | Ctrl  |  GUI  | TMUX  |               space             |  Alt  |  FN1  |  FN2  |       |
 * \-----------------------------------------------------------------------------------------/
 */
  const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [BASE] = LAYOUT_60_ansi( /* Base */
-    KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,             KC_MINS,          KC_EQL,        KC_BSPC,
-    YL_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I, KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
-    YL_ESC,   KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K, KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
+    KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6,   KC_7, KC_8,    KC_9,    KC_0,             KC_MINS,          KC_EQL,        KC_BSPC,
+    YL_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I,    KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
+    YL_ESC,   KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K,    KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,  KC_Z,    KC_X,    KC_C, KC_V, KC_B, KC_N,   KC_M, KC_COMM, KC_DOT,  KC_SLSH,          YL_RSFT,
-    KC_LCTL,  KC_LGUI, KC_LALT,                   KC_SPC,             KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), TT(FN3)
+    KC_LCTL,  KC_LGUI, MO(TMUX),                   KC_SPC,       KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), KC_NO
 ),
   /*
   * Layer FN1
@@ -103,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  /*    XXXXXXX, XXXXXXX, XXXXXXX,                                     MS_BTN2,                   XXXXXXX, XXXXXXX, XXXXXXX, _______ */
  /* ), */
 
- [FN3] = LAYOUT_60_ansi(
+ [TMUX] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -118,39 +123,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // ************************************************* Chords ************************************************* //
 // ********************************************************************************************************** //
 
-const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END};
-// const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END};
-
-const uint16_t PROGMEM hrm1l[4][3] = {
-    {KC_SPC, KC_F, COMBO_END},
-    {KC_SPC, KC_D, COMBO_END},
-    {KC_SPC, KC_S, COMBO_END},
-    {KC_SPC, KC_A, COMBO_END},
-};
-const uint16_t PROGMEM hrm1r[4][3] = {
-    {KC_SPC, KC_J, COMBO_END},
-    {KC_SPC, KC_K, COMBO_END},
-    {KC_SPC, KC_L, COMBO_END},
-    {KC_SPC, KC_SCLN, COMBO_END},
-};
-const uint16_t PROGMEM hrm2l[6][4] = {
-    {KC_SPC, KC_F, KC_D, COMBO_END},
-    {KC_SPC, KC_F, KC_S, COMBO_END},
-    {KC_SPC, KC_F, KC_A, COMBO_END},
-    {KC_SPC, KC_D, KC_S, COMBO_END},
-    {KC_SPC, KC_D, KC_A, COMBO_END},
-    {KC_SPC, KC_S, KC_A, COMBO_END}
-};
-const uint16_t PROGMEM hrm2r[6][4] = {
-    {KC_SPC, KC_J, KC_K, COMBO_END},
-    {KC_SPC, KC_J, KC_L, COMBO_END},
-    {KC_SPC, KC_J, KC_SCLN, COMBO_END},
-    {KC_SPC, KC_K, KC_L, COMBO_END},
-    {KC_SPC, KC_K, KC_SCLN, COMBO_END},
-    {KC_SPC, KC_L, KC_SCLN, COMBO_END}
-};
+/* const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END}; */
+/* const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END}; */
+/* const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END}; */
+/* // const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END}; */
+/*  */
+/* const uint16_t PROGMEM hrm1l[4][3] = { */
+/*     {KC_SPC, KC_F, COMBO_END}, */
+/*     {KC_SPC, KC_D, COMBO_END}, */
+/*     {KC_SPC, KC_S, COMBO_END}, */
+/*     {KC_SPC, KC_A, COMBO_END}, */
+/* }; */
+/* const uint16_t PROGMEM hrm1r[4][3] = { */
+/*     {KC_SPC, KC_J, COMBO_END}, */
+/*     {KC_SPC, KC_K, COMBO_END}, */
+/*     {KC_SPC, KC_L, COMBO_END}, */
+/*     {KC_SPC, KC_SCLN, COMBO_END}, */
+/* }; */
+/* const uint16_t PROGMEM hrm2l[6][4] = { */
+/*     {KC_SPC, KC_F, KC_D, COMBO_END}, */
+/*     {KC_SPC, KC_F, KC_S, COMBO_END}, */
+/*     {KC_SPC, KC_F, KC_A, COMBO_END}, */
+/*     {KC_SPC, KC_D, KC_S, COMBO_END}, */
+/*     {KC_SPC, KC_D, KC_A, COMBO_END}, */
+/*     {KC_SPC, KC_S, KC_A, COMBO_END} */
+/* }; */
+/* const uint16_t PROGMEM hrm2r[6][4] = { */
+/*     {KC_SPC, KC_J, KC_K, COMBO_END}, */
+/*     {KC_SPC, KC_J, KC_L, COMBO_END}, */
+/*     {KC_SPC, KC_J, KC_SCLN, COMBO_END}, */
+/*     {KC_SPC, KC_K, KC_L, COMBO_END}, */
+/*     {KC_SPC, KC_K, KC_SCLN, COMBO_END}, */
+/*     {KC_SPC, KC_L, KC_SCLN, COMBO_END} */
+/* }; */
 
 combo_t key_combos[] = {
     COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
@@ -188,6 +193,7 @@ combo_t key_combos[] = {
 // ************************************************* LEDs ************************************************* //
 // ******************************************************************************************************** //
 
+#ifdef RGB_MATRIX_ENABLE
 void keyboard_post_init_user(void) {
     ap2_led_enable();
     // ap2_led_set_profile(0);
@@ -205,7 +211,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // Set the leds to blue
             ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
             break;
-        case FN3:
+        case TMUX:
             // Set the leds to
             ap2_led_set_foreground_color(0xFF, 0x00, 0xFF);
             break;
@@ -217,6 +223,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
+#endif
 
 // ******************************************************************************************************** //
 // ************************************************* TAPS ************************************************* //
