@@ -23,7 +23,7 @@
 // https://docs.qmk.fm/tap_hold
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
-#define TAPPING_TERM 210
+#define TAPPING_TERM 220
 //#define TAPPING_TERM_PER_KEY
 
 // https://docs.qmk.fm/tap_hold#permissive-hold
