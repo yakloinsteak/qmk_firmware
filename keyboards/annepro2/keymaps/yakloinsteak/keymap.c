@@ -92,7 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     QK_BOOT, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
     _______, _______,    DT_UP,      _______,    _______,    _______, _______, _______, _______, _______,       KC_PSCR,       KC_HOME,       KC_END,        _______,
     _______, KC_BRID,    DT_DOWN,    KC_BRIU,    _______,    _______, _______, _______, _______, _______,       KC_PGUP,       KC_PGDN,       _______,
-    _______, _______,    DT_PRNT,    _______,    _______, _______, _______, _______, _______,       KC_INS,        KC_DEL,        _______,
+    _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______,    KC_INS,        KC_DEL,        _______,
     _______, _______,    _______,                                     _______,                   _______,       _______,       _______,       _______
  ),
  // KC_BRIU: brightness

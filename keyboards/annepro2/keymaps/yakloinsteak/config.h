@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 // #undef RGB_MATRIX_ENABLE
 // #undef RGB_LIGHT_ENABLE
 
@@ -23,6 +25,7 @@
 // https://docs.qmk.fm/tap_hold
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
+#undef TAPPING_TERM
 #define TAPPING_TERM 220
 //#define TAPPING_TERM_PER_KEY
 
