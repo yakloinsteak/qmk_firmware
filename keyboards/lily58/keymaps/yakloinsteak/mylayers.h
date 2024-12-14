@@ -8,4 +8,5 @@ enum layer_number {
     MS,
     SLACK,
     TMUX,
+    UTIL,
 };
