@@ -2,7 +2,7 @@
 
 enum layer_number {
     BASE = 0,
-    FN1,
+    TAB_HOLD_LAYER,
     SYM,
     DIGITS,
     MS,
