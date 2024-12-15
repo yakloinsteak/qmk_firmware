@@ -1,28 +1,8 @@
-/*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #pragma once
 
-#define TRI_LAYER_LOWER_LAYER SYM
-#define TRI_LAYER_UPPER_LAYER DIGITS
-#define TRI_LAYER_ADJUST_LAYER MS
+#define TRI_LAYER_LOWER_LAYER LOWER
+#define TRI_LAYER_UPPER_LAYER UPPER
+#define TRI_LAYER_ADJUST_LAYER ADJUST
 
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 210
@@ -30,6 +10,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOLD_ON_OTHER_KEY_PRESS
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// Allow kinetic speed with accelertion, but also allow three explicity speeds with ACL0/1/2
+#define MK_COMBINED
 
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY 5 //Delay between pressing a movement key and cursor movement

@@ -47,13 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Tab hold
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |  F2  |  F3  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F11  |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  | F9   | F10  | F11  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |  =   |      |      |                    |      |      |      | ins  | print| F12  |
+ * |      |      |      |  =   |      |      |                    |      | home | pgup | ins  | print| F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------.    ,-------| left | down |  up  | right|      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * |      |      |      |      |      |      |-------|    |-------|      | end  | pgdn |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -70,23 +70,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   ~  |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /Space  /       \Enter \  |      |      |      |
+ *                   |      |      |      | /       /       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[SYM] = LAYOUT(
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-    _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+[LOWER] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
@@ -97,42 +97,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |  /   |  *   |                    |   ^  |   +  |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  1   |   2  |  3   |  4   |  5   |-------.    ,-------|   6  |   7  |   8  |   9  |  0   |      |
+ * |  0   |  1   |   2  |  3   |  4   |  5   |-------.    ,-------|   6  |   7  |   8  |   9  |  0   |      |
  * |------+------+------+------+------+------|   (   |    |   )   |------+------+------+------+------+------|
  * |      |      |      |      |  =   |  |   |-------|    |-------|   &  |   -  |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /       /       \ SPC  \  |      |      |DIGITS|
- *                   |      |      |      |/       /         \      \ |      |      |TOGGLE|
+ *                   |      |      |      | /       /       \ SPC  \  |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[DIGITS] = LAYOUT(
+[UPPER] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______
+                               XXXXXXX, XXXXXXX, RRRRRRR, XXXXXXX, _______, RRRRRRR, XXXXXXX, _______
 ),
 
-/* MOUSE / GUI
+/* MOUSE/GUI when both lower/upper layer keys are pressed.
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |  WU  |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------| Left | Down |  Up  |Right |      |      |
+ * |      |  WL  |  WD  |  WR  |      |      |-------.    ,-------| Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |MOUSE |      |      | /       /       \      \  |      |      |      |
- *                   |TOGGLE|      |      |/       /         \      \ |      |      |      |
+ *                   |      |      |      | /       /       \      \  |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[MS] = LAYOUT(
+[ADJUST] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                               _______, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL1, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL0, XXXXXXX, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                               _______, XXXXXXX, RRRRRRR, MS_BTN1, MS_BTN2, RRRRRRR, XXXXXXX, XXXXXXX
 ),
 
 /* Slack
@@ -149,23 +149,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-  [SLACK] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______
-  ),
+/* [SLACK] = LAYOUT( */
+/*   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
+/*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
+/*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
+/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, */
+/*                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______ */
+/* ), */
 
 // ^a before all key-presses
 // See process_record_user
-[TMUX] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______, _______, _______, _______
-),
+/* [TMUX] = LAYOUT( */
+/*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
+/*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
+/*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
+/*   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, */
+/*                              _______, _______, _______, _______, _______, _______, _______, _______ */
+/* ), */
 
 /* [] = LAYOUT( */
 /*   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, */
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT(
     QK_BOOT, _______, _______, _______, _______, _______,                   UG_TOGG, _______, _______, _______, _______, _______,
-    _______, _______, DT_UP  , KC_EQL,  _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, DT_UP  , _______,  _______, _______,                  _______, _______, _______, _______, _______, _______,
     _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   UG_PREV, UG_VALD, UG_VALU, UG_NEXT, _______, _______,
     _______, _______, DT_PRNT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
@@ -227,7 +227,7 @@ bool oled_task_user(void) {
     return false;
 }
 #endif // OLED_ENABLE
-       //
+
 
 /* tap_code(kc) to tap an individual key
    register_code(kc) and unregister_code(kc) to press down and release a key.
@@ -258,9 +258,9 @@ bool oled_task_user(void) {
    Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (IS_LAYER_ON(TMUX) && record->event.pressed) {
-        tap_code16(C(KC_A));  // Tap Ctrl+A.
-    }
+    /* if (IS_LAYER_ON(TMUX) && record->event.pressed) { */
+    /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
+    /* } */
 
     if (record->event.pressed) {
 #ifdef OLED_ENABLE
@@ -321,33 +321,36 @@ const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END};
 
+#define LTHUMB KC_BSPC
+#define RTHUMB KC_SPC
+
 const uint16_t PROGMEM hrm1l[4][3] = {
-    {KC_SPC, KC_F, COMBO_END},
-    {KC_SPC, KC_D, COMBO_END},
-    {KC_SPC, KC_S, COMBO_END},
-    {KC_SPC, KC_A, COMBO_END},
+    {LTHUMB, KC_F, COMBO_END},
+    {LTHUMB, KC_D, COMBO_END},
+    {LTHUMB, KC_S, COMBO_END},
+    {LTHUMB, KC_A, COMBO_END},
 };
 const uint16_t PROGMEM hrm1r[4][3] = {
-    {KC_SPC, KC_J, COMBO_END},
-    {KC_SPC, KC_K, COMBO_END},
-    {KC_SPC, KC_L, COMBO_END},
-    {KC_SPC, KC_SCLN, COMBO_END},
+    {RTHUMB, KC_J, COMBO_END},
+    {RTHUMB, KC_K, COMBO_END},
+    {RTHUMB, KC_L, COMBO_END},
+    {RTHUMB, KC_SCLN, COMBO_END},
 };
 const uint16_t PROGMEM hrm2l[6][4] = {
-    {KC_SPC, KC_F, KC_D, COMBO_END},
-    {KC_SPC, KC_F, KC_S, COMBO_END},
-    {KC_SPC, KC_F, KC_A, COMBO_END},
-    {KC_SPC, KC_D, KC_S, COMBO_END},
-    {KC_SPC, KC_D, KC_A, COMBO_END},
-    {KC_SPC, KC_S, KC_A, COMBO_END}
+    {LTHUMB, KC_F, KC_D, COMBO_END},
+    {LTHUMB, KC_F, KC_S, COMBO_END},
+    {LTHUMB, KC_F, KC_A, COMBO_END},
+    {LTHUMB, KC_D, KC_S, COMBO_END},
+    {LTHUMB, KC_D, KC_A, COMBO_END},
+    {LTHUMB, KC_S, KC_A, COMBO_END}
 };
 const uint16_t PROGMEM hrm2r[6][4] = {
-    {KC_SPC, KC_J, KC_K, COMBO_END},
-    {KC_SPC, KC_J, KC_L, COMBO_END},
-    {KC_SPC, KC_J, KC_SCLN, COMBO_END},
-    {KC_SPC, KC_K, KC_L, COMBO_END},
-    {KC_SPC, KC_K, KC_SCLN, COMBO_END},
-    {KC_SPC, KC_L, KC_SCLN, COMBO_END}
+    {RTHUMB, KC_J, KC_K, COMBO_END},
+    {RTHUMB, KC_J, KC_L, COMBO_END},
+    {RTHUMB, KC_J, KC_SCLN, COMBO_END},
+    {RTHUMB, KC_K, KC_L, COMBO_END},
+    {RTHUMB, KC_K, KC_SCLN, COMBO_END},
+    {RTHUMB, KC_L, KC_SCLN, COMBO_END}
 };
 
 combo_t key_combos[] = {
