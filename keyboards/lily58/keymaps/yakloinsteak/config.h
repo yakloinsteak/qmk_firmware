@@ -9,7 +9,14 @@
 #define TAPPING_TOGGLE 2
 #define HOLD_ON_OTHER_KEY_PRESS
 
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// If you're having trouble hitting the combo keys at the same time, you can
+// increase this value
+// #define COMBO_TERM 50
+
+
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 // Allow kinetic speed with accelertion, but also allow three explicity speeds with ACL0/1/2
 #define MK_COMBINED

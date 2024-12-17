@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  k |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |ctlesc|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   | <- magic quotes when double tapped
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |sh/ent| <- right shift act as enter
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |sh/ent| <- right shift act as enter. left double-tap does caps-word
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |util  |      |lowerL| /bkspace/       \Space \  |upperL|      |      | <--- lower/upper layer together is another layer
  *                   |      |      |      |/       /         \      \ |      |      |      |
