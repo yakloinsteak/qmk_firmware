@@ -9,6 +9,7 @@
 #define TAPPING_TOGGLE 2
 #define HOLD_ON_OTHER_KEY_PRESS
 
+#define HRM HRM_ACHORDION
 
 // If you're having trouble hitting the combo keys at the same time, you can
 // increase this value

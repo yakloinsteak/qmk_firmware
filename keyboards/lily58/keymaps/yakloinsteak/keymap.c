@@ -2,6 +2,16 @@
 #include "mykeycodes.h"
 #include "mylayers.h"
 
+enum {
+    HRM_CHORD,
+    HRM_ACHORDION,
+    HRM_LAYER_STICKY,
+};
+
+#if HRM == HRM_ACHORDION
+#include "features/achordion.h"
+#endif
+
 // ********************************************************************************************************** //
 // ************************************************* Tap Dancing ******************************************** //
 // ********************************************************************************************************** //
@@ -40,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT(
     KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
     YL_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-    YL_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TD_QUOT,
+    YL_ESC,   YL_A,   YL_S,    YL_D,    YL_F,    KC_G,                     KC_H,    YL_J,    YL_K,    YL_L,    YL_SCLN, TD_QUOT,
     KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
                          TG(UTIL), KC_NO, TL_LOWR, KC_BSPC ,  KC_SPC, TL_UPPR, _______, _______
 ),
@@ -68,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* SYMBOLS
+/* left thumb layer / symbols
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -82,6 +92,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
+
+#if HRM == HRM_LAYER_STICKY
+[LOWER] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, ST_LALT ,ST_LCTL ,ST_LSFT ,ST_LGUI, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
+),
+#else
 [LOWER] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -89,9 +109,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
+#endif
 
 
-/* Digits and math
+/* right thumb / Digits and math
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -105,6 +126,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
+#if HRM == HRM_LAYER_STICKY
+[UPPER] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, ST_RGUI ,ST_RSFT ,ST_RCTL ,ST_RALT, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
+),
+#else
 [UPPER] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -112,6 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                XXXXXXX, XXXXXXX, RRRRRRR, XXXXXXX, _______, RRRRRRR, XXXXXXX, _______
 ),
+#endif
 
 /* MOUSE/GUI when both lower/upper layer keys are pressed.
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -258,6 +289,10 @@ bool oled_task_user(void) {
    Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#   if HRM == HRM_ACHORDION
+    if (!process_achordion(keycode, record)) { return false; }
+#   endif
+
     /* if (IS_LAYER_ON(TMUX) && record->event.pressed) { */
     /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
     /* } */
@@ -312,6 +347,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#if HRM == HRM_ACHORDION
+void matrix_scan_user(void) {
+  achordion_task();
+}
+#endif
 
 // ********************************************************************************************************** //
 // ************************************************* Chords ************************************************* //
@@ -321,65 +361,68 @@ const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END};
 
-#define LTHUMB KC_BSPC
-#define RTHUMB KC_SPC
-
-const uint16_t PROGMEM hrm1l[4][3] = {
-    {LTHUMB, KC_F, COMBO_END},
-    {LTHUMB, KC_D, COMBO_END},
-    {LTHUMB, KC_S, COMBO_END},
-    {LTHUMB, KC_A, COMBO_END},
-};
-const uint16_t PROGMEM hrm1r[4][3] = {
-    {RTHUMB, KC_J, COMBO_END},
-    {RTHUMB, KC_K, COMBO_END},
-    {RTHUMB, KC_L, COMBO_END},
-    {RTHUMB, KC_SCLN, COMBO_END},
-};
-const uint16_t PROGMEM hrm2l[6][4] = {
-    {LTHUMB, KC_F, KC_D, COMBO_END},
-    {LTHUMB, KC_F, KC_S, COMBO_END},
-    {LTHUMB, KC_F, KC_A, COMBO_END},
-    {LTHUMB, KC_D, KC_S, COMBO_END},
-    {LTHUMB, KC_D, KC_A, COMBO_END},
-    {LTHUMB, KC_S, KC_A, COMBO_END}
-};
-const uint16_t PROGMEM hrm2r[6][4] = {
-    {RTHUMB, KC_J, KC_K, COMBO_END},
-    {RTHUMB, KC_J, KC_L, COMBO_END},
-    {RTHUMB, KC_J, KC_SCLN, COMBO_END},
-    {RTHUMB, KC_K, KC_L, COMBO_END},
-    {RTHUMB, KC_K, KC_SCLN, COMBO_END},
-    {RTHUMB, KC_L, KC_SCLN, COMBO_END}
-};
+#if HRM == HRM_CHORD
+#   define LTHUMB KC_BSPC
+#   define RTHUMB KC_SPC
+    const uint16_t PROGMEM hrm1l[4][3] = {
+        {LTHUMB, KC_F, COMBO_END},
+        {LTHUMB, KC_D, COMBO_END},
+        {LTHUMB, KC_S, COMBO_END},
+        {LTHUMB, KC_A, COMBO_END},
+    };
+    const uint16_t PROGMEM hrm1r[4][3] = {
+        {RTHUMB, KC_J, COMBO_END},
+        {RTHUMB, KC_K, COMBO_END},
+        {RTHUMB, KC_L, COMBO_END},
+        {RTHUMB, KC_SCLN, COMBO_END},
+    };
+    const uint16_t PROGMEM hrm2l[6][4] = {
+        {LTHUMB, KC_F, KC_D, COMBO_END},
+        {LTHUMB, KC_F, KC_S, COMBO_END},
+        {LTHUMB, KC_F, KC_A, COMBO_END},
+        {LTHUMB, KC_D, KC_S, COMBO_END},
+        {LTHUMB, KC_D, KC_A, COMBO_END},
+        {LTHUMB, KC_S, KC_A, COMBO_END}
+    };
+    const uint16_t PROGMEM hrm2r[6][4] = {
+        {RTHUMB, KC_J, KC_K, COMBO_END},
+        {RTHUMB, KC_J, KC_L, COMBO_END},
+        {RTHUMB, KC_J, KC_SCLN, COMBO_END},
+        {RTHUMB, KC_K, KC_L, COMBO_END},
+        {RTHUMB, KC_K, KC_SCLN, COMBO_END},
+        {RTHUMB, KC_L, KC_SCLN, COMBO_END}
+    };
+#endif
 
 combo_t key_combos[] = {
     COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
     COMBO(snippets_combo, SNIPPETS), // snippets in tmux
     COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
 
-    // Single mods
-    COMBO(hrm1l[0], KC_LGUI),
-    COMBO(hrm1l[1], KC_LSFT),
-    COMBO(hrm1l[2], KC_LCTL),
-    COMBO(hrm1l[3], KC_LALT),
-    COMBO(hrm1r[0], KC_RGUI),
-    COMBO(hrm1r[1], KC_RSFT),
-    COMBO(hrm1r[2], KC_RCTL),
-    COMBO(hrm1r[3], KC_RALT),
+#   if HRM == HRM_CHORD
+        // Single mods
+        COMBO(hrm1l[0], KC_LGUI),
+        COMBO(hrm1l[1], KC_LSFT),
+        COMBO(hrm1l[2], KC_LCTL),
+        COMBO(hrm1l[3], KC_LALT),
+        COMBO(hrm1r[0], KC_RGUI),
+        COMBO(hrm1r[1], KC_RSFT),
+        COMBO(hrm1r[2], KC_RCTL),
+        COMBO(hrm1r[3], KC_RALT),
 
-    // Dual mods
-    COMBO(hrm2l[0], G(KC_LSFT)),
-    COMBO(hrm2l[1], G(KC_LCTL)),
-    COMBO(hrm2l[2], G(KC_LALT)),
-    COMBO(hrm2l[3], S(KC_LCTL)),
-    COMBO(hrm2l[4], S(KC_LALT)),
-    COMBO(hrm2l[5], C(KC_LALT)),
-    COMBO(hrm2r[0], G(KC_RSFT)),
-    COMBO(hrm2r[1], G(KC_RCTL)),
-    COMBO(hrm2r[2], G(KC_RALT)),
-    COMBO(hrm2r[3], S(KC_RCTL)),
-    COMBO(hrm2r[4], S(KC_RALT)),
-    COMBO(hrm2r[5], C(KC_RALT))
+        // Dual mods
+        COMBO(hrm2l[0], G(KC_LSFT)),
+        COMBO(hrm2l[1], G(KC_LCTL)),
+        COMBO(hrm2l[2], G(KC_LALT)),
+        COMBO(hrm2l[3], S(KC_LCTL)),
+        COMBO(hrm2l[4], S(KC_LALT)),
+        COMBO(hrm2l[5], C(KC_LALT)),
+        COMBO(hrm2r[0], G(KC_RSFT)),
+        COMBO(hrm2r[1], G(KC_RCTL)),
+        COMBO(hrm2r[2], G(KC_RALT)),
+        COMBO(hrm2r[3], S(KC_RCTL)),
+        COMBO(hrm2r[4], S(KC_RALT)),
+        COMBO(hrm2r[5], C(KC_RALT))
+#   endif
 };
 
