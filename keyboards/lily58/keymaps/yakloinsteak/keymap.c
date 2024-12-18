@@ -1,12 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "mykeycodes.h"
 #include "mylayers.h"
-
-enum {
-    HRM_CHORD,
-    HRM_ACHORDION,
-    HRM_LAYER_STICKY,
-};
+#include "hrm.h"
 
 #if HRM == HRM_ACHORDION
 #include "features/achordion.h"
@@ -347,10 +342,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// https://getreuer.info/posts/keyboards/achordion/
 #if HRM == HRM_ACHORDION
 void matrix_scan_user(void) {
   achordion_task();
 }
+
+/* uint16_t achordion_streak_chord_timeout( */
+/*     uint16_t tap_hold_keycode, uint16_t next_keycode) { */
+/*   return 200;  // Default of 100 ms. */
+/* } */
+
+// Can customize the hold timing
+// 500-5000ms suggested
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  return 1000;
+}
+
+/* bool achordion_chord(uint16_t tap_hold_keycode, */
+/*                      keyrecord_t* tap_hold_record, */
+/*                      uint16_t other_keycode, */
+/*                      keyrecord_t* other_record) { */
+/*   // Exceptionally consider the following chords as holds, even though they */
+/*   // are on the same hand in Dvorak. */
+/*   switch (tap_hold_keycode) { */
+/*     case HOME_A:  // A + U. */
+/*       if (other_keycode == HOME_U) { return true; } */
+/*       break; */
+/*  */
+/*     case HOME_S:  // S + H and S + G. */
+/*       if (other_keycode == HOME_H || other_keycode == KC_G) { return true; } */
+/*       break; */
+/*   } */
+/*  */
+/*   // Also allow same-hand holds when the other key is in the rows below the */
+/*   // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split. */
+/*   if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) { return true; } */
+/*  */
+/*   // Otherwise, follow the opposite hands rule. */
+/*   return achordion_opposite_hands(tap_hold_record, other_record); */
+/* } */
 #endif
 
 // ********************************************************************************************************** //

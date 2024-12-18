@@ -27,16 +27,27 @@
 // adjust on the fly for debug/testing on layer fn2 up/down/x
 #undef TAPPING_TERM
 #define TAPPING_TERM 220
-//#define TAPPING_TERM_PER_KEY
+#define TAPPING_TERM_PER_KEY
 
-// https://docs.qmk.fm/tap_hold#permissive-hold
-// hitting another key before tap timeout will do the hold action, but you
-// cannot release the first key within tapping term.
-// #define PERMISSIVE_HOLD
-//
-// Similar, but if you release the first key and still want the hold action:
-// These can be fine-tuned per key if needed. See https://docs.qmk.fm/tap_hold#hold-on-other-key-press
-#define HOLD_ON_OTHER_KEY_PRESS
+// #define HRM HRM_CHORD
+#define HRM HRM_ACHORDION
+
+// Try with and without. For fast typists like me, it may help. Mod-taps
+// bracketed by regular keys help not make the middle one a mod.
+// might prevent the home row mod of D from activating I think.
+#define ACHORDION_STREAK
+
+#if HRM == HRM_ACHORDION
+    // https://docs.qmk.fm/tap_hold#permissive-hold
+    // hitting another key before tap timeout will do the hold action, but you
+    // cannot release the first key within tapping term.
+#   define PERMISSIVE_HOLD
+#else
+    // Similar, but if you release the first key and still want the hold action:
+    // These can be fine-tuned per key if needed. See https://docs.qmk.fm/tap_hold#hold-on-other-key-press
+    // Might not work with achordion?
+#   define HOLD_ON_OTHER_KEY_PRESS
+#endif
 
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY 5 //Delay between pressing a movement key and cursor movement

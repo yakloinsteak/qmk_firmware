@@ -2,12 +2,20 @@
 #include "mylayers.h"
 #include "mykeycodes.h"
 #include "combos.h"
+#include "hrm.h"
+
+#if HRM == HRM_ACHORDION
+#include "features/achordion.h"
+#endif
 
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (IS_LAYER_ON(TMUX) && record->event.pressed && keycode != MOD_RSFT && keycode != MOD_LSFT) {
-        tap_code16(C(KC_A));  // Tap Ctrl+A.
-    }
+#   if HRM == HRM_ACHORDION
+    if (!process_achordion(keycode, record)) { return false; }
+#   endif
+    /* if (IS_LAYER_ON(TMUX) && record->event.pressed && keycode != MOD_RSFT && keycode != MOD_LSFT) { */
+    /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
+    /* } */
 
     switch (keycode) {
     case SNIPPETS:
@@ -47,12 +55,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [BASE] = LAYOUT_60_ansi( /* Base */
     KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6,   KC_7, KC_8,    KC_9,    KC_0,             KC_MINS,          KC_EQL,        KC_BSPC,
     YL_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I,    KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
-    YL_ESC,   KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H,   KC_J, KC_K,    KC_L,    KC_SCLN,          KC_QUOT,          KC_ENT,
+    YL_ESC,   YL_A,    YL_S,    YL_D, YL_F, KC_G, KC_H,   YL_J, YL_K,    YL_L,    YL_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,  KC_Z,    KC_X,    KC_C, KC_V, KC_B, KC_N,   KC_M, KC_COMM, KC_DOT,  KC_SLSH,          YL_RSFT,
-    KC_LCTL,  KC_LGUI, MO(TMUX),                   KC_SPC,       KC_RALT, LT(FN1, KC_LEFT), LT(FN2, KC_DOWN), KC_NO
+    KC_LCTL,  KC_LGUI, MO(TMUX),                   KC_SPC,       KC_RALT, _______, LT(FN2, KC_DOWN), KC_NO
 ),
   /*
-  * Layer FN1
+  * tab hold
   * ,-----------------------------------------------------------------------------------------.
   * |  `  |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  DELETE   |
   * |-----------------------------------------------------------------------------------------+
@@ -66,7 +74,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   * \-----------------------------------------------------------------------------------------/
   *
   */
- [FN1] = LAYOUT_60_ansi( /* FN1 */
+ [TAB_HOLD_LAYER] = LAYOUT_60_ansi( /* FN1 */
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, _______, KC_PSCR, _______, KC_BSPC, _______,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,
@@ -119,50 +127,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 // clang-format on
 
+// https://getreuer.info/posts/keyboards/achordion/
+#if HRM == HRM_ACHORDION
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+uint16_t achordion_streak_chord_timeout(
+    uint16_t tap_hold_keycode, uint16_t next_keycode) {
+  return 100;  // Default of 100 ms.
+}
+
+// Can customize the hold timing
+// 500-5000ms suggested
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  return 300;
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  // Exceptions for chords on the same hand
+  switch (tap_hold_keycode) {
+  case KC_LCTL:
+  case YL_ESC:
+      // Left ctrl on pinkie and these are muscle-memoried...
+      if ((other_keycode == KC_F) || (other_keycode == KC_V) || (other_keycode == KC_C) || (other_keycode == KC_X) || (other_keycode == KC_B)) { return true; }
+      // on_left_hand() has an off-by-one bug I think.
+      if (other_keycode == KC_H) { return true; }
+      break;
+  }
+
+  // Also allow same-hand holds when the other key is in the rows below the
+  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
+  // if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) { return true; }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+bool achordion_eager_mod(uint8_t mod) {
+  switch (mod) {
+    case MOD_LSFT:
+    case MOD_RSFT:
+    case MOD_LCTL:
+    case MOD_RCTL:
+      return true;  // Eagerly apply Shift and Ctrl mods.
+
+    default:
+      return false;
+  }
+}
+#endif
+
 // ********************************************************************************************************** //
 // ************************************************* Chords ************************************************* //
 // ********************************************************************************************************** //
 
-/* const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END}; */
-/* const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END}; */
-/* const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END}; */
-/* // const uint16_t PROGMEM enter_combo[] = {KC_L, KC_SCLN, COMBO_END}; */
-/*  */
-/* const uint16_t PROGMEM hrm1l[4][3] = { */
-/*     {KC_SPC, KC_F, COMBO_END}, */
-/*     {KC_SPC, KC_D, COMBO_END}, */
-/*     {KC_SPC, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_A, COMBO_END}, */
-/* }; */
-/* const uint16_t PROGMEM hrm1r[4][3] = { */
-/*     {KC_SPC, KC_J, COMBO_END}, */
-/*     {KC_SPC, KC_K, COMBO_END}, */
-/*     {KC_SPC, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_SCLN, COMBO_END}, */
-/* }; */
-/* const uint16_t PROGMEM hrm2l[6][4] = { */
-/*     {KC_SPC, KC_F, KC_D, COMBO_END}, */
-/*     {KC_SPC, KC_F, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_F, KC_A, COMBO_END}, */
-/*     {KC_SPC, KC_D, KC_S, COMBO_END}, */
-/*     {KC_SPC, KC_D, KC_A, COMBO_END}, */
-/*     {KC_SPC, KC_S, KC_A, COMBO_END} */
-/* }; */
-/* const uint16_t PROGMEM hrm2r[6][4] = { */
-/*     {KC_SPC, KC_J, KC_K, COMBO_END}, */
-/*     {KC_SPC, KC_J, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_J, KC_SCLN, COMBO_END}, */
-/*     {KC_SPC, KC_K, KC_L, COMBO_END}, */
-/*     {KC_SPC, KC_K, KC_SCLN, COMBO_END}, */
-/*     {KC_SPC, KC_L, KC_SCLN, COMBO_END} */
-/* }; */
-
 combo_t key_combos[] = {
-    COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
-    COMBO(snippets_combo, SNIPPETS), // snippets in tmux
-    COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
+    COMBO(ctrla_combo, LCTL(KC_A)),  // er: send ^a
+    COMBO(snippets_combo, SNIPPETS), // ui: snippets in tmux
+    // COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
     // COMBO(enter_combo, KC_ENT), // Enter
 
+#if HRM == HRM_CHORD
     // Single mods
     COMBO(hrm1l[0], KC_LGUI),
     COMBO(hrm1l[1], KC_LSFT),
@@ -186,6 +215,7 @@ combo_t key_combos[] = {
     COMBO(hrm2r[3], S(KC_RCTL)),
     COMBO(hrm2r[4], S(KC_RALT)),
     COMBO(hrm2r[5], C(KC_RALT))
+#endif
 };
 
 
@@ -203,7 +233,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case FN1:
+        case TAB_HOLD_LAYER:
             // Set the leds to green
             ap2_led_set_foreground_color(0x00, 0xFF, 0x00);
             break;
@@ -229,13 +259,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // ************************************************* TAPS ************************************************* //
 // ******************************************************************************************************** //
 
-/* uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { */
-/*     switch (keycode) { */
-/*         [> case SFT_T(KC_SPC): <] */
-/*         [>     return TAPPING_TERM + 1250; <] */
-/*         [> case KC_ESC: <] */
-/*         [>     return TAPPING_TERM; <] */
-/*         default: */
-/*             return TAPPING_TERM; */
-/*     } */
-/* } */
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        /* case SFT_T(KC_SPC): */
+        /*     return TAPPING_TERM + 1250; */
+        /* case KC_RSFT: */
+        /* case YL_RSFT: */
+        /*     return TAPPING_TERM - 80; */
+        case YL_ESC:
+        case KC_ESC:
+        case YL_TAB:
+        case KC_LCTL:
+        case KC_TAB:
+            return TAPPING_TERM - 40;
+        default:
+            return TAPPING_TERM;
+    }
+}

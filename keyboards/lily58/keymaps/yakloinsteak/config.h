@@ -7,14 +7,20 @@
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 210
 #define TAPPING_TOGGLE 2
+
+// Maybe want permissive_hold instead?
 #define HOLD_ON_OTHER_KEY_PRESS
 
 #define HRM HRM_ACHORDION
 
+// Try with and without. For fast typists like me, it may help. Mod-taps
+// bracketed by regular keys help not make the middle one a mod.
+// pody would prevent the home row mod of D from activating I think.
+#define ACHORDION_STREAK
+
 // If you're having trouble hitting the combo keys at the same time, you can
 // increase this value
 // #define COMBO_TERM 50
-
 
 // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

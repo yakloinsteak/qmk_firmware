@@ -13,9 +13,12 @@ enum custom_keycodes {
 
 // YL == yakloin
 // MT == mod-tap (mod if held, tap the keycode otherwise)
+// OSM == one-shot-mod
+// LT == layer-tap
 
 #define YL_ESC MT(MOD_LCTL, KC_ESC)
-#define YL_RSFT MT(MOD_RSFT, KC_ENT)
+#define YL_RSFT KC_RSFT
+//MT(MOD_RSFT, KC_ENT)
 #define YL_TAB LT(TAB_HOLD_LAYER, KC_TAB)
 #define RRRRRRR _______
 
@@ -31,6 +34,7 @@ enum custom_keycodes {
   #define YL_L    MT(MOD_RCTL, KC_L)
   #define YL_SCLN MT(MOD_RALT, KC_SCLN)
 #else
+  // without achordion, home rows are just the regular keys
   #define YL_F KC_F
   #define YL_D KC_D
   #define YL_S KC_S
