@@ -157,6 +157,8 @@ bool achordion_chord(uint16_t tap_hold_keycode,
       // on_left_hand() has an off-by-one bug I think.
       if (other_keycode == KC_H) { return true; }
       break;
+  // TODO: AP (should do ap not left-alt-p). figure out what alt-p does anyway. This should return false
+  // TODO: ly may need a fix like KC_H above. it sends ^Y but it's the same hand?
   }
 
   // Also allow same-hand holds when the other key is in the rows below the
@@ -266,12 +268,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         /* case KC_RSFT: */
         /* case YL_RSFT: */
         /*     return TAPPING_TERM - 80; */
-        case YL_ESC:
-        case KC_ESC:
-        case YL_TAB:
-        case KC_LCTL:
-        case KC_TAB:
-            return TAPPING_TERM - 40;
+        /* case YL_ESC: */
+        /* case KC_ESC: */
+        /* case KC_LCTL: */
+        /*     return TAPPING_TERM - 40; */
+        /* case YL_TAB: */
+        /* case KC_TAB: */
+        /*     return TAPPING_TERM - 60; */
         default:
             return TAPPING_TERM;
     }
