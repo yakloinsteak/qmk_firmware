@@ -9,7 +9,7 @@
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
 
 // #define HRM HRM_CHORD

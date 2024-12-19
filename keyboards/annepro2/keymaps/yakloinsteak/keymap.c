@@ -3,16 +3,12 @@
 #include "mykeycodes.h"
 #include "combos.h"
 #include "hrm.h"
-
-#if HRM == HRM_ACHORDION
 #include "features/achordion.h"
-#endif
 
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#   if HRM == HRM_ACHORDION
     if (!process_achordion(keycode, record)) { return false; }
-#   endif
+
     /* if (IS_LAYER_ON(TMUX) && record->event.pressed && keycode != MOD_RSFT && keycode != MOD_LSFT) { */
     /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
     /* } */
@@ -100,7 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     QK_BOOT, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
     _______, _______,    DT_UP,      _______,    _______,    _______, _______, _______, _______, _______,       KC_PSCR,       KC_HOME,       KC_END,        _______,
     _______, KC_BRID,    DT_DOWN,    KC_BRIU,    _______,    _______, _______, _______, _______, _______,       KC_PGUP,       KC_PGDN,       _______,
-    _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______,    KC_INS,        KC_DEL,        _______,
+    _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______, KC_INS,        KC_DEL,        _______,
     _______, _______,    _______,                                     _______,                   _______,       _______,       _______,       _______
  ),
  // KC_BRIU: brightness
@@ -128,7 +124,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clang-format on
 
 // https://getreuer.info/posts/keyboards/achordion/
-#if HRM == HRM_ACHORDION
 void matrix_scan_user(void) {
   achordion_task();
 }
@@ -181,7 +176,6 @@ bool achordion_eager_mod(uint8_t mod) {
       return false;
   }
 }
-#endif
 
 // ********************************************************************************************************** //
 // ************************************************* Chords ************************************************* //
@@ -192,32 +186,6 @@ combo_t key_combos[] = {
     COMBO(snippets_combo, SNIPPETS), // ui: snippets in tmux
     // COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
     // COMBO(enter_combo, KC_ENT), // Enter
-
-#if HRM == HRM_CHORD
-    // Single mods
-    COMBO(hrm1l[0], KC_LGUI),
-    COMBO(hrm1l[1], KC_LSFT),
-    COMBO(hrm1l[2], KC_LCTL),
-    COMBO(hrm1l[3], KC_LALT),
-    COMBO(hrm1r[0], KC_RGUI),
-    COMBO(hrm1r[1], KC_RSFT),
-    COMBO(hrm1r[2], KC_RCTL),
-    COMBO(hrm1r[3], KC_RALT),
-
-    // Dual mods
-    COMBO(hrm2l[0], G(KC_LSFT)),
-    COMBO(hrm2l[1], G(KC_LCTL)),
-    COMBO(hrm2l[2], G(KC_LALT)),
-    COMBO(hrm2l[3], S(KC_LCTL)),
-    COMBO(hrm2l[4], S(KC_LALT)),
-    COMBO(hrm2l[5], C(KC_LALT)),
-    COMBO(hrm2r[0], G(KC_RSFT)),
-    COMBO(hrm2r[1], G(KC_RCTL)),
-    COMBO(hrm2r[2], G(KC_RALT)),
-    COMBO(hrm2r[3], S(KC_RCTL)),
-    COMBO(hrm2r[4], S(KC_RALT)),
-    COMBO(hrm2r[5], C(KC_RALT))
-#endif
 };
 
 
@@ -264,18 +232,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         /* case SFT_T(KC_SPC): */
-        /*     return TAPPING_TERM + 1250; */
+        /*     return g_tapping_term + 1250; */
         /* case KC_RSFT: */
         /* case YL_RSFT: */
-        /*     return TAPPING_TERM - 80; */
+        /*     return g_tapping_term - 80; */
         /* case YL_ESC: */
         /* case KC_ESC: */
         /* case KC_LCTL: */
-        /*     return TAPPING_TERM - 40; */
+        /*     return g_tapping_term - 40; */
         /* case YL_TAB: */
         /* case KC_TAB: */
-        /*     return TAPPING_TERM - 60; */
+        /*     return g_tapping_term - 60; */
         default:
-            return TAPPING_TERM;
+            return g_tapping_term;
     }
 }
