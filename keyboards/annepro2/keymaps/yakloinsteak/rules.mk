@@ -4,8 +4,7 @@ SRC = \
 	ap2_led.c \
 	protocol.c \
 	rgb_driver.c \
-	combos.c \
-    features/achordion.c
+	combos.c
 
 COMBO_ENABLE = yes
 DIGITIZER_ENABLE = no

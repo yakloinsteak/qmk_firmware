@@ -3,7 +3,7 @@
 #include "mykeycodes.h"
 #include "combos.h"
 #include "hrm.h"
-#include "features/achordion.h"
+#include "achordion.h"
 
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -128,8 +128,7 @@ void matrix_scan_user(void) {
   achordion_task();
 }
 
-uint16_t achordion_streak_chord_timeout(
-    uint16_t tap_hold_keycode, uint16_t next_keycode) {
+uint16_t achordion_streak_chord_timeout(uint16_t tap_hold_keycode, uint16_t next_keycode) {
   return 100;  // Default of 100 ms.
 }
 
@@ -228,6 +227,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // ******************************************************************************************************** //
 // ************************************************* TAPS ************************************************* //
 // ******************************************************************************************************** //
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+#define HOLD_ON_OTHER_KEY_PRESS
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case YL_ESC:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
