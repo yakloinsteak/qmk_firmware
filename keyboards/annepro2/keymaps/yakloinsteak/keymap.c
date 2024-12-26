@@ -2,7 +2,6 @@
 #include "mylayers.h"
 #include "mykeycodes.h"
 #include "combos.h"
-#include "hrm.h"
 #include "achordion.h"
 
 // Handle custom keycodes

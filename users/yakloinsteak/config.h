@@ -4,12 +4,16 @@
  * Tapping behavior
  */
 
+// If you're having trouble hitting the combo keys at the same time, you can
+// increase this value
+// #define COMBO_TERM 50
+
 #define QUICK_TAP_TERM 0
 
 // https://docs.qmk.fm/tap_hold
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
-#undef TAPPING_TERM
+//#undef TAPPING_TERM
 #define TAPPING_TERM 205
 #define TAPPING_TERM_PER_KEY
 

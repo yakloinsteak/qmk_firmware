@@ -4,10 +4,6 @@
 #define TRI_LAYER_UPPER_LAYER UPPER
 #define TRI_LAYER_ADJUST_LAYER ADJUST
 
-// If you're having trouble hitting the combo keys at the same time, you can
-// increase this value
-// #define COMBO_TERM 50
-
 // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
