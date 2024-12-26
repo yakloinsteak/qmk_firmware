@@ -3,8 +3,7 @@ SRC = \
 	annepro2_ble.c \
 	ap2_led.c \
 	protocol.c \
-	rgb_driver.c \
-	combos.c
+	rgb_driver.c
 
 COMBO_ENABLE = yes
 DIGITIZER_ENABLE = no
