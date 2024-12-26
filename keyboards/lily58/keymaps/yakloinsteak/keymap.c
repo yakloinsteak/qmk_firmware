@@ -2,7 +2,6 @@
 #include "mykeycodes.h"
 #include "mylayers.h"
 #include "hrm.h"
-
 #include "achordion.h"
 
 // ********************************************************************************************************** //
@@ -86,15 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 
-#if HRM == HRM_LAYER_STICKY
-[LOWER] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, ST_LALT ,ST_LCTL ,ST_LSFT ,ST_LGUI, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______, _______, _______,  _______, _______, _______
-),
-#else
 [LOWER] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -102,7 +92,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
-#endif
 
 
 /* right thumb / Digits and math
@@ -119,15 +108,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-#if HRM == HRM_LAYER_STICKY
-[UPPER] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                   _______, ST_RGUI ,ST_RSFT ,ST_RCTL ,ST_RALT, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______, _______, _______,  _______, _______, _______
-),
-#else
 [UPPER] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -135,7 +115,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                XXXXXXX, XXXXXXX, RRRRRRR, XXXXXXX, _______, RRRRRRR, XXXXXXX, _______
 ),
-#endif
 
 /* MOUSE/GUI when both lower/upper layer keys are pressed.
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -282,9 +261,7 @@ bool oled_task_user(void) {
    Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#   if HRM == HRM_ACHORDION
     if (!process_achordion(keycode, record)) { return false; }
-#   endif
 
     /* if (IS_LAYER_ON(TMUX) && record->event.pressed) { */
     /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
@@ -341,7 +318,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // https://getreuer.info/posts/keyboards/achordion/
-#if HRM == HRM_ACHORDION
 void matrix_scan_user(void) {
   achordion_task();
 }
@@ -380,7 +356,6 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
 /*   // Otherwise, follow the opposite hands rule. */
 /*   return achordion_opposite_hands(tap_hold_record, other_record); */
 /* } */
-#endif
 
 // ********************************************************************************************************** //
 // ************************************************* Chords ************************************************* //
@@ -390,7 +365,7 @@ const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END};
 
-#if HRM == HRM_CHORD
+#ifdef HRM_CHORD
 #   define LTHUMB KC_BSPC
 #   define RTHUMB KC_SPC
     const uint16_t PROGMEM hrm1l[4][3] = {
@@ -427,31 +402,4 @@ combo_t key_combos[] = {
     COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
     COMBO(snippets_combo, SNIPPETS), // snippets in tmux
     COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
-
-#   if HRM == HRM_CHORD
-        // Single mods
-        COMBO(hrm1l[0], KC_LGUI),
-        COMBO(hrm1l[1], KC_LSFT),
-        COMBO(hrm1l[2], KC_LCTL),
-        COMBO(hrm1l[3], KC_LALT),
-        COMBO(hrm1r[0], KC_RGUI),
-        COMBO(hrm1r[1], KC_RSFT),
-        COMBO(hrm1r[2], KC_RCTL),
-        COMBO(hrm1r[3], KC_RALT),
-
-        // Dual mods
-        COMBO(hrm2l[0], G(KC_LSFT)),
-        COMBO(hrm2l[1], G(KC_LCTL)),
-        COMBO(hrm2l[2], G(KC_LALT)),
-        COMBO(hrm2l[3], S(KC_LCTL)),
-        COMBO(hrm2l[4], S(KC_LALT)),
-        COMBO(hrm2l[5], C(KC_LALT)),
-        COMBO(hrm2r[0], G(KC_RSFT)),
-        COMBO(hrm2r[1], G(KC_RCTL)),
-        COMBO(hrm2r[2], G(KC_RALT)),
-        COMBO(hrm2r[3], S(KC_RCTL)),
-        COMBO(hrm2r[4], S(KC_RALT)),
-        COMBO(hrm2r[5], C(KC_RALT))
-#   endif
 };
-
