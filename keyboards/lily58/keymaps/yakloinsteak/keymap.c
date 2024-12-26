@@ -1,8 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "mykeycodes.h"
 #include "mylayers.h"
-#include "achordion.h"
 #include "combos.h"
+#include "achordion.h"
 
 // ********************************************************************************************************** //
 // ************************************************* Tap Dancing ******************************************** //
@@ -317,53 +317,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// https://getreuer.info/posts/keyboards/achordion/
-void matrix_scan_user(void) {
-  achordion_task();
-}
-
-/* uint16_t achordion_streak_chord_timeout( */
-/*     uint16_t tap_hold_keycode, uint16_t next_keycode) { */
-/*   return 200;  // Default of 100 ms. */
-/* } */
-
-// Can customize the hold timing
-// 500-5000ms suggested
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 1000;
-}
-
-/* bool achordion_chord(uint16_t tap_hold_keycode, */
-/*                      keyrecord_t* tap_hold_record, */
-/*                      uint16_t other_keycode, */
-/*                      keyrecord_t* other_record) { */
-/*   // Exceptionally consider the following chords as holds, even though they */
-/*   // are on the same hand in Dvorak. */
-/*   switch (tap_hold_keycode) { */
-/*     case HOME_A:  // A + U. */
-/*       if (other_keycode == HOME_U) { return true; } */
-/*       break; */
-/*  */
-/*     case HOME_S:  // S + H and S + G. */
-/*       if (other_keycode == HOME_H || other_keycode == KC_G) { return true; } */
-/*       break; */
-/*   } */
-/*  */
-/*   // Also allow same-hand holds when the other key is in the rows below the */
-/*   // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split. */
-/*   if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) { return true; } */
-/*  */
-/*   // Otherwise, follow the opposite hands rule. */
-/*   return achordion_opposite_hands(tap_hold_record, other_record); */
-/* } */
-
 // ********************************************************************************************************** //
 // ************************************************* Chords ************************************************* //
 // ********************************************************************************************************** //
-
-/* const uint16_t PROGMEM ctrla_combo[] = {KC_S, KC_D, COMBO_END}; */
-/* const uint16_t PROGMEM tmux_window_switch_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END}; */
-/* const uint16_t PROGMEM snippets_combo[] = {KC_K, KC_L, COMBO_END}; */
 
 combo_t key_combos[] = {
     COMBO(ctrla_combo, LCTL(KC_A)),  // SD send ^a
