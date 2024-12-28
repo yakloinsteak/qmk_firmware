@@ -1,6 +1,34 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "avrdudess@latest": {
+      "last_modified": "2024-12-17T11:43:56Z",
+      "resolved": "github:NixOS/nixpkgs/4989a246d7a390a859852baddb1013f825435cee#avrdudess",
+      "source": "devbox-search",
+      "version": "2.18",
+      "systems": {
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/mh51yfirykd4dq0dj6b4jxpjii1l7q5z-avrdudess-2.18",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/mh51yfirykd4dq0dj6b4jxpjii1l7q5z-avrdudess-2.18"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/94m79lqffnga32fvnn4lgjg7zym47mih-avrdudess-2.18",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/94m79lqffnga32fvnn4lgjg7zym47mih-avrdudess-2.18"
+        }
+      }
+    },
     "cargo@latest": {
       "last_modified": "2024-11-16T04:25:12Z",
       "resolved": "github:NixOS/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba#cargo",

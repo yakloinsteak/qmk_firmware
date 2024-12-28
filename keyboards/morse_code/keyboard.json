@@ -2,7 +2,7 @@
     "manufacturer": "Todd Blackman",
     "keyboard_name": "morse_code",
     "maintainer": "yakloinsteak",
-    "bootloader": "atmel-dfu",
+    "bootloader": "avrdude",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -13,15 +13,15 @@
     },
     "matrix_pins": {
         "direct": [
-            ["C2", "C2", "C2", "C2", "C2"]
+            ["D6", "B7", "B6", "B5", "B4"]
         ]
     },
     "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x06AA",
-        "vid": "0xFEED"
+        "pid": "0x8037",
+        "vid": "0x2341"
     },
     "layouts": {
         "LAYOUT_only": {

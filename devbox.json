@@ -3,7 +3,8 @@
   "packages": [
     "cargo@latest",
     "rustc@latest",
-    "python@3.13"
+    "python@3.13",
+    "avrdudess@latest"
   ],
   "shell": {
     "init_hook": [
