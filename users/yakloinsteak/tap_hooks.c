@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "mykeycodes.h"
 
-// TODO: maybe the shift/return mod tap would benefit if I bring that back?
+// TODO: maybe the shift/return mod tap would benefit?
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case KC_ESC:
         case YL_ESC:
             // Immediately select the hold action when another key is pressed.
             return true;
@@ -23,7 +24,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         /* case YL_ESC: */
         /* case KC_ESC: */
         /* case KC_LCTL: */
-        /*     return g_tapping_term - 40; */
+            /* return g_tapping_term - 10; */
         /* case YL_TAB: */
         /* case KC_TAB: */
         /*     return g_tapping_term - 60; */

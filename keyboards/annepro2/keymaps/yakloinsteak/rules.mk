@@ -5,10 +5,12 @@ SRC = \
 	protocol.c \
 	rgb_driver.c
 
-COMBO_ENABLE = yes
+#COMBO_ENABLE = yes
 DIGITIZER_ENABLE = no
-MOUSEKEY_ENABLE = no
+#MOUSEKEY_ENABLE = yes
 TAP_DANCE_ENABLE = no
+
+# Toggle to allow debug if there is space
 CONSOLE_ENABLE = no
 
 # RGBLIGHT_ENABLE = yes

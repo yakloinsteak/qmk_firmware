@@ -26,7 +26,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s");
         }
         break;
+
+#   ifdef DIGITIZER_ENABLE
+    case YL_CTR:
+        if (record->event.pressed) {
+            digitizer_in_range_on();
+            digitizer_set_position(0.5, 0.5);
+            digitizer_flush();
+        }
+        return true;
+#   endif
+
     }
+
     return true;
 };
 
@@ -43,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 * |-----------------------------------------------------------------------------------------+
 * | Shift      |  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |    Shift/Enter |
 * |-----------------------------------------------------------------------------------------+
-* | Ctrl  |  GUI  | TMUX  |               space             |  Alt  |  FN1  |  FN2  |       |
+* | Ctrl  |  GUI  | lower |               space             | upper |       |  util |       |
 * \-----------------------------------------------------------------------------------------/
 */
  const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     YL_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I,    KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
     YL_ESC,   YL_A,    YL_S,    YL_D, YL_F, KC_G, KC_H,   YL_J, YL_K,    YL_L,    YL_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,  KC_Z,    KC_X,    KC_C, KC_V, KC_B, KC_N,   KC_M, KC_COMM, KC_DOT,  KC_SLSH,          YL_RSFT,
-    KC_LCTL,  KC_LGUI, MO(TMUX),                   KC_SPC,       KC_RALT, _______, LT(FN2, KC_DOWN), KC_NO
+    KC_LCTL,  KC_LGUI, MO(LOWER),                   KC_SPC,       MO(UPPER), _______, MO(UTIL), KC_NO
 ),
   /*
   * tab hold
@@ -77,7 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     _______, _______, _______,                            _______,                   _______, _______, _______, _______
 ),
   /*
-  * Layer FN2
+  * Utility
   * ,-----------------------------------------------------------------------------------------.
   * |  ~  | BT1 | BT2 | BT3 | BT4 |  F5 |  F6 | F7 | F8 | MOD | TOG | BRI- | BRI+ |    Bksp   |
   * |-----------------------------------------------------------------------------------------+
@@ -91,9 +103,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   * \-----------------------------------------------------------------------------------------/
   *
   */
- [FN2] = LAYOUT_60_ansi( /* FN2 */
+ [UTIL] = LAYOUT_60_ansi(
     QK_BOOT, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
-    _______, _______,    DT_UP,      _______,    _______,    _______, _______, _______, _______, _______,       KC_PSCR,       KC_HOME,       KC_END,        _______,
+    _______, _______,    DT_UP,      _______,    YL_RUSN,    _______, _______, _______, _______, _______,       KC_PSCR,       KC_HOME,       KC_END,        _______,
     _______, KC_BRID,    DT_DOWN,    KC_BRIU,    _______,    _______, _______, _______, _______, _______,       KC_PGUP,       KC_PGDN,       _______,
     _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______, KC_INS,        KC_DEL,        _______,
     _______, _______,    _______,                                     _______,                   _______,       _______,       _______,       _______
@@ -102,21 +114,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  // KC_BRID: brightness
  // DT_xx: adjust and print delay timing
 
- // mouse that takes up too much ram I think
- /* [FN3] = LAYOUT_60_ansi( */
- /*    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
- /*    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
- /*    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1, */
- /*    _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, */
- /*    XXXXXXX, XXXXXXX, XXXXXXX,                                     MS_BTN2,                   XXXXXXX, XXXXXXX, XXXXXXX, _______ */
- /* ), */
 
- [TMUX] = LAYOUT_60_ansi(
+ [LOWER] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                                     _______,                   _______, _______, _______, _______
+ ),
+ [UPPER] = LAYOUT_60_ansi(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______,                                     _______,                   _______, _______, _______, _______
+ ),
+ [ADJUST] = LAYOUT_60_ansi(
+    _______, MS_ACL0, MS_ACL1, MS_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1,
+    _______,          XXXXXXX, YL_CTR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, _______,                                     MS_BTN2,                   _______, XXXXXXX, XXXXXXX, _______
  ),
 
 };
@@ -138,27 +156,39 @@ combo_t key_combos[] = {
 // ************************************************* LEDs ************************************************* //
 // ******************************************************************************************************** //
 
-#ifdef RGB_MATRIX_ENABLE
 void keyboard_post_init_user(void) {
+#   ifdef RGB_MATRIX_ENABLE
     ap2_led_enable();
     // ap2_led_set_profile(0);
 
     ap2_led_set_foreground_color(0xAA, 0x00, 0x00);
+#   endif
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
+
+#   ifdef RGB_MATRIX_ENABLE
     switch (get_highest_layer(state)) {
         case TAB_HOLD_LAYER:
             // Set the leds to green
             ap2_led_set_foreground_color(0x00, 0xFF, 0x00);
             break;
-        case FN2:
+        case UTIL:
             // Set the leds to blue
             ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
             break;
-        case TMUX:
+        case LOWER:
             // Set the leds to
             ap2_led_set_foreground_color(0xFF, 0x00, 0xFF);
+            break;
+        case UPPER:
+            // Set the leds to
+            ap2_led_set_foreground_color(0x1F, 0x00, 0x00);
+            break;
+        case ADJUST:
+            // Set the leds to
+            ap2_led_set_foreground_color(0xFF, 0xFF, 0xFF);
             break;
         default:
             // Reset back to the current profile (doesn't work)
@@ -166,6 +196,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             ap2_led_set_foreground_color(0xAA, 0x00, 0x00);
             break;
     }
+#   endif
+
     return state;
 }
-#endif

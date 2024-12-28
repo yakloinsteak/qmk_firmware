@@ -1,3 +1,10 @@
 #pragma once
 
-enum anne_pro_layers { BASE, TAB_HOLD_LAYER, FN2, TMUX, };
+enum layer_number {
+    BASE = 0,
+    TAB_HOLD_LAYER,
+    UTIL,
+    LOWER,
+    UPPER,
+    ADJUST,
+};

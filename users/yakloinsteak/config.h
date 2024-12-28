@@ -8,7 +8,7 @@
 // increase this value
 // #define COMBO_TERM 50
 
-#define QUICK_TAP_TERM 0
+// #define QUICK_TAP_TERM 150
 
 // https://docs.qmk.fm/tap_hold
 // If you're getting the mod of the mod-tap behavior accidentially: increase
@@ -44,6 +44,7 @@
 
 // Allow kinetic speed with accelertion, but also allow three explicity speeds with ACL0/1/2
 #define MK_COMBINED
+
 // do we need this with the previous one?
 #define MK_KINETIC_SPEED
 
@@ -51,9 +52,9 @@
 #define MOUSEKEY_INTERVAL 10 //Time between cursor movements in milliseconds
 #define MOUSEKEY_MOVE_DELTA 16 //Step size for accelerating from initial to base speed
 #define MOUSEKEY_INITIAL_SPEED 100 //Initial speed of the cursor in pixel per second
-#define MOUSEKEY_BASE_SPEED 5000 //Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_DECELERATED_SPEED 400 // Decelerated cursor speed
-#define MOUSEKEY_ACCELERATED_SPEED 3000 // Accelerated cursor speed
+#define MOUSEKEY_BASE_SPEED 1000 // Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_DECELERATED_SPEED 500 // Decelerated cursor speed
+#define MOUSEKEY_ACCELERATED_SPEED 2000 // Accelerated cursor speed
 #define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16 //Initial number of movements of the mouse wheel
 #define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32 //Maximum number of movements at which acceleration stops
 #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
