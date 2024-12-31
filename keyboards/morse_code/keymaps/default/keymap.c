@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┘
      */
     [0] = LAYOUT_only(
-        KC_A, KC_B,
+        UG_TOGG, UG_NEXT,
               KC_C,
               KC_D,
               KC_E
