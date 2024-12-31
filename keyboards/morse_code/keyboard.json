@@ -2,7 +2,7 @@
     "manufacturer": "Todd Blackman",
     "keyboard_name": "morse_code",
     "maintainer": "yakloinsteak",
-    "bootloader": "avrdude",
+    "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
         "command": false,
