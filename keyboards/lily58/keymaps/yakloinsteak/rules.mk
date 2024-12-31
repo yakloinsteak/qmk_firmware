@@ -1,13 +1,15 @@
-LTO_ENABLE = yes            # Link Time Optimization enabled
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-#MOUSEKEY_ENABLE = yes       # Mouse keys
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+COMBO_ENABLE = yes
+COMMAND_ENABLE = no         # Commands for debug and configuration
+CONSOLE_ENABLE = no         # Console for debug
+EXTRAKEY_ENABLE = yes       # Audio control and System control (brightness/app key/etc.)
+LTO_ENABLE = yes            # Link Time Optimization enabled
+MOUSEKEY_ENABLE = yes       # Mouse keys
+NKRO_ENABLE = no            # N-Key Rollover
 OLED_ENABLE = yes           # OLED display
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 CAPS_WORD_ENABLE = yes
 
