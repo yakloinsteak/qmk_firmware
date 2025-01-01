@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |shift | <
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |lowerL| / enter /       \Space \  |upperL| bcksp| util | <--- lower/upper layer together is another layer
+ *                   |      |      |      | /       /       \      \  |      |      | util | <--- lower/upper layer together is another layer
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     YL_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
     YL_ESC,   YL_A,   YL_S,    YL_D,    YL_F,    KC_G,                     KC_H,    YL_J,    YL_K,    YL_L,    YL_SCLN, TD(TD_QUOT),
     KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
-                         _______, _______, MO(LOWER), KC_ENT,  KC_SPC, MO(UPPER), KC_BSPC, TG(UTIL)
+                         _______, _______, KC_ENT,MO(LOWER),   MO(UPPER), KC_SPC, KC_BSPC, TG(UTIL)
 ),
 
 /* Tab hold
@@ -65,30 +65,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [TAB_HOLD_LAYER] = LAYOUT(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_MINS,
     _______, _______, _______, _______, _______, _______,                   _______, KC_HOME, KC_PGUP, KC_INS,  KC_PSCR, KC_BSLS,
-    _______, _______, _______, _______, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, KC_F11,
+    _______, _______, _______, KC_UNDS, KC_GRV, _______,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, KC_F11,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_END,  KC_PGDN, _______, _______, KC_F12,
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* left thumb layer / symbols
+/* left thumb layer / mouse
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |  WU  |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   ~  |
- * |------+------+------+------+------+------|   (   |    |   )   |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
+ * |      |  WL  |  WD  |  WR  |      |      |-------.    ,-------| Left | Down |  Up  |Right |      |      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [LOWER] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-    _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX, _______, _______, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
@@ -108,8 +108,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [UPPER] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, YL_WRIT, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______,  _______, _______, _______
@@ -119,22 +119,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |  WU  |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  WL  |  WD  |  WR  |      |      |-------.    ,-------| Left | Down |  Up  |Right |      |      |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   ~  |
+ * |------+------+------+------+------+------|   (   |    |   )   |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [ADJUST] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL1, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL0, XXXXXXX, DBLCLK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                               _______, _______, _______, MS_BTN1, MS_BTN2, _______, _______, _______
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
+    _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+                               _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
 /* Slack
@@ -275,41 +275,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
     case SNIPPETS:
-        if (record->event.pressed) {
-            // when keycode is pressed
-            SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT));
-        }
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT)); }
+        break;
+    case YL_WRIT:
+        if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":w"SS_TAP(X_ENT)); }
         break;
 
     case SWITCH_WINDOW:
-        if (record->event.pressed) {
-            // when keycode is pressed
-            SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s");
-        }
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
         break;
 
     case MAGIC_QUOTE:
-        if (record->event.pressed) {
-            SEND_STRING("''\b");
-            /* if ( (keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) { */
-            /*    SEND_STRING("\"\"\b"); */
-            /* } else { */
-            /*    SEND_STRING("''\b"); */
-            /* } */
-        }
+        if (record->event.pressed) { SEND_STRING("''\b"); }
         break;
 
     case UPDIR:
-        if (record->event.pressed) {
-           SEND_STRING("../");
-        }
+        if (record->event.pressed) { SEND_STRING("../"); }
         return false; // skip any further pipeline processing which wouldn't be happening for custom keys anyway
         /* break; */
 
     case DBLCLK:  // Double click the left mouse button.
-        if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1));
-        }
+        if (record->event.pressed) { SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1)); }
         return false;
     }
 

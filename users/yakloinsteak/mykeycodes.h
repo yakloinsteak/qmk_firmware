@@ -10,6 +10,7 @@ enum custom_keycodes {
     UPDIR,
     DBLCLK,
     YL_CTR,
+    YL_WRIT,
 };
 
 // YL == yakloin
@@ -33,7 +34,6 @@ enum custom_keycodes {
 #define YL_L    MT(MOD_RCTL, KC_L)
 #define YL_SCLN MT(MOD_RALT, KC_SCLN)
 #define YL_RUSN KC_APP
-
 
 // #define ST_LGUI OSM(MOD_LGUI)
 // #define ST_LSFT OSM(MOD_LSFT)
