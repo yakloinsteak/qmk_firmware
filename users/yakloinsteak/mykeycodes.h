@@ -35,6 +35,16 @@ enum custom_keycodes {
 #define YL_SCLN MT(MOD_RALT, KC_SCLN)
 #define YL_RUSN KC_APP
 
+#define YL_LTH4 TG(UTIL2)
+#define YL_LTH3 MO(U1)
+// resting key is enter
+#define YL_LTH1 MO(LOWER)
+
+#define YL_RTH1 MO(UPPER)
+// Resting key if space
+#define YL_RTH3 MO(U2)
+#define YL_RTH4 TG(UTIL)
+
 // #define ST_LGUI OSM(MOD_LGUI)
 // #define ST_LSFT OSM(MOD_LSFT)
 // #define ST_LCTL OSM(MOD_LCTL)
