@@ -4,44 +4,6 @@
 #include "combos.h"
 #include "achordion.h"
 
-// Handle custom keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) { return false; }
-
-    /* if (IS_LAYER_ON(TMUX) && record->event.pressed && keycode != MOD_RSFT && keycode != MOD_LSFT) { */
-    /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
-    /* } */
-
-    switch (keycode) {
-    case SNIPPETS:
-        if (record->event.pressed) {
-            // when keycode is pressed
-            SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT));
-        }
-        break;
-
-    case SWITCH_WINDOW:
-        if (record->event.pressed) {
-            // when keycode is pressed
-            SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s");
-        }
-        break;
-
-#   ifdef DIGITIZER_ENABLE
-    case YL_CTR:
-        if (record->event.pressed) {
-            digitizer_in_range_on();
-            digitizer_set_position(0.5, 0.5);
-            digitizer_flush();
-        }
-        return true;
-#   endif
-
-    }
-
-    return true;
-};
-
 // clang-format off
 // Key symbols are based on QMK. Use them to remap your keyboard
 /*
@@ -84,8 +46,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [TAB_HOLD_LAYER] = LAYOUT_60_ansi( /* FN1 */
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_INS,  KC_PSCR, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, KC_DEL,  _______,
-    _______, _______, _______, _______, _______, _______, _______, KC_END,  KC_PGDN, _______, _______,  _______,
+    _______, _______, _______, KC_EQL,  KC_BSLS, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, KC_DEL,  _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_END,  KC_PGDN, _______, _______, _______,
     _______, _______, _______,                            _______,                   _______, _______, _______, _______
 ),
   /*
@@ -105,22 +67,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   */
  [UTIL] = LAYOUT_60_ansi(
     QK_BOOT, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
-    _______, _______,    DT_UP,      _______,    YL_RUSN,    _______, _______, _______, _______, _______,       KC_PSCR,       KC_HOME,       KC_END,        _______,
-    _______, KC_BRID,    DT_DOWN,    KC_BRIU,    _______,    _______, _______, _______, _______, _______,       KC_PGUP,       KC_PGDN,       _______,
-    _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______, KC_INS,        KC_DEL,        _______,
-    _______, _______,    _______,                                     _______,                   _______,       _______,       _______,       _______
+    _______, _______,    DT_UP,      _______,    YL_RUSN,    _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_BRID,    DT_DOWN,    KC_BRIU,    _______,    _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______,    DT_PRNT,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______,
+    _______, _______,    _______,                                     _______,                   _______, _______, _______, _______
  ),
  // KC_BRIU: brightness
  // KC_BRID: brightness
  // DT_xx: adjust and print delay timing
 
-
  [LOWER] = LAYOUT_60_ansi(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______,                                     _______,                   _______, _______, _______, _______
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______,          XXXXXXX, YL_CTR,  MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, _______,                                     DBLCLK,                    _______, XXXXXXX, XXXXXXX, _______
  ),
  [UPPER] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -130,11 +91,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     _______, _______, _______,                                     _______,                   _______, _______, _______, _______
  ),
  [ADJUST] = LAYOUT_60_ansi(
-    _______, MS_ACL0, MS_ACL1, MS_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1,
-    _______,          XXXXXXX, YL_CTR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, _______,                                     MS_BTN2,                   _______, XXXXXXX, XXXXXXX, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______,                                     _______,                   _______, _______, _______, _______
  ),
 
 };

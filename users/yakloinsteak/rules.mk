@@ -8,3 +8,4 @@ SRC += achordion.c
 SRC += achordion_hooks.c
 SRC += combos.c
 SRC += tap_hooks.c
+SRC += process_record_user.c
