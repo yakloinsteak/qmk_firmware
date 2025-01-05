@@ -2,15 +2,12 @@
 #include <stdio.h>
 
 #define L_BASE 0
-/* #define L_LOWER (1 << 1) */
-/* #define L_RAISE (1 << 2) */
-/* #define L_ADJUST (1 << 3) */
-/* #define L_ADJUST_TRI (L_ADJUST | L_RAISE | L_LOWER) */
 #define L_TAB_HOLD_LAYER (1 << 1)
 #define L_UTIL (1 << 2)
 #define L_LOWER (1 << 3)
 #define L_UPPER (1 << 4)
 #define L_ADJUST (1 << 5)
+#define L_ADJUST_TRI (L_ADJUST | L_UPPER | L_LOWER)
 #define L_U1 (1 << 6)
 #define L_U2 (1 << 7)
 #define L_U_ADJUST (1 << 8)
@@ -36,11 +33,12 @@ const char *read_layer_state(void) {
   case L_UPPER:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Numbers");
     break;
+  case L_ADJUST_TRI:
   case L_ADJUST:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Symbols");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Pairs");
     break;
   case L_U1:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Brackets");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: None");
     break;
   case L_U2:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Macros");

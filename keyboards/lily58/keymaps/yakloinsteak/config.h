@@ -1,7 +1,7 @@
 #pragma once
 
-// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+//#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #undef RGBLIGHT_LED_COUNT
 #define RGBLIGHT_EFFECT_BREATHING
@@ -23,6 +23,6 @@
 // Underglow
 /*
 #undef RGBLIGHT_LED_COUNT
-#define RGBLIGHT_LED_COUNT 14    // Number of LEDs
+#define RGBLIGHT_LED_COUNT 10    // Number of LEDs
 #define RGBLIGHT_SLEEP
 */

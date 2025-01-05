@@ -48,7 +48,6 @@ enum custom_keycodes {
 #define YL_9    MT(MOD_RCTL, KC_9)
 #define YL_0    MT(MOD_RALT, KC_0)
 
-
 /* Thumbs */
 #define YL_LTH4 TG(UTIL2)
 #define YL_LTH3 MO(U1)
@@ -59,13 +58,3 @@ enum custom_keycodes {
 // Resting key if space
 #define YL_RTH3 MO(U2)
 #define YL_RTH4 TG(UTIL)
-
-// #define ST_LGUI OSM(MOD_LGUI)
-// #define ST_LSFT OSM(MOD_LSFT)
-// #define ST_LCTL OSM(MOD_LCTL)
-// #define ST_LALT OSM(MOD_LALT)
-//
-// #define ST_RGUI OSM(MOD_RGUI)
-// #define ST_RSFT OSM(MOD_RSFT)
-// #define ST_RCTL OSM(MOD_RCTL)
-// #define ST_RALT OSM(MOD_RALT)

@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // mirror-pairs
 [ADJUST] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, KC_EQL,  _______, KC_MINS,                   KC_PLUS, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
   _______, KC_SLSH, KC_LT,   KC_LBRC, KC_LCBR, KC_LPRN,                   KC_RPRN, KC_RCBR, KC_RBRC, KC_GT,   KC_BSLS, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
@@ -194,7 +194,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
