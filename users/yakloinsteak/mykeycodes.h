@@ -17,13 +17,16 @@ enum custom_keycodes {
 // MT == mod-tap (mod if held, tap the keycode otherwise)
 // OSM == one-shot-mod
 // LT == layer-tap
+// MO == momentary layer
 
 #define YL_ESC MT(MOD_LCTL, KC_ESC)
 #define YL_RSFT KC_RSFT
 //MT(MOD_RSFT, KC_ENT)
 #define YL_TAB LT(TAB_HOLD_LAYER, KC_TAB)
 #define RRRRRRR _______
+#define YL_RUSN KC_APP
 
+/* Homerow mods */
 #define YL_F    MT(MOD_LGUI, KC_F)
 #define YL_D    MT(MOD_LSFT, KC_D)
 #define YL_S    MT(MOD_LCTL, KC_S)
@@ -33,8 +36,20 @@ enum custom_keycodes {
 #define YL_K    MT(MOD_RSFT, KC_K)
 #define YL_L    MT(MOD_RCTL, KC_L)
 #define YL_SCLN MT(MOD_RALT, KC_SCLN)
-#define YL_RUSN KC_APP
 
+/* Homerow mods for number layer */
+#define YL_1    MT(MOD_LGUI, KC_1)
+#define YL_2    MT(MOD_LSFT, KC_2)
+#define YL_3    MT(MOD_LCTL, KC_3)
+#define YL_4    MT(MOD_LALT, KC_4)
+
+#define YL_7    MT(MOD_RGUI, KC_7)
+#define YL_8    MT(MOD_RSFT, KC_8)
+#define YL_9    MT(MOD_RCTL, KC_9)
+#define YL_0    MT(MOD_RALT, KC_0)
+
+
+/* Thumbs */
 #define YL_LTH4 TG(UTIL2)
 #define YL_LTH3 MO(U1)
 // resting key is enter
