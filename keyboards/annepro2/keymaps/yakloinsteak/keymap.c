@@ -107,10 +107,9 @@
 // ********************************************************************************************************** //
 
 combo_t key_combos[] = {
-    COMBO(ctrla_combo, LCTL(KC_A)),  // er: send ^a
-    COMBO(snippets_combo, SNIPPETS), // ui: snippets in tmux
-    // COMBO(tmux_window_switch_combo, SWITCH_WINDOW), // common switch window
-    // COMBO(enter_combo, KC_ENT), // Enter
+    COMBO(snippets_combo, SNIPPETS),                // QE snippets in tmux
+    COMBO(ctrla_combo, LCTL(KC_A)),                 // QR send ^a
+    COMBO(tmux_window_switch_combo, WINDOW_SWITCH), // QT open window choice in tmux
 };
 
 

@@ -4,6 +4,7 @@ BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMBO_ENABLE = yes
 COMMAND_ENABLE = no         # Commands for debug and configuration
 CONSOLE_ENABLE = no         # Console for debug
+DIGITIZER_ENABLE = yes
 EXTRAKEY_ENABLE = yes       # Audio control and System control (brightness/app key/etc.)
 LTO_ENABLE = yes            # Link Time Optimization enabled
 MOUSEKEY_ENABLE = yes       # Mouse keys
@@ -13,7 +14,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 CAPS_WORD_ENABLE = yes
 
-#DIGITIZER_ENABLE = no
 #DYNAMIC_TAPPING_TERM_ENABLE = no
 TAP_DANCE_ENABLE = yes
 

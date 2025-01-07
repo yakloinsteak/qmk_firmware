@@ -5,12 +5,13 @@
 
 enum custom_keycodes {
     SNIPPETS = SAFE_RANGE,
-    SWITCH_WINDOW,
+    WINDOW_SWITCH,
     MAGIC_QUOTE,
     UPDIR,
     DBLCLK,
     YL_CTR,
     YL_WRIT,
+    YL_QUIT,
 };
 
 // YL == yakloin

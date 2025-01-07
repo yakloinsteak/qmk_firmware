@@ -52,10 +52,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SNIPPETS:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT)); }
         break;
+    case YL_QUIT:
+        if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":q"SS_TAP(X_ENT)); }
+        break;
     case YL_WRIT:
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":w"SS_TAP(X_ENT)); }
         break;
-    case SWITCH_WINDOW:
+    case WINDOW_SWITCH:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
         break;
     /*
@@ -81,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             digitizer_set_position(0.5, 0.5);
             digitizer_flush();
         }
-        return true;
+        return false;
 #   endif
 
     }
