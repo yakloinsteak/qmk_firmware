@@ -48,13 +48,14 @@
 // do we need this with the previous one?
 #define MK_KINETIC_SPEED
 
-#define MOUSEKEY_DELAY 5 //Delay between pressing a movement key and cursor movement
-#define MOUSEKEY_INTERVAL 10 //Time between cursor movements in milliseconds
-#define MOUSEKEY_MOVE_DELTA 16 //Step size for accelerating from initial to base speed
-#define MOUSEKEY_INITIAL_SPEED 100 //Initial speed of the cursor in pixel per second
+#define MOUSEKEY_DELAY 5 // Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_INTERVAL 10 // Time between cursor movements in milliseconds
+#define MOUSEKEY_MOVE_DELTA 16 // Step size for accelerating from initial to base speed
+#define MOUSEKEY_INITIAL_SPEED 100 // Initial speed of the cursor in pixel per second
 #define MOUSEKEY_BASE_SPEED 1000 // Maximum cursor speed at which acceleration stops
 #define MOUSEKEY_DECELERATED_SPEED 500 // Decelerated cursor speed
-#define MOUSEKEY_ACCELERATED_SPEED 2000 // Accelerated cursor speed
-#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16 //Initial number of movements of the mouse wheel
-#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32 //Maximum number of movements at which acceleration stops
+#define MOUSEKEY_ACCELERATED_SPEED 1500 // Accelerated cursor speed
+#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16 // Initial number of movements of the mouse wheel
+#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32 // Maximum number of movements at which acceleration stops
 #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
+#define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8

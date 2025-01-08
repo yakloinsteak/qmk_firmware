@@ -28,10 +28,10 @@ enum custom_keycodes {
 #define YL_RUSN KC_APP
 
 /* Homerow mods */
-#define YL_F    MT(MOD_LGUI, KC_F)
-#define YL_D    MT(MOD_LSFT, KC_D)
-#define YL_S    MT(MOD_LCTL, KC_S)
 #define YL_A    MT(MOD_LALT, KC_A)
+#define YL_S    MT(MOD_LCTL, KC_S)
+#define YL_D    MT(MOD_LSFT, KC_D)
+#define YL_F    MT(MOD_LGUI, KC_F)
 
 #define YL_J    MT(MOD_RGUI, KC_J)
 #define YL_K    MT(MOD_RSFT, KC_K)
@@ -39,15 +39,26 @@ enum custom_keycodes {
 #define YL_SCLN MT(MOD_RALT, KC_SCLN)
 
 /* Homerow mods for number layer */
-#define YL_1    MT(MOD_LGUI, KC_1)
-#define YL_2    MT(MOD_LSFT, KC_2)
-#define YL_3    MT(MOD_LCTL, KC_3)
-#define YL_4    MT(MOD_LALT, KC_4)
+#define YL_1    MT(MOD_LALT, KC_1)
+#define YL_2    MT(MOD_LCTL, KC_2)
+#define YL_3    MT(MOD_LSFT, KC_3)
+#define YL_4    MT(MOD_LGUI, KC_4)
 
 #define YL_7    MT(MOD_RGUI, KC_7)
 #define YL_8    MT(MOD_RSFT, KC_8)
 #define YL_9    MT(MOD_RCTL, KC_9)
 #define YL_0    MT(MOD_RALT, KC_0)
+
+/* Homerow mods for pairs layer */
+#define YL_SLSH MT(MOD_LALT, KC_SLSH)
+#define YL_LT   MT(MOD_LCTL, KC_LT)
+#define YL_LBRC MT(MOD_LSFT, KC_LBRC)
+#define YL_LCBR MT(MOD_LGUI, KC_LCBR)
+
+#define YL_RCBR MT(MOD_RGUI, KC_RCBR)
+#define YL_RBRC MT(MOD_RSFT, KC_RBRC)
+#define YL_GT   MT(MOD_RCTL, KC_GT)
+#define YL_BSLS MT(MOD_RALT, KC_BSLS)
 
 /* Thumbs */
 #define YL_LTH4 TG(UTIL2)
