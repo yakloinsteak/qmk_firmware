@@ -32,14 +32,20 @@ void set_keylog(uint16_t keycode, keyrecord_t *record);
 
    get_repeat_key_count() indicates whether the key is being invoked through
    Repeat Key or Alternate Repeat Key (see also Repeat Key functions).
+
+   register_code(KC_LCTL); // Change the key to be held here
+   unregister_code(KC_LCTL); // Change the key that was held here, too!
  */
 __attribute__ ((weak))
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static uint16_t tmux_timer;
+    static bool tmux_on = false;
+
     if (!process_achordion(keycode, record)) { return false; }
 
-    /* if (IS_LAYER_ON(TMUX) && record->event.pressed) { */
-    /*     tap_code16(C(KC_A));  // Tap Ctrl+A. */
-    /* } */
+    if (tmux_on && timer_elapsed(tmux_timer) >= TAPPING_TERM && record->event.pressed) {
+        tap_code16(C(KC_A));  // Tap Ctrl+A before subsequent taps.
+    }
 
 #   ifdef OLED_ENABLE
     if (record->event.pressed) {
@@ -49,6 +55,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #   endif
 
     switch (keycode) {
+    case YL_CTLA:
+        if (record->event.pressed) {
+            tmux_timer = timer_read();
+            tmux_on = true;
+        } else {
+            if (timer_elapsed(tmux_timer) < TAPPING_TERM) { tap_code16(C(KC_A)); }
+            tmux_on = false;
+        }
+        return false;
     case SNIPPETS:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT)); }
         break;
@@ -75,6 +90,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* break; */
     case DBLCLK:  // Double click the left mouse button.
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1)); }
+        return false;
+
+    case YL_SLSH:
+        if (record->event.pressed) { tap_code16(KC_SLSH); }
+        return false;
+    case YL_LT:
+        if (record->event.pressed) { tap_code16(KC_LT); }
+        return false;
+    case YL_LBRC:
+        if (record->event.pressed) { tap_code16(KC_LBRC); }
+        return false;
+    case YL_LCBR:
+        if (record->event.pressed) { tap_code16(KC_LCBR); }
+        return false;
+    case YL_RCBR:
+        if (record->event.pressed) { tap_code16(KC_RCBR); }
+        return false;
+    case YL_RBRC:
+        if (record->event.pressed) { tap_code16(KC_RBRC); }
+        return false;
+    case YL_GT:
+        if (record->event.pressed) { tap_code16(KC_GT); }
+        return false;
+    case YL_BSLS:
+        if (record->event.pressed) { tap_code16(KC_BSLS); }
         return false;
 
 #   ifdef DIGITIZER_ENABLE

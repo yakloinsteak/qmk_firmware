@@ -10,7 +10,7 @@ LTO_ENABLE = yes            # Link Time Optimization enabled
 MOUSEKEY_ENABLE = yes       # Mouse keys
 NKRO_ENABLE = no            # N-Key Rollover
 OLED_ENABLE = yes           # OLED display
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 
 CAPS_WORD_ENABLE = yes
 

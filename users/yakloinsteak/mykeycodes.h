@@ -12,6 +12,15 @@ enum custom_keycodes {
     YL_CTR,
     YL_WRIT,
     YL_QUIT,
+    YL_SLSH,
+    YL_LT,
+    YL_LBRC,
+    YL_LCBR,
+    YL_RCBR,
+    YL_RBRC,
+    YL_GT,
+    YL_BSLS,
+    YL_CTLA,
 };
 
 // YL == yakloin
@@ -50,19 +59,23 @@ enum custom_keycodes {
 #define YL_0    MT(MOD_RALT, KC_0)
 
 /* Homerow mods for pairs layer */
-#define YL_SLSH MT(MOD_LALT, KC_SLSH)
-#define YL_LT   MT(MOD_LCTL, KC_LT)
-#define YL_LBRC MT(MOD_LSFT, KC_LBRC)
-#define YL_LCBR MT(MOD_LGUI, KC_LCBR)
+#define YL_SLSH MT(MOD_LALT, YL_SLSH)
+#define YL_LT   MT(MOD_LCTL, YL_LT)
+#define YL_LBRC MT(MOD_LSFT, YL_LBRC)
+#define YL_LCBR MT(MOD_LGUI, YL_LCBR)
 
-#define YL_RCBR MT(MOD_RGUI, KC_RCBR)
-#define YL_RBRC MT(MOD_RSFT, KC_RBRC)
-#define YL_GT   MT(MOD_RCTL, KC_GT)
-#define YL_BSLS MT(MOD_RALT, KC_BSLS)
+#define YL_RCBR MT(MOD_RGUI, YL_RCBR)
+#define YL_RBRC MT(MOD_RSFT, YL_RBRC)
+#define YL_GT   MT(MOD_RCTL, YL_GT)
+#define YL_BSLS MT(MOD_RALT, YL_BSLS)
 
 /* Thumbs */
 #define YL_LTH4 TG(UTIL2)
-#define YL_LTH3 MO(U1)
+
+//#define YL_LTH3 MO(U1)
+#define YL_LTH3 YL_CTLA
+//#define YL_LTH3 LT(U1, YL_CTLA)
+
 // resting key is enter
 #define YL_LTH1 MO(LOWER)
 
