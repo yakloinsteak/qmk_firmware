@@ -4,9 +4,8 @@
 #include "mylayers.h"
 
 enum custom_keycodes {
-    SNIPPETS = SAFE_RANGE,
-    WINDOW_SWITCH,
-    MAGIC_QUOTE,
+    YL_SNIP = SAFE_RANGE,
+    YL_WSCH,
     UPDIR,
     DBLCLK,
     YL_CTR,
@@ -21,6 +20,8 @@ enum custom_keycodes {
     YL_GT,
     YL_BSLS,
     YL_CTLA,
+    YL_BACK,
+    YL_FIAP, // firefox insecure approve
 };
 
 // YL == yakloin
@@ -70,7 +71,8 @@ enum custom_keycodes {
 #define YL_BSLS MT(MOD_RALT, YL_BSLS)
 
 /* Thumbs */
-#define YL_LTH4 TG(UTIL2)
+//#define YL_LTH4 TG(UTIL2)
+#define YL_LTH4 YL_BACK
 
 //#define YL_LTH3 MO(U1)
 #define YL_LTH3 YL_CTLA

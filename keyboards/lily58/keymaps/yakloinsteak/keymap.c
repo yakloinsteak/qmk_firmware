@@ -12,10 +12,21 @@ enum {
   TD_QUOT,
 };
 
+void magic_quote(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+      tap_code16(KC_QUOTE);
+      reset_tap_dance(state);
+    } else if (state->count == 2) {
+      tap_code16(KC_QUOTE);
+      tap_code16(KC_QUOTE);
+      tap_code16(KC_LEFT);
+      reset_tap_dance(state);
+    }
+}
+
 // https://docs.qmk.fm/features/tap_dance#how-to-use
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for ', twice for two quotes and a backspace
-    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, MAGIC_QUOTE),
+    [TD_QUOT] = ACTION_TAP_DANCE_FN(magic_quote) // Tap once for ', twice for two quotes and a backspace
 };
 
 // *************************************************************************************************** //
@@ -107,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // macros
 [U2] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, YL_QUIT, YL_WRIT, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, KC_2,    _______,                   _______, _______, _______, _______, _______, _______,
+  _______, YL_QUIT, YL_WRIT, YL_WSCH, YL_SNIP, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, YL_FIAP, _______,                   _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -196,7 +207,7 @@ bool oled_task_user(void) {
 // ********************************************************************************************************** //
 
 combo_t key_combos[] = {
-    COMBO(snippets_combo, SNIPPETS),                // QE snippets in tmux
+    COMBO(snippets_combo, YL_SNIP),                // QE snippets in tmux
     COMBO(ctrla_combo, LCTL(KC_A)),                 // QR send ^a
-    COMBO(tmux_window_switch_combo, WINDOW_SWITCH), // QT open window choice in tmux
+    COMBO(tmux_window_switch_combo, YL_WSCH), // QT open window choice in tmux
 };

@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tmux_on = false;
         }
         return false;
-    case SNIPPETS:
+    case YL_SNIP:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT)); }
         break;
     case YL_QUIT:
@@ -73,16 +73,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case YL_WRIT:
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":w"SS_TAP(X_ENT)); }
         break;
-    case WINDOW_SWITCH:
-        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
+    case YL_FIAP:
+        // firefox insecure approve
+        if (record->event.pressed) { SEND_STRING("\t \t\t\t\t "); }
         break;
-    /*
-     * TODO:
-     *   <esc>:q<enter>
-     *
-     * */
-    case MAGIC_QUOTE:
-        if (record->event.pressed) { SEND_STRING("''"SS_TAP(X_LEFT)); }
+    case YL_WSCH:
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
         break;
     case UPDIR:
         if (record->event.pressed) { SEND_STRING("../"); }
@@ -91,7 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DBLCLK:  // Double click the left mouse button.
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1)); }
         return false;
-
     case YL_SLSH:
         if (record->event.pressed) { tap_code16(KC_SLSH); }
         return false;
@@ -115,6 +110,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case YL_BSLS:
         if (record->event.pressed) { tap_code16(KC_BSLS); }
+        return false;
+    case YL_BACK:
+        if (record->event.pressed) {
+            if (get_mods() & MOD_MASK_SHIFT) {
+              tap_code16(KC_DEL);
+            } else {
+              tap_code16(KC_BSPC);
+            }
+        }
         return false;
 
 #   ifdef DIGITIZER_ENABLE
