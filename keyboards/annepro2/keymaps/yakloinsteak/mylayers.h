@@ -7,4 +7,5 @@ enum layer_number {
     LOWER,
     UPPER,
     ADJUST,
+    U2,
 };

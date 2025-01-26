@@ -318,7 +318,7 @@ static bool on_left_hand(keypos_t pos) {
 #ifdef SPLIT_KEYBOARD
   return (pos.row+1) < (MATRIX_ROWS / 2);
 #else
-  return (MATRIX_COLS > MATRIX_ROWS) ? (pos.col+1) < (MATRIX_COLS / 2)
+  return (MATRIX_COLS > MATRIX_ROWS) ? (pos.col) < (MATRIX_COLS / 2)
                                      : (pos.row+1) < (MATRIX_ROWS / 2);
 #endif
 }

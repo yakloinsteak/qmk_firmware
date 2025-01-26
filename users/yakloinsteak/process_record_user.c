@@ -75,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case YL_FIAP:
         // firefox insecure approve
-        if (record->event.pressed) { SEND_STRING("\t \t\t\t\t "); }
+        if (record->event.pressed) { send_string_with_delay("\t\t\t " SS_DELAY(400) "\t\t\t\t ", 100); }
         break;
     case YL_WSCH:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
