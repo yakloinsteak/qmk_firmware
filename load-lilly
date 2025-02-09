@@ -1,0 +1,2 @@
+sudo mount /dev/sda1 /media/blackman/RPI-RP2
+sudo cp .build/lily58_rev1_yakloinsteak.uf2 /media/blackman/RPI-RP2
