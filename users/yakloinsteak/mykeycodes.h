@@ -2,6 +2,7 @@
 
 #include QMK_KEYBOARD_H
 #include "mylayers.h"
+#include "tapdance.h"
 
 enum custom_keycodes {
     YL_SNIP = SAFE_RANGE,
@@ -23,6 +24,9 @@ enum custom_keycodes {
     YL_BACK,
     YL_FIAP, // firefox insecure approve
 };
+
+// Tap dance shortenings
+#define YL_GRAV TD(TD_GRAV)
 
 // YL == yakloin
 // MT == mod-tap (mod if held, tap the keycode otherwise)

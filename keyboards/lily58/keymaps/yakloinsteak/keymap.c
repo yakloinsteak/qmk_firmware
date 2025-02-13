@@ -3,31 +3,7 @@
 #include "mylayers.h"
 #include "combos.h"
 #include "achordion.h"
-
-// ********************************************************************************************************** //
-// ************************************************* Tap Dancing ******************************************** //
-// ********************************************************************************************************** //
-
-enum {
-  TD_QUOT,
-};
-
-void magic_quote(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-      tap_code16(KC_QUOTE);
-      reset_tap_dance(state);
-    } else if (state->count == 2) {
-      tap_code16(KC_QUOTE);
-      tap_code16(KC_QUOTE);
-      tap_code16(KC_LEFT);
-      reset_tap_dance(state);
-    }
-}
-
-// https://docs.qmk.fm/features/tap_dance#how-to-use
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_QUOT] = ACTION_TAP_DANCE_FN(magic_quote) // Tap once for ', twice for two quotes and a backspace
-};
+#include "tapdance.h"
 
 // *************************************************************************************************** //
 // ************************************************* Core ******************************************** //
@@ -95,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [UPPER] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
-    KC_GRV,  YL_1,    YL_2,    YL_3,    YL_4,    KC_5,                      KC_6,    YL_7,    YL_8,    YL_9,    YL_0,    _______,
+    YL_GRAV, YL_1,    YL_2,    YL_3,    YL_4,    KC_5,                      KC_6,    YL_7,    YL_8,    YL_9,    YL_0,    _______,
     _______, YL_BSLS, YL_LT,   YL_LBRC, YL_LCBR, KC_LPRN, _______, _______, KC_RPRN, YL_RCBR, YL_RBRC, YL_GT,   YL_SLSH, _______,
                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
