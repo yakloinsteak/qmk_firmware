@@ -116,12 +116,11 @@
 // ************************************************* Chords ************************************************* //
 // ********************************************************************************************************** //
 
-combo_t key_combos[] = {
-    COMBO(snippets_combo, YL_SNIP),           // QE snippets in tmux
-    COMBO(ctrla_combo, LCTL(KC_A)),           // QR send ^a
-    COMBO(tmux_window_switch_combo, YL_WSCH), // QT open window choice in tmux
-};
-
+/* combo_t key_combos[] = { */
+/*     COMBO(snippets_combo, YL_SNIP),           // QE snippets in tmux */
+/*     COMBO(ctrla_combo, LCTL(KC_A)),           // QR send ^a */
+/*     COMBO(tmux_window_switch_combo, YL_WSCH), // QT open window choice in tmux */
+/* }; */
 
 // ******************************************************************************************************** //
 // ************************************************* LEDs ************************************************* //
