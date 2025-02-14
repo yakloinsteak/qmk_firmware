@@ -26,7 +26,7 @@
     YL_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y,   KC_U, KC_I,    KC_O,    KC_P,             KC_LBRC,          KC_RBRC,       KC_BSLS,
     YL_ESC,   YL_A,    YL_S,    YL_D, YL_F, KC_G, KC_H,   YL_J, YL_K,    YL_L,    YL_SCLN,          KC_QUOT,          KC_ENT,
     KC_LSFT,  KC_Z,    KC_X,    KC_C, KC_V, KC_B, KC_N,   KC_M, KC_COMM, KC_DOT,  KC_SLSH,          YL_RSFT,
-    KC_LCTL,  KC_LGUI, MO(LOWER),                   KC_SPC,       MO(UPPER), MO(U2), MO(UTIL), KC_NO
+    KC_LCTL,  KC_LGUI, MO(LOWER),                   KC_SPC,       MO(UPPER), MO(U1), MO(UTIL), KC_NO
 ),
   /*
   * tab hold
@@ -83,6 +83,7 @@
     _______,          XXXXXXX, YL_CTR,  MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, _______,                                     DBLCLK,                    _______, XXXXXXX, XXXXXXX, _______
  ),
+
  [UPPER] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, KC_EQL,  KC_MINS, _______, _______, KC_PLUS, _______, _______, _______, _______, _______, _______,
@@ -90,6 +91,7 @@
     _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                                     _______,                   _______, _______, _______, _______
  ),
+
  // mirror-pairs
  [ADJUST] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -99,7 +101,7 @@
     _______, _______, _______,                                     _______,                   _______, _______, _______, _______
  ),
  // macros
- [U2] = LAYOUT_60_ansi(
+ [U1] = LAYOUT_60_ansi(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, YL_QUIT, YL_WRIT, YL_WSCH, YL_SNIP, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, YL_FIAP, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -115,8 +117,8 @@
 // ********************************************************************************************************** //
 
 combo_t key_combos[] = {
-    COMBO(snippets_combo, YL_SNIP),                // QE snippets in tmux
-    COMBO(ctrla_combo, LCTL(KC_A)),                 // QR send ^a
+    COMBO(snippets_combo, YL_SNIP),           // QE snippets in tmux
+    COMBO(ctrla_combo, LCTL(KC_A)),           // QR send ^a
     COMBO(tmux_window_switch_combo, YL_WSCH), // QT open window choice in tmux
 };
 
