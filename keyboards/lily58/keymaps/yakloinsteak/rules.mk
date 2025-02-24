@@ -11,6 +11,7 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 NKRO_ENABLE = no            # N-Key Rollover
 OLED_ENABLE = yes           # OLED display
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
+UNICODE_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes
 

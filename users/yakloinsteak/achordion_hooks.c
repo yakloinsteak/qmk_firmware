@@ -13,13 +13,14 @@ uint16_t achordion_streak_chord_timeout(uint16_t tap_hold_keycode, uint16_t next
 // Can customize the hold timing
 // 500-5000ms suggested
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    return 300;
+  return 250;
 }
 
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+
     // Exceptions for chords on the same hand
     switch (tap_hold_keycode) {
     case KC_LCTL:

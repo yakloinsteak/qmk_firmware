@@ -78,7 +78,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) { send_string_with_delay("\t\t\t " SS_DELAY(400) "\t\t\t\t ", 100); }
         break;
     case YL_WSCH:
-        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s"); }
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s" SS_DELAY(20) SS_DOWN(X_LCTL)"x"SS_UP(X_LCTL)); }
+        break;
+    case YL_LSTS:
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"L"); }
         break;
     case UPDIR:
         if (record->event.pressed) { SEND_STRING("../"); }
@@ -111,15 +114,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case YL_BSLS:
         if (record->event.pressed) { tap_code16(KC_BSLS); }
         return false;
-    /* case YL_BACK: */
-    /*     if (record->event.pressed) { */
-    /*         if (get_mods() & MOD_MASK_SHIFT) { */
-    /*           tap_code16(KC_DEL); */
-    /*         } else { */
-    /*           tap_code16(KC_BSPC); */
-    /*         } */
-    /*     } */
-    /*     return false; */
+    case YL_BACK:
+        if (record->event.pressed) {
+            if (get_mods() & MOD_MASK_SHIFT) {
+              tap_code16(KC_DEL);
+            } else {
+              tap_code16(KC_BSPC);
+            }
+        }
+        return false;
 
 #   ifdef DIGITIZER_ENABLE
     case YL_CTR:

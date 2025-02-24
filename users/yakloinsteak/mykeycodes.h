@@ -7,6 +7,8 @@
 #  include "tapdance.h"
 #endif
 
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
+
 enum custom_keycodes {
     YL_SNIP = SAFE_RANGE,
     YL_WSCH,
@@ -26,6 +28,7 @@ enum custom_keycodes {
     YL_CTLA,
     YL_BACK,
     YL_FIAP, // firefox insecure approve
+    YL_LSTS, // last session in tmux
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -79,18 +82,17 @@ enum custom_keycodes {
 #define YL_GT   MT(MOD_RCTL, YL_GT)
 #define YL_BSLS MT(MOD_RALT, YL_BSLS)
 
-/* Thumbs */
+/* Thumbs Left */
 //#define YL_LTH4 TG(UTIL2)
 #define YL_LTH4 YL_BACK
-
 //#define YL_LTH3 MO(U1)
 #define YL_LTH3 YL_CTLA
 //#define YL_LTH3 LT(U1, YL_CTLA)
-
 // resting key is enter
 #define YL_LTH1 MO(LOWER)
 
+/* Thumbs Right */
 #define YL_RTH1 MO(UPPER)
 // Resting key if space
-#define YL_RTH3 MO(U2)
-#define YL_RTH4 TG(UTIL)
+#define YL_RTH3 MO(MACROS)
+#define YL_RTH4 MO(UTIL)
