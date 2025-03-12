@@ -5,7 +5,8 @@ enum layer_number {
     TAB_HOLD_LAYER,
     LOWER,
     UPPER,
-    ADJUST,
+    ADJUST, // both the previous together
     MACROS,
     UTIL,
+    LED,
 };
