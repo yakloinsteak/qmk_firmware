@@ -29,6 +29,7 @@ enum custom_keycodes {
     YL_BACK,
     YL_FIAP, // firefox insecure approve
     YL_LSTS, // last session in tmux
+    YL_SSHK, // ssh-agent and add key
 };
 
 #ifdef TAP_DANCE_ENABLE

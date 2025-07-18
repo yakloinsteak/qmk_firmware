@@ -65,12 +65,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
     case YL_SNIP:
-        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(100)"snippets"SS_TAP(X_ENT)); }
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"Z"SS_DELAY(150)"snippets"SS_TAP(X_ENT)); }
         break;
     case YL_QUIT:
+        // neovim quit
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":q"SS_TAP(X_ENT)); }
         break;
     case YL_WRIT:
+        // neovim write
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":w"SS_TAP(X_ENT)); }
         break;
     case YL_FIAP:
@@ -78,10 +80,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) { send_string_with_delay("\t\t\t " SS_DELAY(400) "\t\t\t\t ", 100); }
         break;
     case YL_WSCH:
+        // sessionx in tmux but with choices for new session
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s" SS_DELAY(20) SS_DOWN(X_LCTL)"x"SS_UP(X_LCTL)); }
         break;
     case YL_LSTS:
+        // last session in tmux
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"L"); }
+        break;
+    case YL_SSHK:
+        // last session in tmux
+        if (record->event.pressed) { SEND_STRING("eval `ssh-agent`;ssh-add"); }
         break;
     case UPDIR:
         if (record->event.pressed) { SEND_STRING("../"); }

@@ -4,21 +4,21 @@ BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMBO_ENABLE = yes
 COMMAND_ENABLE = no         # Commands for debug and configuration
 CONSOLE_ENABLE = no         # Console for debug
-DIGITIZER_ENABLE = yes
+DIGITIZER_ENABLE = no
 EXTRAKEY_ENABLE = yes       # Audio control and System control (brightness/app key/etc.)
 LTO_ENABLE = yes            # Link Time Optimization enabled
 MOUSEKEY_ENABLE = yes       # Mouse keys
 NKRO_ENABLE = no            # N-Key Rollover
-OLED_ENABLE = yes           # OLED display
-#OLED_ENABLE = no           # OLED display
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+OLED_ENABLE = no           # OLED display
+RGBLIGHT_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes
 
 #DYNAMIC_TAPPING_TERM_ENABLE = no
 TAP_DANCE_ENABLE = yes
 
-CONVERT_TO=promicro_rp2040
+#CONVERT_TO=promicro_rp2040
+#CONVERT_TO=elite_pi
 
 # # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/keylogger.c
