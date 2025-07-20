@@ -3,15 +3,17 @@
 
 // TODO: maybe the shift/return mod tap would benefit?
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_ESC:
-        case YL_ESC:
-            // Immediately select the hold action when another key is pressed.
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
-    }
+    return true;
+
+    /* switch (keycode) { */
+    /*     case KC_ESC: */
+    /*     case YL_ESC: */
+    /*         // Immediately select the hold action when another key is pressed. */
+    /*         return true; */
+    /*     default: */
+    /*         // Do not select the hold action when another key is pressed. */
+    /*         return false; */
+    /* } */
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -36,6 +38,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return g_tapping_term - 5;
         case YL_S:
             return g_tapping_term - 45;
+        case YL_ESC:
+            // This key is mostly just esc, but if you hold it a long time, you can activate the hold action
+            return g_tapping_term + 30;
 
         default:
             return g_tapping_term;

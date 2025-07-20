@@ -45,7 +45,9 @@ enum custom_keycodes {
 // LT == layer-tap
 // MO == momentary layer
 
-#define YL_ESC MT(MOD_LCTL, KC_ESC)
+// #define YL_ESC MT(MOD_LCTL, KC_ESC)
+#define YL_ESC LT(MACROS, KC_ESC)
+
 #define YL_RSFT KC_RSFT
 //MT(MOD_RSFT, KC_ENT)
 #define YL_TAB LT(TAB_HOLD_LAYER, KC_TAB)

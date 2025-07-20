@@ -26,7 +26,8 @@ bool achordion_chord(uint16_t tap_hold_keycode,
     case KC_LCTL:
     case YL_ESC:
         // Left ctrl on pinkie and these are muscle-memoried...
-        if ((other_keycode == KC_F) || (other_keycode == KC_V) || (other_keycode == KC_C) || (other_keycode == KC_X) || (other_keycode == KC_B)) { return true; }
+        // commented out since I changed ESC to be macro layer instead of left control
+        // if ((other_keycode == KC_F) || (other_keycode == KC_V) || (other_keycode == KC_C) || (other_keycode == KC_X) || (ther_keycode == KC_B)) { return true; }
 
         // on_left_hand() has an off-by-one bug I think.
         if (other_keycode == KC_H) { return true; }
