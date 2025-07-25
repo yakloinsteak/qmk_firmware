@@ -31,8 +31,8 @@
 // Similar, but if you release the first key and still want the hold action:
 // These can be fine-tuned per key if needed. See https://docs.qmk.fm/tap_hold#hold-on-other-key-press
 // Might not work with achordion if you exclude the _per_key def as well?
-#define HOLD_ON_OTHER_KEY_PRESS
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+// #define HOLD_ON_OTHER_KEY_PRESS
+// #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 // Try with and without. For fast typists like me, it may help. Mod-taps
 // bracketed by regular keys help not make the middle one a mod.

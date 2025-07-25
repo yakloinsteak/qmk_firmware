@@ -37,7 +37,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case YL_K:
             return g_tapping_term - 5;
         case YL_S:
-            return g_tapping_term - 45;
+            return g_tapping_term - 0;
         case YL_ESC:
             // This key is mostly just esc, but if you hold it a long time, you can activate the hold action
             return g_tapping_term + 30;
