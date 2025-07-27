@@ -30,6 +30,7 @@ enum custom_keycodes {
     YL_FIAP, // firefox insecure approve
     YL_LSTS, // last session in tmux
     YL_SSHK, // ssh-agent and add key
+    YL_SPC,  // spacebar
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -42,11 +43,12 @@ enum custom_keycodes {
 // YL == yakloin
 // MT == mod-tap (mod if held, tap the keycode otherwise)
 // OSM == one-shot-mod
-// LT == layer-tap
+// LT(layer, kc) - momentarily activates layer when held, and sends kc when tapped. Only supports layers 0-15.
 // MO == momentary layer
 
 // #define YL_ESC MT(MOD_LCTL, KC_ESC)
 #define YL_ESC LT(MACROS, KC_ESC)
+#define YL_SPC LT(SYMBOLS, KC_SPC)
 
 #define YL_RSFT KC_RSFT
 //MT(MOD_RSFT, KC_ENT)

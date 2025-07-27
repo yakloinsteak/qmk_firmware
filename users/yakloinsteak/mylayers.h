@@ -8,4 +8,5 @@ enum layer_number {
     ADJUST, // both the previous together
     MACROS,
     UTIL,
+    SYMBOLS,
 };
