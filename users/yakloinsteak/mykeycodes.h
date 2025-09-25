@@ -36,7 +36,7 @@ enum custom_keycodes {
 #ifdef TAP_DANCE_ENABLE
    // Tap dance shortenings
 #  define YL_GRAV TD(TD_GRAV)
-#  define YL_U    TD(TD_U)
+// #  define YL_U    TD(TD_U)
 #  define YL_QUOT TD(TD_QUOT)
 #endif
 

@@ -5,7 +5,7 @@
 enum {
   TD_QUOT,
   TD_GRAV,
-  TD_U,
+  // TD_U,
 };
 
 void magic_quote(tap_dance_state_t *state, void *user_data);
