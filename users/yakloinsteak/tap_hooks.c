@@ -42,7 +42,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             // This key is mostly just esc, but if you hold it a long time, you can activate the hold action
             return g_tapping_term + 30;
         case YL_SPC:
-            return g_tapping_term - 30;
+            return g_tapping_term - 40;
         default:
             return g_tapping_term;
     }
