@@ -9,4 +9,5 @@ enum layer_number {
     MACROS,
     UTIL,
     SYMBOLS,
+    CRYPT,
 };

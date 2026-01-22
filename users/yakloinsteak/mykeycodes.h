@@ -106,4 +106,4 @@ enum custom_keycodes {
 #define YL_RTH3 MO(MACROS)
 #define YL_RTH4 MO(UTIL)
 
-#define YL_TRIG UC(0x1D74) // trigger
+#define YL_CRPT MO(CRYPT)
