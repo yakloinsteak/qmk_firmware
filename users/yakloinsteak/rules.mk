@@ -5,6 +5,10 @@ DYNAMIC_TAPPING_TERM_ENABLE = yes
 TRI_LAYER_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 
+# Unicode
+UNICODE_COMMON = yes
+UNICODE_ENABLE = yes
+
 SRC += achordion.c
 SRC += achordion_hooks.c
 SRC += combos.c

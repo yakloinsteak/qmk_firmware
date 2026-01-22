@@ -7,7 +7,7 @@
 #  include "tapdance.h"
 #endif
 
-#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
+// #define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
 enum custom_keycodes {
     YL_SNIP = SAFE_RANGE,
@@ -32,6 +32,7 @@ enum custom_keycodes {
     YL_SSHK, // ssh-agent and add key
     YL_SPC,  // spacebar
     LGTM,    // looks good to me
+    YL_ENT,
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -39,7 +40,6 @@ enum custom_keycodes {
 #  define YL_GRAV TD(TD_GRAV)
 // #  define YL_U    TD(TD_U)
 #  define YL_QUOT TD(TD_QUOT)
-#  define YL_ENT TD(TD_ENTER)
 #endif
 
 // YL == yakloin
@@ -105,3 +105,5 @@ enum custom_keycodes {
 // Resting key if space
 #define YL_RTH3 MO(MACROS)
 #define YL_RTH4 MO(UTIL)
+
+#define YL_TRIG UC(0x1D74) // trigger

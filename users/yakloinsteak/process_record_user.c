@@ -83,6 +83,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // sessionx in tmux but with choices for new session
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s" SS_DELAY(20) SS_DOWN(X_LCTL)"x"SS_UP(X_LCTL)); }
         break;
+    case YL_ENT:
+        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)"l"SS_UP(X_LCTL)SS_UP(X_LALT)"\n"); }
+        break;
     case YL_LSTS:
         // last session in tmux
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"L"); }

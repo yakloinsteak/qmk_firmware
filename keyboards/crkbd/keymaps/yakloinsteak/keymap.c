@@ -8,10 +8,10 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_split_3x6_3(
-    YL_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
+    YL_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    YL_TRIG,
     YL_ESC,   YL_A,   YL_S,    YL_D,    YL_F,    KC_G,                     KC_H,    YL_J,    YL_K,    YL_L,    YL_SCLN, YL_QUOT,
     KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, YL_RSFT,
-                                   YL_LTH3, YL_ENT, YL_LTH1,        YL_RTH1, YL_SPC, YL_RTH3
+                                   YL_LTH3, KC_ENT, YL_LTH1,        YL_RTH1, YL_SPC, YL_RTH3
 ),
 
 [TAB_HOLD_LAYER] = LAYOUT_split_3x6_3(
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______,                   _______, _______, _______
 ),
 
-/* left thumb layer / mouse */
+/* left thumb layer right of home / mouse */
 [LOWER] = LAYOUT_split_3x6_3(
     XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_CTR,  MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
@@ -29,17 +29,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______,                   _______, _______, _______
 ),
 
-/* Right thumb / homerow mod digits and symbols
+/* Right thumb left of home / homerow mod digits and symbols
  * mirror-pairs below homerow
  * */
 [UPPER] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
     YL_GRAV, YL_1,    YL_2,    YL_3,    YL_4,    KC_5,                      KC_6,    YL_7,    YL_8,    YL_9,    YL_0,    _______,
     _______, YL_BSLS, YL_LT,   YL_LBRC, YL_LCBR, KC_LPRN,                   KC_RPRN, YL_RCBR, YL_RBRC, YL_GT,   YL_SLSH, _______,
-                               _______, _______, _______,                   _______, _______, _______
+                               _______, YL_ENT, _______,                    _______, _______, _______
 ),
 
-// both of closest thumbs together, function keys
+// both of closest thumbs moved together inward from home, function keys
 [ADJUST] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, YL_QUIT, YL_WRIT, YL_WSCH, YL_SNIP, _______,                   DM_REC1, DM_REC2, DM_RSTP, _______, _______, _______,
     _______, _______, YL_SSHK, _______, YL_FIAP, _______,                   DM_PLY1, DM_PLY2, UPDIR,   YL_LSTS, _______, _______,
     _______, _______, _______, _______,    LGTM, _______,                   _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______,                   _______, _______, _______
+                               _______,  YL_ENT, _______,                   _______, _______, _______
 ),
 
 // Keyboard/RGB control. bootloader mode. debugging. Screen brightness
@@ -65,11 +65,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______,                   _______, _______, _______
 ),
 
+// right thumb held down
 [SYMBOLS] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_PLUS, KC_UNDS, _______,                   _______, _______, _______, _______, _______, _______,
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
     _______, KC_PIPE, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______,                   _______, _______, _______
+                               _______, YL_ENT,  _______,                   _______, _______, _______
 ),
 
 /* [LED] = LAYOUT_split_3x6_3( */
