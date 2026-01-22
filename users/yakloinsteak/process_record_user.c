@@ -98,6 +98,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DBLCLK:  // Double click the left mouse button.
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_BTN1) SS_DELAY(50) SS_TAP(X_BTN1)); }
         return false;
+    case LGTM:  // Looks good to me.
+        if (record->event.pressed) { SEND_STRING("LGTM!"); }
+        return false;
     case YL_SLSH:
         if (record->event.pressed) { tap_code16(KC_SLSH); }
         return false;

@@ -31,6 +31,7 @@ enum custom_keycodes {
     YL_LSTS, // last session in tmux
     YL_SSHK, // ssh-agent and add key
     YL_SPC,  // spacebar
+    LGTM,    // looks good to me
 };
 
 #ifdef TAP_DANCE_ENABLE
