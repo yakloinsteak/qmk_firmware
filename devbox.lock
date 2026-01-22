@@ -137,6 +137,70 @@
         }
       }
     },
+    "qmk@latest": {
+      "last_modified": "2025-07-21T09:58:03Z",
+      "resolved": "github:NixOS/nixpkgs/2baf8e1658cba84a032c3a8befb1e7b06629242a#qmk",
+      "source": "devbox-search",
+      "version": "1.1.8",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/nxj9715nna3x5kyrkr7wwkd79b3yc9dc-qmk-1.1.8",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/c4bsj9jjzlll5wxgmhf66g2nffrf230r-qmk-1.1.8-dist"
+            }
+          ],
+          "store_path": "/nix/store/nxj9715nna3x5kyrkr7wwkd79b3yc9dc-qmk-1.1.8"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/b88afmqbapa4zl6wzm9sc7znc4d7ycfa-qmk-1.1.8",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/4fq5370phmh4c3j93a1hm2bdqg649qp0-qmk-1.1.8-dist"
+            }
+          ],
+          "store_path": "/nix/store/b88afmqbapa4zl6wzm9sc7znc4d7ycfa-qmk-1.1.8"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/bfxvmpni81f0fwlnjmw7hywkn0l4zvng-qmk-1.1.8",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/8642hyqcsqwb1706p2z0qsshz7x7lr90-qmk-1.1.8-dist"
+            }
+          ],
+          "store_path": "/nix/store/bfxvmpni81f0fwlnjmw7hywkn0l4zvng-qmk-1.1.8"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fpp2adjagfcwyvb2dz0hwrxyw71m7smk-qmk-1.1.8",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/snbykimfw0ni51xzkwzlv02fx1v8974a-qmk-1.1.8-dist"
+            }
+          ],
+          "store_path": "/nix/store/fpp2adjagfcwyvb2dz0hwrxyw71m7smk-qmk-1.1.8"
+        }
+      }
+    },
     "rustc@latest": {
       "last_modified": "2024-11-16T04:25:12Z",
       "plugin_version": "0.0.1",

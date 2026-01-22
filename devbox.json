@@ -4,7 +4,8 @@
     "cargo@latest",
     "rustc@latest",
     "python@3.13",
-    "avrdudess@latest"
+    "avrdudess@latest",
+    "qmk@latest"
   ],
   "shell": {
     "init_hook": [

@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Generally, also, things that you don't type very often or need rarely
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT_split_3x6_3(
-    QK_BOOT, _______, DT_UP  , _______, _______, _______,                   _______, RM_TOGG, _______, _______, _______, _______,
-    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   RM_SATD, RM_PREV, RM_NEXT, RM_SATU, _______, _______,
-    _______, _______, DT_PRNT, _______, _______, _______,                   RM_VALD, RM_HUED, RM_HUEU, RM_VALU, _______, _______,
+    QK_BOOT, _______, DT_UP  , _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, DT_PRNT, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
                                _______, _______, _______,                   _______, _______, _______
 ),
 
