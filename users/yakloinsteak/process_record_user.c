@@ -40,12 +40,21 @@ __attribute__ ((weak))
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t tmux_timer;
     static bool tmux_on = false;
+    static bool lth3_pressed = false;
+    static bool rth3_pressed = false;
 
     if (!process_achordion(keycode, record)) { return false; }
 
-    if (tmux_on && timer_elapsed(tmux_timer) >= TAPPING_TERM && record->event.pressed) {
+    // MO(MACROS) excluded so entering the LTH3+RTH3 → SYMBOLS hold doesn't emit a spurious ^a.
+    if (tmux_on && timer_elapsed(tmux_timer) >= TAPPING_TERM && record->event.pressed
+        && keycode != MO(MACROS)) {
         tap_code16(C(KC_A));  // Tap Ctrl+A before subsequent taps.
     }
+
+    if (keycode == YL_CTLA)           lth3_pressed = record->event.pressed;
+    else if (keycode == MO(MACROS))   rth3_pressed = record->event.pressed;
+    if (lth3_pressed && rth3_pressed) layer_on(SYMBOLS);
+    else                              layer_off(SYMBOLS);
 
 #   ifdef OLED_ENABLE
     if (record->event.pressed) {

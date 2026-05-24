@@ -50,7 +50,9 @@ enum custom_keycodes {
 
 // #define YL_ESC MT(MOD_LCTL, KC_ESC)
 #define YL_ESC LT(MACROS, KC_ESC)
-#define YL_SPC LT(SYMBOLS, KC_SPC)
+
+//#define YL_SPC LT(SYMBOLS, KC_SPC)
+#define YL_SPC KC_SPC
 
 #define YL_RSFT KC_RSFT
 //MT(MOD_RSFT, KC_ENT)
