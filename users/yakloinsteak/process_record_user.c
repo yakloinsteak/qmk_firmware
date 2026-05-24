@@ -42,19 +42,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool tmux_on = false;
     static bool lth3_pressed = false;
     static bool rth3_pressed = false;
+    static bool lth3_held_with_combo = false;
 
     if (!process_achordion(keycode, record)) { return false; }
 
-    // MO(MACROS) excluded so entering the LTH3+RTH3 → SYMBOLS hold doesn't emit a spurious ^a.
+    // Suppress the auto-^a prefix while LTH3+RTH3 is held (symbols-combo mode), and
+    // also for the RTH3 press itself (which arrives before rth3_pressed is updated below).
     if (tmux_on && timer_elapsed(tmux_timer) >= TAPPING_TERM && record->event.pressed
-        && keycode != MO(MACROS)) {
-        tap_code16(C(KC_A));  // Tap Ctrl+A before subsequent taps.
+        && keycode != MO(MACROS)
+        && !(lth3_pressed && rth3_pressed)) {
+        tap_code16(C(KC_A));
     }
 
     if (keycode == YL_CTLA)           lth3_pressed = record->event.pressed;
     else if (keycode == MO(MACROS))   rth3_pressed = record->event.pressed;
-    if (lth3_pressed && rth3_pressed) layer_on(SYMBOLS);
-    else                              layer_off(SYMBOLS);
+    if (lth3_pressed && rth3_pressed) { layer_on(SYMBOLS); lth3_held_with_combo = true; }
+    else                                layer_off(SYMBOLS);
 
 #   ifdef OLED_ENABLE
     if (record->event.pressed) {
@@ -68,8 +71,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             tmux_timer = timer_read();
             tmux_on = true;
+            lth3_held_with_combo = false;
         } else {
-            if (timer_elapsed(tmux_timer) < TAPPING_TERM) { tap_code16(C(KC_A)); }
+            // Suppress the tap-^a when RTH3 was held at any point during this LTH3 hold —
+            // it was a brief LTH3+RTH3 combo press, not a single-tap.
+            if (timer_elapsed(tmux_timer) < TAPPING_TERM && !lth3_held_with_combo) { tap_code16(C(KC_A)); }
             tmux_on = false;
         }
         return false;
