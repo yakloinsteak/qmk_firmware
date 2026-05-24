@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* left thumb layer right of home / mouse */
-[LOWER] = LAYOUT_split_3x6_3(
+[LTHUMB_2R] = LAYOUT_split_3x6_3(
     XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_CTR,  MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX,                   DBLCLK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Right thumb left of home / homerow mod digits and symbols
  * mirror-pairs below homerow
  * */
-[UPPER] = LAYOUT_split_3x6_3(
+[RTHUMB_2L] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
     YL_GRAV, YL_1,    YL_2,    YL_3,    YL_4,    KC_5,                      KC_6,    YL_7,    YL_8,    YL_9,    YL_0,    _______,
     _______, YL_BSLS, YL_LT,   YL_LBRC, YL_LCBR, KC_LPRN,                   KC_RPRN, YL_RCBR, YL_RBRC, YL_GT,   YL_SLSH, _______,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // both of closest thumbs moved together inward from home, function keys
-[ADJUST] = LAYOUT_split_3x6_3(
+[THUMBS_INWARD] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_EQL,  KC_MINS, _______,                   _______, KC_PLUS, _______, _______, _______, _______,
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
-  state = update_tri_layer_state(state, LOWER, MACROS, UTIL);
+  state = update_tri_layer_state(state, LTHUMB_2R, RTHUMB_2L, THUMBS_INWARD); // both thumbs inward
+  state = update_tri_layer_state(state, LTHUMB_2R, MACROS, UTIL);  // both thumbs to the right
   return state;
 }

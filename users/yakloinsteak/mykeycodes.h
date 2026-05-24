@@ -98,10 +98,10 @@ enum custom_keycodes {
 #define YL_LTH3 YL_CTLA
 //#define YL_LTH3 LT(U1, YL_CTLA)
 // resting key is enter
-#define YL_LTH1 MO(LOWER)
+#define YL_LTH1 MO(LTHUMB_2R)
 
 /* Thumbs Right */
-#define YL_RTH1 MO(UPPER)
+#define YL_RTH1 MO(RTHUMB_2L)
 // Resting key if space
 #define YL_RTH3 MO(MACROS)
 #define YL_RTH4 MO(UTIL)

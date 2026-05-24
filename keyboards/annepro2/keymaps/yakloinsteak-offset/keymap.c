@@ -28,7 +28,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______,                            _______,                   _______, _______, _______, _______
  ),
 
-[LOWER] = LAYOUT_60_ansi(
+[LTHUMB_2R] = LAYOUT_60_ansi(
     XXXXXXX,  XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______,  MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,
     _______,  XXXXXXX, YL_CTR,  MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -36,7 +36,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______,                            _______,                   _______, _______, _______, _______
 ),
 
- [UPPER] = LAYOUT_60_ansi(
+ [RTHUMB_2L] = LAYOUT_60_ansi(
     _______,  _______, _______, KC_EQL,  KC_MINS, _______, _______, _______, KC_PLUS, _______, _______, _______, _______, _______,
     KC_GRV,   YL_1,    YL_2,    YL_3,    YL_4,    KC_5,    _______, KC_6,    YL_7,    YL_8,    YL_9,    YL_0,    _______, _______,
     _______,  YL_BSLS, YL_LT,   YL_LBRC, YL_LCBR, KC_LPRN, _______, KC_RPRN, YL_RCBR, YL_RBRC, YL_GT, YL_SLSH, _______,
@@ -45,7 +45,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 
  // mirror-pairs
- [ADJUST] = LAYOUT_60_ansi(
+ [THUMBS_INWARD] = LAYOUT_60_ansi(
     _______, _______, _______, KC_EQL,  KC_MINS, _______, _______, _______, KC_PLUS, _______, _______, _______, _______, _______,
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -103,7 +103,7 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
+    state = update_tri_layer_state(state, LTHUMB_2R, RTHUMB_2L, THUMBS_INWARD);
 
 #   ifdef RGB_MATRIX_ENABLE
     switch (get_highest_layer(state)) {
@@ -115,15 +115,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // Set the leds to blue
             ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
             break;
-        case LOWER:
+        case LTHUMB_2R:
             // Set the leds to
             ap2_led_set_foreground_color(0xFF, 0x00, 0xFF);
             break;
-        case UPPER:
+        case RTHUMB_2L:
             // Set the leds to
             ap2_led_set_foreground_color(0x1F, 0x00, 0x00);
             break;
-        case ADJUST:
+        case THUMBS_INWARD:
             // Set the leds to
             ap2_led_set_foreground_color(0xFF, 0xFF, 0xFF);
             break;
