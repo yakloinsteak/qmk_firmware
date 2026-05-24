@@ -1,0 +1,37 @@
+  DT_UP/DT_DOWN/DT_PRNT let you adjust tap timeout on the fly. probably can remove these once the settings are good.
+  maybe disable in rules if we don't need it. Maybe that saves space? Not sure it really matters
+
+   KC_AP2_BT1: Switch to bluetooth 1
+   KC_AP2_BT2: Switch to bluetooth 2
+   KC_AP2_BT3: Switch to bluetooth 3
+   KC_AP2_BT4: Switch to bluetooth 4
+   KC_AP2_BT_UNPAIR: Unpair bluetooth
+   KC_AP2_USB: Switch to device using the USB
+
+   KC_AP_LED_ON: Enable LEDs
+   KC_AP_LED_OFF: Disable LEDs
+   KC_AP_LED_NEXT_PROFILE: Go to next profile
+   KC_AP_LED_PREV_PROFILE: Go to previous profile
+   KC_AP_LED_NEXT_INTENSITY: Go to next brightness intensity
+   KC_AP_LED_SPEED: Go to next speed
+
+   KC_AP_LED_TOG,
+   KC_AP_LED_NEXT_INTENSITY,
+   KC_AP_LED_SPEED,
+   KC_AP_RGB_VAI,
+   KC_AP_RGB_VAD,
+   KC_AP_RGB_TOG,
+   KC_AP_RGB_MOD,
+
+    /* 0: Full red */
+    /* 1: Full green */
+    /* 2: Full blue */
+    /* 3: Horizontal rainbow */
+    /* 4: Vertical Rainbow */
+    /* 5: Low-FPS Animated Vertical Rainbow */
+    /* 6: Animated Vertical Rainbow */
+    /* 7: Animated Horizontal Rainbow */
+    /* 8: Animated Breathing */
+    /* 9: Animated Red Vertical Wave */
+    /* 10: Animated Spectrum */
+    /* 11: Reactive Fade */

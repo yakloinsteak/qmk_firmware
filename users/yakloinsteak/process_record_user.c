@@ -69,7 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case YL_QUIT:
         // neovim quit
-        if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":q"SS_TAP(X_ENT)); }
+        if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":wq"SS_TAP(X_ENT)); }
         break;
     case YL_WRIT:
         // neovim write
