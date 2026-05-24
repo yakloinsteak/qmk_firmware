@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______,                   _______, _______, _______
 ),
 
-// right thumb held down
+// thumbs outward and together
 [SYMBOLS] = LAYOUT_split_3x6_3(
     _______, _______, _______, KC_PLUS, KC_UNDS, _______,                   _______, _______, _______, _______, _______, _______,
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
