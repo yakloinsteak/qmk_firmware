@@ -17,7 +17,7 @@ CAPS_WORD_ENABLE = yes
 #DYNAMIC_TAPPING_TERM_ENABLE = no
 TAP_DANCE_ENABLE = yes
 
-CONVERT_TO=promicro_rp2040
+CONVERT_TO=rp2040_ce
 #CONVERT_TO=elite_pi
 
 # # If you want to change the display of OLED, you need to change here
