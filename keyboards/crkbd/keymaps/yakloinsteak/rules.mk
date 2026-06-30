@@ -9,8 +9,8 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control (brightness/app k
 LTO_ENABLE = yes            # Link Time Optimization enabled
 MOUSEKEY_ENABLE = yes       # Mouse keys
 NKRO_ENABLE = no            # N-Key Rollover
-OLED_ENABLE = no           # OLED display
-RGBLIGHT_ENABLE = no    # disabled to save flash space
+OLED_ENABLE = no            # OLED display
+RGBLIGHT_ENABLE = no        # disabled to save flash space
 
 CAPS_WORD_ENABLE = yes
 
