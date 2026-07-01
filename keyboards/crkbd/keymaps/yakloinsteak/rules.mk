@@ -9,7 +9,7 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control (brightness/app k
 LTO_ENABLE = yes            # Link Time Optimization enabled
 MOUSEKEY_ENABLE = yes       # Mouse keys
 NKRO_ENABLE = no            # N-Key Rollover
-OLED_ENABLE = no            # OLED display
+OLED_ENABLE = yes           # OLED display
 RGBLIGHT_ENABLE = no        # disabled to save flash space
 
 CAPS_WORD_ENABLE = yes
@@ -20,11 +20,11 @@ TAP_DANCE_ENABLE = yes
 CONVERT_TO=rp2040_ce
 #CONVERT_TO=elite_pi
 
-# # If you want to change the display of OLED, you need to change here
+# If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/keylogger.c
-#./lib/rgb_state_reader.c \
+# SRC += ./lib/logo_reader.c
+#  ./lib/rgb_state_reader.c \
 #         ./lib/layer_state_reader.c \
-#         ./lib/logo_reader.c \
 #         ./lib/timelogger.c \
 #         ./logo.c
 #         # ./lib/mode_icon_reader.c \

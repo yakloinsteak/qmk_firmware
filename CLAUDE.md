@@ -34,7 +34,7 @@ Board-specific flashing:
 
 - **annepro2**: held-Esc bootloader, flashed with `annepro2_tools` (from OpenAnnePro). Output `.bin` files in repo root were built and copied out for flashing.
 - **lily58 yakloinsteak** sets `CONVERT_TO=elite_pi` (RP2040). Flash via UF2: mount `/dev/sda1` at `/media/blackman/RPI-RP2` and copy `.build/lily58_rev1_yakloinsteak.uf2` — see `load-lilly`.
-- **crkbd yakloinsteak** is currently configured without `CONVERT_TO` (AVR build).
+- **crkbd yakloinsteak** sets `CONVERT_TO=rp2040_ce` (RP2040, ChibiOS/ARM build). Flash via UF2: copy `.build/crkbd_rev1_yakloinsteak.uf2` to the mounted RPI-RP2 drive.
 
 ### Unit tests
 
