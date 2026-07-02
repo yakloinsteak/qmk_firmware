@@ -118,8 +118,64 @@ static void render_logo(void) {
     oled_write_P(logo, false);
 }
 
+static void render_status(void);
+
 bool oled_task_user(void) {
-    render_logo();
+    if (is_keyboard_master()) {
+      render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+      render_logo();  // Renders a static logo
+    }
     return false;
 }
+
+// Print the active modifiers and Caps Word as a compact status line.
+static void render_mods(void) {
+    uint8_t mods = get_mods() | get_weak_mods() | get_oneshot_mods();
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("S") : PSTR("-"), false);
+    oled_write_P((mods & MOD_MASK_CTRL)  ? PSTR("C") : PSTR("-"), false);
+    oled_write_P((mods & MOD_MASK_ALT)   ? PSTR("A") : PSTR("-"), false);
+    oled_write_P((mods & MOD_MASK_GUI)   ? PSTR("G") : PSTR("-"), false);
+    oled_write_P(is_caps_word_on() ? PSTR(" CAPS\n") : PSTR("\n"), false);
+}
+
+static void render_status(void) {
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            render_logo();
+            return;  // logo fills the display on the base layer
+        case TAB_HOLD_LAYER:
+            oled_write_P(PSTR("Layer: Nav\n"), false);
+            break;
+        case LTHUMB_2R:
+            oled_write_P(PSTR("Layer: Mouse\n"), false);
+            break;
+        case RTHUMB_2L:
+            oled_write_P(PSTR("Layer: Num/Sym\n"), false);
+            break;
+        case THUMBS_INWARD:
+            oled_write_P(PSTR("Layer: Fn\n"), false);
+            break;
+        case MACROS:
+            oled_write_P(PSTR("Layer: Macros\n"), false);
+            break;
+        case UTIL:
+            oled_write_P(PSTR("Layer: Util\n"), false);
+            break;
+        case SYMBOLS:
+            oled_write_P(PSTR("Layer: Symbols\n"), false);
+            break;
+        case CRYPT:
+            oled_write_P(PSTR("Layer: Crypt\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Layer: "), false);
+            oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
+            oled_write_P(PSTR("\n"), false);
+    }
+    render_mods();
+}
+
+
 #endif
