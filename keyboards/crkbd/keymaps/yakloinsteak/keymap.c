@@ -141,10 +141,13 @@ static void render_mods(void) {
 }
 
 static void render_status(void) {
-    switch (get_highest_layer(layer_state)) {
-        case BASE:
-            render_logo();
-            return;  // logo fills the display on the base layer
+    uint8_t layer = get_highest_layer(layer_state);
+    if (layer == BASE) {
+        render_logo();  // logo fills the whole display on the base layer
+        return;
+    }
+    oled_clear();  // wipe the logo/previous layer text before drawing this layer
+    switch (layer) {
         case TAB_HOLD_LAYER:
             oled_write_P(PSTR("Layer: Nav\n"), false);
             break;
@@ -171,7 +174,7 @@ static void render_status(void) {
             break;
         default:
             oled_write_P(PSTR("Layer: "), false);
-            oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
+            oled_write(get_u8_str(layer, ' '), false);
             oled_write_P(PSTR("\n"), false);
     }
     render_mods();
