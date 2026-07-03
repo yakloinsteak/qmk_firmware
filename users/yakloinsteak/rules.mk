@@ -14,6 +14,7 @@ SRC += achordion_hooks.c
 SRC += combos.c
 SRC += tap_hooks.c
 SRC += process_record_user.c
+SRC += mymouse.c
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	SRC += tapdance.c

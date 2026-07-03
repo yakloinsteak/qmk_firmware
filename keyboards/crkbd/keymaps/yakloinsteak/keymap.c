@@ -180,5 +180,4 @@ static void render_status(void) {
     render_mods();
 }
 
-
 #endif
