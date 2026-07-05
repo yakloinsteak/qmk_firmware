@@ -31,7 +31,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LTHUMB_2R] = LAYOUT_60_ansi(
     XXXXXXX,  XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______,  MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______,  XXXXXXX, YL_CTR,  MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______,  XXXXXXX, YL_WRPC, MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______,        _______, _______, _______, _______,  _______, _______, _______,  _______, _______, _______, _______,
     _______,  _______, _______,                            _______,                   _______, _______, _______, _______
 ),

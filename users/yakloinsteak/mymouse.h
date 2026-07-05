@@ -22,9 +22,21 @@ typedef enum {
     MON_COUNT,
 } mon_layout_t;
 
-// Move the pointer to (px%, py%) of the active layout's main monitor.
-// px/py are integer percentages 0..100 (clamped).
+// Convention for all warps: +x = right, +y = DOWN (negative to go left/up).
+
+// Absolute warp to (px%, py%) of the active layout's main monitor.
+// px/py are integer percentages 0..100 (clamped). Pins to the corner first, so
+// this is the reliable choice for hitting a fixed point.
 void warp_mouse_pct(uint8_t px, uint8_t py);
+
+// Absolute warp to pixel (x, y) within the active layout's main monitor
+// (0,0 = that monitor's top-left). Also pins to the corner first.
+void warp_mouse_px(int16_t x, int16_t y);
+
+// Relative nudge from the current cursor position (no corner pin). Prefer a
+// SHORT nudge after an absolute warp — long relative moves drift.
+void warp_mouse_move_px(int16_t dx, int16_t dy);         // in pixels
+void warp_mouse_pct_relative(int8_t dx_pct, int8_t dy_pct); // in % of main monitor
 
 // Convenience: warp to the center of the active layout's main monitor.
 void warp_mouse_to_center(void);
