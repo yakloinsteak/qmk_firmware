@@ -14,7 +14,6 @@ enum custom_keycodes {
     YL_WSCH,
     UPDIR,
     DBLCLK,
-    YL_CTR,
     YL_WRIT,
     YL_QUIT,
     YL_SLSH,
@@ -33,6 +32,13 @@ enum custom_keycodes {
     YL_SPC,  // spacebar
     LGTM,    // looks good to me
     YL_ENT,
+    YL_MON1, // select monitor layout: laptop
+    YL_MON2, // select monitor layout: home
+    YL_MON3, // select monitor layout: office
+    YL_WRPL, // Warp Left
+    YL_WRPC, // Warp Center
+    YL_WRPR, // Warp Right
+    YL_WRPB, // Warp Bitwarden MFA
 };
 
 #ifdef TAP_DANCE_ENABLE

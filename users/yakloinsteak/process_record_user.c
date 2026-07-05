@@ -155,10 +155,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-    case YL_CTR:
+    // Mouse warping to points
+    case YL_WRPL:
         if (record->event.pressed) {
-            warp_mouse_to_center();
+            warp_mouse_pct(14, 50);
         }
+        return false;
+    case YL_WRPC:
+        if (record->event.pressed) {
+            warp_mouse_pct(50, 50);
+        }
+        return false;
+    case YL_WRPR:
+        if (record->event.pressed) {
+            warp_mouse_pct(86, 50);
+        }
+        return false;
+    case YL_WRPB:
+        // warp to bitwarden click point
+        if (record->event.pressed) {
+            warp_mouse_pct(50, 50);
+            /* warp_mouse_pct_relative(10, 20); */
+        }
+        return false;
+    case YL_MON1:
+        if (record->event.pressed) { mon_layout_set(MON_LAPTOP); }
+        return false;
+    case YL_MON2:
+        if (record->event.pressed) { mon_layout_set(MON_HOME); }
+        return false;
+    case YL_MON3:
+        if (record->event.pressed) { mon_layout_set(MON_OFFICE); }
         return false;
 
     }

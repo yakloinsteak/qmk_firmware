@@ -4,6 +4,7 @@
 #include "combos.h"
 #include "achordion.h"
 #include "tapdance.h"
+#include "mymouse.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -23,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* left thumb layer right of home / mouse */
 [LTHUMB_2R] = LAYOUT_split_3x6_3(
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_CTR,  MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX,                   DBLCLK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_WRPB, MS_BTN1, MS_BTN2, XXXXXXX, YL_WRPL, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, YL_WRPC, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX,                   DBLCLK,  XXXXXXX, XXXXXXX, XXXXXXX, YL_WRPR, XXXXXXX,
                                _______, _______, _______,                   _______, _______, _______
 ),
 
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT_split_3x6_3(
     QK_BOOT, _______, DT_UP  , _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
     _______, _______, DT_PRNT, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
                                _______, _______, _______,                   _______, _______, _______
 ),
@@ -153,6 +154,9 @@ static void render_status(void) {
             break;
         case LTHUMB_2R:
             oled_write_P(PSTR("Layer: Mouse\n"), false);
+            oled_write_P(PSTR("Mon: "), false);
+            oled_write(mon_layout_name(mon_layout_get()), false);
+            oled_write_P(PSTR("\n"), false);
             break;
         case RTHUMB_2L:
             oled_write_P(PSTR("Layer: Num/Sym\n"), false);
