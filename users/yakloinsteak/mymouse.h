@@ -23,14 +23,13 @@
 // Commanded distance is multiplied by NUM/DEN to compensate. Calibrate: warp to
 // center; if it lands at F% instead of 50%, multiply NUM/DEN by 50/F. Because
 // the walk moves one axis at a time (see mouse_walk), a single gain fixes both.
-// Re-calibrating for YL_WARP_STEP 16: start at 1/1 and re-measure the center.
-// (At step 4 the factor was 0.4 → gain 2.5; a bigger step raises the OS accel
-// factor, so the needed gain is smaller — measure it.)
+// Calibrated for YL_WARP_STEP 16: center landed at ~33% (factor 0.66) with 1/1,
+// so scale by 50/33 ≈ 1.5x. (At step 4 the factor was 0.4 → gain 2.5.)
 #ifndef YL_WARP_GAIN_NUM
-#    define YL_WARP_GAIN_NUM 1
+#    define YL_WARP_GAIN_NUM 3
 #endif
 #ifndef YL_WARP_GAIN_DEN
-#    define YL_WARP_GAIN_DEN 1
+#    define YL_WARP_GAIN_DEN 2
 #endif
 
 // Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
