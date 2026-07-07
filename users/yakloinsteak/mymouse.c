@@ -18,7 +18,7 @@ static const struct {
     uint8_t     primary;        // index of the macOS main display (dialogs center here)
     uint16_t    dw, dh;         // pin span; must cover the whole desktop union
 } LAYOUTS[MON_COUNT] = {
-    [MON_LAPTOP] = {"Laptop", 1, {{0, 0, 1920, 1080}}, 0, 1920, 1080},
+    [MON_LAPTOP] = {"Laptop", 1, {{0, 0, 1512, 982}}, 0, 1512, 982}, // 14" MBP, logical pts
     [MON_HOME]   = {"Home", 2, {{0, 0, 1920, 1200}, {1920, 0, 1920, 1080}}, 0, 3840, 1253},
     // Office (measured, logical pts): left=main @0,0 1800x1169 | center/VM @1800,89 1920x1080 | right @3720,-31 1600x1200
     [MON_OFFICE] = {"Office", 3, {{0, 0, 1800, 1169}, {1800, 89, 1920, 1080}, {3720, -31, 1600, 1200}}, 0, 5400, 1220},
@@ -84,15 +84,24 @@ static void mouse_report(mouse_xy_report_t dx, mouse_xy_report_t dy) {
 }
 
 // Walk a relative delta (dx, dy; may be negative) in YL_WARP_STEP-sized reports.
+// Each axis is walked separately (never diagonally) so every report moves at the
+// same per-report speed and thus the same OS acceleration gain — a diagonal
+// segment would scale x and y differently. Commanded distance is pre-scaled by
+// YL_WARP_GAIN_* to compensate for that (roughly constant) gain.
 static void mouse_walk(int32_t dx, int32_t dy) {
+    dx = dx * YL_WARP_GAIN_NUM / YL_WARP_GAIN_DEN;
+    dy = dy * YL_WARP_GAIN_NUM / YL_WARP_GAIN_DEN;
     int32_t sx = (dx < 0) ? -1 : 1, ax = (dx < 0) ? -dx : dx;
+    while (ax > 0) {
+        int32_t step = (ax > YL_WARP_STEP) ? YL_WARP_STEP : ax;
+        mouse_report((mouse_xy_report_t)(sx * step), 0);
+        ax -= step;
+    }
     int32_t sy = (dy < 0) ? -1 : 1, ay = (dy < 0) ? -dy : dy;
-    while (ax > 0 || ay > 0) {
-        int32_t stepx = (ax > YL_WARP_STEP) ? YL_WARP_STEP : ax;
-        int32_t stepy = (ay > YL_WARP_STEP) ? YL_WARP_STEP : ay;
-        mouse_report((mouse_xy_report_t)(sx * stepx), (mouse_xy_report_t)(sy * stepy));
-        ax -= stepx;
-        ay -= stepy;
+    while (ay > 0) {
+        int32_t step = (ay > YL_WARP_STEP) ? YL_WARP_STEP : ay;
+        mouse_report(0, (mouse_xy_report_t)(sy * step));
+        ay -= step;
     }
     mouse_report(0, 0); // stop
 }

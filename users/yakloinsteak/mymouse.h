@@ -17,6 +17,18 @@
 #    define YL_WARP_STEP 4 // px moved per report while warping (1..127)
 #endif
 
+// Pointer-acceleration compensation. macOS scales our relative reports by a
+// factor that is ~constant for a fixed step, so the walk lands short (or long).
+// Commanded distance is multiplied by NUM/DEN to compensate. Calibrate: warp to
+// center; if it lands at F% instead of 50%, multiply NUM/DEN by 50/F. Because
+// the walk moves one axis at a time (see mouse_walk), a single gain fixes both.
+#ifndef YL_WARP_GAIN_NUM
+#    define YL_WARP_GAIN_NUM 1
+#endif
+#ifndef YL_WARP_GAIN_DEN
+#    define YL_WARP_GAIN_DEN 1
+#endif
+
 // Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
 #define YL_MAX_MON 3
 
