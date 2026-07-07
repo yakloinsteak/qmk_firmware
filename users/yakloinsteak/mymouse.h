@@ -8,8 +8,13 @@
 // *active monitor layout's* main screen. Because the OS applies pointer
 // acceleration to each report, this lands near the target, not exactly on it;
 // lower YL_WARP_STEP for more accuracy at the cost of more reports (slower).
+// Small step: macOS applies pointer acceleration per report, and at ~1 report/ms
+// a large step lands deep in the accelerated region and massively overshoots.
+// A small, constant-magnitude step keeps every report near the low (~1:1) end of
+// the curve so the walk tracks the requested pixels. Lower = more accurate but
+// more reports (slower). See warp calibration notes in mymouse.c.
 #ifndef YL_WARP_STEP
-#    define YL_WARP_STEP 70 // px moved per report while warping (1..127)
+#    define YL_WARP_STEP 4 // px moved per report while warping (1..127)
 #endif
 
 // Selectable monitor layouts. Each has its own screen geometry (see the table
