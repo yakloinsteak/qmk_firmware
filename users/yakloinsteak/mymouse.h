@@ -14,19 +14,23 @@
 // the curve so the walk tracks the requested pixels. Lower = more accurate but
 // more reports (slower). See warp calibration notes in mymouse.c.
 #ifndef YL_WARP_STEP
-#    define YL_WARP_STEP 4 // px moved per report while warping (1..127)
-#endif
+#    define YL_WARP_STEP 16 // px moved per report while warping (1..127). Bigger
+#endif                      // = fewer reports = faster, but changes the OS accel
+                            // factor, so re-calibrate YL_WARP_GAIN when changed.
 
 // Pointer-acceleration compensation. macOS scales our relative reports by a
 // factor that is ~constant for a fixed step, so the walk lands short (or long).
 // Commanded distance is multiplied by NUM/DEN to compensate. Calibrate: warp to
 // center; if it lands at F% instead of 50%, multiply NUM/DEN by 50/F. Because
 // the walk moves one axis at a time (see mouse_walk), a single gain fixes both.
+// Re-calibrating for YL_WARP_STEP 16: start at 1/1 and re-measure the center.
+// (At step 4 the factor was 0.4 → gain 2.5; a bigger step raises the OS accel
+// factor, so the needed gain is smaller — measure it.)
 #ifndef YL_WARP_GAIN_NUM
-#    define YL_WARP_GAIN_NUM 5 // measured: laptop center landed at ~20% (0.4x),
-#endif                         // so scale commanded distance by 50/20 = 2.5x.
+#    define YL_WARP_GAIN_NUM 1
+#endif
 #ifndef YL_WARP_GAIN_DEN
-#    define YL_WARP_GAIN_DEN 2
+#    define YL_WARP_GAIN_DEN 1
 #endif
 
 // Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
