@@ -163,16 +163,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
     case YL_WRPB:
-        // Warp to the Bitwarden MFA click point. The dialog is centered, so we
-        // warp to the monitor center (accurate: it pins to the corner first)
-        // then nudge by a per-layout offset. +x right, +y down (negate for up).
-        // Tune each offset once, on each setup, by eye.
+        // Warp to the Bitwarden MFA click point. The dialog is centered on the
+        // monitor it opens on (which screen depends on the layout), so warp to
+        // that monitor's center then nudge by a per-layout offset. +x right,
+        // +y down (negate for up). Tune each offset once, on each setup, by eye.
         if (record->event.pressed) {
-            warp_mouse_to_center();
             switch (mon_layout_get()) {
-                case MON_LAPTOP: warp_mouse_move_px(300, -200); break; // right 300, up 200
-                case MON_HOME:   warp_mouse_move_px(300, -200); break; // TODO: tune
-                case MON_OFFICE: warp_mouse_move_px(300, -200); break; // TODO: tune
+                case MON_LAPTOP: // the only screen
+                    warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(300, -200); break;
+                case MON_HOME:   // laptop is on the right; dialog opens on the left monitor
+                    warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(300, -200); break; // TODO: tune
+                case MON_OFFICE: // center monitor
+                    warp_mouse_to_screen(YL_SCREEN_CENTER); warp_mouse_move_px(300, -200); break; // TODO: tune
             }
         }
         return false;

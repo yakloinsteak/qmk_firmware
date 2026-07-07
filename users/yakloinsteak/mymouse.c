@@ -88,20 +88,28 @@ static void mouse_report(mouse_xy_report_t dx, mouse_xy_report_t dy) {
 // same per-report speed and thus the same OS acceleration gain — a diagonal
 // segment would scale x and y differently. Commanded distance is pre-scaled by
 // YL_WARP_GAIN_* to compensate for that (roughly constant) gain.
+//
+// Y is walked BEFORE X on purpose. We start pinned at the desktop's top-left
+// corner (top of the primary monitor). Side monitors may not extend all the way
+// up to y=0 (e.g. one starting at y=89), so walking X first along y=0 runs into
+// the void past the primary monitor's right edge and the cursor clamps there.
+// Descending to the target y first (inside the full-height primary monitor) and
+// then crossing X at that row — where the monitors overlap vertically — keeps
+// the path on real screen the whole way.
 static void mouse_walk(int32_t dx, int32_t dy) {
     dx = dx * YL_WARP_GAIN_NUM / YL_WARP_GAIN_DEN;
     dy = dy * YL_WARP_GAIN_NUM / YL_WARP_GAIN_DEN;
-    int32_t sx = (dx < 0) ? -1 : 1, ax = (dx < 0) ? -dx : dx;
-    while (ax > 0) {
-        int32_t step = (ax > YL_WARP_STEP) ? YL_WARP_STEP : ax;
-        mouse_report((mouse_xy_report_t)(sx * step), 0);
-        ax -= step;
-    }
     int32_t sy = (dy < 0) ? -1 : 1, ay = (dy < 0) ? -dy : dy;
     while (ay > 0) {
         int32_t step = (ay > YL_WARP_STEP) ? YL_WARP_STEP : ay;
         mouse_report(0, (mouse_xy_report_t)(sy * step));
         ay -= step;
+    }
+    int32_t sx = (dx < 0) ? -1 : 1, ax = (dx < 0) ? -dx : dx;
+    while (ax > 0) {
+        int32_t step = (ax > YL_WARP_STEP) ? YL_WARP_STEP : ax;
+        mouse_report((mouse_xy_report_t)(sx * step), 0);
+        ax -= step;
     }
     mouse_report(0, 0); // stop
 }
