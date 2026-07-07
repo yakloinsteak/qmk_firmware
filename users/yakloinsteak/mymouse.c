@@ -114,15 +114,34 @@ static void mouse_walk(int32_t dx, int32_t dy) {
     mouse_report(0, 0); // stop
 }
 
-// Pin the cursor to (0,0) of the virtual desktop using big -127 jumps.
-// pin_w/pin_h must be >= the full desktop size; overshoot is clamped at 0,0.
+// Pin the cursor to (0,0) of the virtual desktop using big 127-px jumps that
+// overshoot and clamp at each edge. Done one axis at a time on on-screen paths:
+// a diagonal up-left pin can wedge at a monitor seam when the monitors don't
+// share a top edge (e.g. office: left top y=0, center y=89, right y=-31) —
+// climbing up-left off the right monitor hits the void above the center monitor
+// and clamps mid-desktop, never reaching x=0.
+//
+// DOWN then LEFT then UP: the bottom edge is the safe horizontal rail (office is
+// bottom-aligned; in home the main/left monitor is tallest so its bottom is the
+// lowest), and x=0 is the main monitor's full-height column for the final climb.
+// Assumes the main monitor reaches the lowest bottom of the arrangement — true
+// for laptop/home/office; a side monitor hanging below the main would break the
+// DOWN→LEFT rail. pin_w/pin_h must be >= the full desktop size.
 static void mouse_pin_topleft(int32_t pin_w, int32_t pin_h) {
-    for (int32_t x = pin_w, y = pin_h; x > 0 || y > 0;) {
+    for (int32_t y = pin_h; y > 0;) { // DOWN to the bottom edge
+        mouse_xy_report_t dy = (y > 127) ? 127 : (mouse_xy_report_t)y;
+        mouse_report(0, dy);
+        y -= dy;
+    }
+    for (int32_t x = pin_w; x > 0;) { // LEFT along the bottom to x=0
         mouse_xy_report_t dx = (x > 127) ? -127 : (mouse_xy_report_t)-x;
+        mouse_report(dx, 0);
+        x -= (int32_t)(dx < 0 ? -dx : dx);
+    }
+    for (int32_t y = pin_h; y > 0;) { // UP the x=0 column to y=0
         mouse_xy_report_t dy = (y > 127) ? -127 : (mouse_xy_report_t)-y;
-        mouse_report(dx, dy);
-        x += dx; // dx is <= 0
-        y += dy;
+        mouse_report(0, dy);
+        y -= (int32_t)(dy < 0 ? -dy : dy);
     }
 }
 
