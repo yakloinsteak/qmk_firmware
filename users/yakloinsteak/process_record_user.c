@@ -155,20 +155,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-    // Mouse warping to points
+    // Mouse warping: jump to the left / center / right physical monitor.
     case YL_WRPL:
         if (record->event.pressed) {
-            warp_mouse_pct(14, 50);
+            warp_mouse_to_screen(YL_SCREEN_LEFT);
         }
         return false;
     case YL_WRPC:
         if (record->event.pressed) {
-            warp_mouse_pct(50, 50);
+            warp_mouse_to_screen(YL_SCREEN_CENTER);
         }
         return false;
     case YL_WRPR:
         if (record->event.pressed) {
-            warp_mouse_pct(86, 50);
+            warp_mouse_to_screen(YL_SCREEN_RIGHT);
         }
         return false;
     case YL_WRPB:

@@ -2,19 +2,26 @@
 #include "mymouse.h"
 
 // Monitor layouts. A relative HID mouse can only pin to (0,0) of the *whole*
-// virtual desktop, so each layout stores both the main monitor's rect (origin
-// ox,oy + size w,h — what percentages are measured against) and the full
-// desktop size (dw,dh — how far to travel to reach the top-left corner).
-// Seeded from ~/.config/i3/xrandr; edit to match your actual setups.
+// virtual desktop, so each layout lists its monitors left-to-right in *logical
+// points* (macOS CGDisplayBounds units — HiDPI-aware, NOT physical pixels),
+// names the primary (macOS "main") display, and gives the desktop pin span
+// (dw,dh — must cover the whole union so a corner-pin always lands at 0,0).
+// Get the numbers on the host with the CGDisplayBounds swift dump (see runme).
+typedef struct {
+    int16_t x, y, w, h; // rect in global logical points (x/y may be off-origin)
+} yl_mon_t;
+
 static const struct {
     const char *name;
-    uint16_t    ox, oy; // main monitor origin within the virtual desktop
-    uint16_t    w, h;   // main monitor size
-    uint16_t    dw, dh; // full virtual desktop size (for corner-pinning)
+    uint8_t     count;          // monitors in use (<= YL_MAX_MON)
+    yl_mon_t    mon[YL_MAX_MON]; // ordered left-to-right by x
+    uint8_t     primary;        // index of the macOS main display (dialogs center here)
+    uint16_t    dw, dh;         // pin span; must cover the whole desktop union
 } LAYOUTS[MON_COUNT] = {
-    [MON_LAPTOP] = {"Laptop", 0, 0, 1920, 1080, 1920, 1080},
-    [MON_HOME]   = {"Home", 0, 0, 1920, 1200, 3840, 1253},   // HDMI-0 primary @0,0 + laptop to the right
-    [MON_OFFICE] = {"Office", 1920, 0, 3840, 2160, 5760, 2160}, // HDMI-0 4K @1920,0 + laptop @0,730
+    [MON_LAPTOP] = {"Laptop", 1, {{0, 0, 1920, 1080}}, 0, 1920, 1080},
+    [MON_HOME]   = {"Home", 2, {{0, 0, 1920, 1200}, {1920, 0, 1920, 1080}}, 0, 3840, 1253},
+    // Office (measured, logical pts): left=main @0,0 1800x1169 | center/VM @1800,89 1920x1080 | right @3720,-31 1600x1200
+    [MON_OFFICE] = {"Office", 3, {{0, 0, 1800, 1169}, {1800, 89, 1920, 1080}, {3720, -31, 1600, 1200}}, 0, 5400, 1220},
 };
 
 // ---- persistence -----------------------------------------------------------
@@ -102,20 +109,46 @@ static void mouse_pin_topleft(int32_t pin_w, int32_t pin_h) {
     }
 }
 
-// Absolute warp to pixel (x, y) within the active layout's main monitor
-// (0,0 = top-left of that monitor). Pins to the desktop corner first.
-void warp_mouse_px(int16_t x, int16_t y) {
+// Active layout's primary (macOS main) monitor.
+static const yl_mon_t *primary_mon(void) {
+    const uint8_t idx = mon_layout_get();
+    return &LAYOUTS[idx].mon[LAYOUTS[idx].primary];
+}
+
+// Pin to the desktop top-left, then walk to a global desktop point (logical
+// points). Origin after the pin is the main display's top-left = global (0,0).
+static void warp_abs(int32_t gx, int32_t gy) {
     const uint8_t idx = mon_layout_get();
     mouse_pin_topleft(LAYOUTS[idx].dw, LAYOUTS[idx].dh);
-    mouse_walk((int32_t)LAYOUTS[idx].ox + x, (int32_t)LAYOUTS[idx].oy + y);
+    mouse_walk(gx, gy);
+}
+
+// Absolute warp to pixel (x, y) within the active layout's primary monitor
+// (0,0 = top-left of that monitor). Pins to the desktop corner first.
+void warp_mouse_px(int16_t x, int16_t y) {
+    const yl_mon_t *p = primary_mon();
+    warp_abs((int32_t)p->x + x, (int32_t)p->y + y);
 }
 
 void warp_mouse_pct(uint8_t px, uint8_t py) {
     if (px > 100) px = 100;
     if (py > 100) py = 100;
+    const yl_mon_t *p = primary_mon();
+    warp_mouse_px((int16_t)((int32_t)px * p->w / 100), //
+                  (int16_t)((int32_t)py * p->h / 100));
+}
+
+// Warp to the center of the layout's left / center / right monitor.
+// which = YL_SCREEN_LEFT / _CENTER / _RIGHT; clamps to the monitors present
+// (a 1-monitor layout sends all three to that monitor).
+void warp_mouse_to_screen(uint8_t which) {
     const uint8_t idx = mon_layout_get();
-    warp_mouse_px((int16_t)((int32_t)px * LAYOUTS[idx].w / 100), //
-                  (int16_t)((int32_t)py * LAYOUTS[idx].h / 100));
+    const uint8_t n   = LAYOUTS[idx].count;
+    const uint8_t m   = (which == YL_SCREEN_LEFT)  ? 0
+                      : (which == YL_SCREEN_RIGHT) ? (uint8_t)(n - 1)
+                                                   : (uint8_t)((n - 1) / 2);
+    const yl_mon_t *s = &LAYOUTS[idx].mon[m];
+    warp_abs((int32_t)s->x + s->w / 2, (int32_t)s->y + s->h / 2);
 }
 
 // Relative nudge from the current position, in pixels. +x right, +y down.
@@ -123,12 +156,12 @@ void warp_mouse_move_px(int16_t dx, int16_t dy) {
     mouse_walk(dx, dy);
 }
 
-// Relative nudge as a percentage of the active layout's main monitor.
+// Relative nudge as a percentage of the active layout's primary monitor.
 // Signed: +x right / +y down, negative for left / up.
 void warp_mouse_pct_relative(int8_t dx_pct, int8_t dy_pct) {
-    const uint8_t idx = mon_layout_get();
-    mouse_walk((int32_t)dx_pct * LAYOUTS[idx].w / 100, //
-               (int32_t)dy_pct * LAYOUTS[idx].h / 100);
+    const yl_mon_t *p = primary_mon();
+    mouse_walk((int32_t)dx_pct * p->w / 100, //
+               (int32_t)dy_pct * p->h / 100);
 }
 
 void warp_mouse_to_center(void) {

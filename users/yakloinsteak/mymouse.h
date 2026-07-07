@@ -17,6 +17,9 @@
 #    define YL_WARP_STEP 4 // px moved per report while warping (1..127)
 #endif
 
+// Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
+#define YL_MAX_MON 3
+
 // Selectable monitor layouts. Each has its own screen geometry (see the table
 // in mymouse.c). The live layout is persisted to EEPROM. Bind a key to each of
 // the YL_MON* keycodes to switch.
@@ -26,6 +29,9 @@ typedef enum {
     MON_OFFICE,
     MON_COUNT,
 } mon_layout_t;
+
+// Which physical screen a warp targets, left-to-right.
+enum yl_screen { YL_SCREEN_LEFT = 0, YL_SCREEN_CENTER, YL_SCREEN_RIGHT };
 
 // Convention for all warps: +x = right, +y = DOWN (negative to go left/up).
 
@@ -43,7 +49,11 @@ void warp_mouse_px(int16_t x, int16_t y);
 void warp_mouse_move_px(int16_t dx, int16_t dy);         // in pixels
 void warp_mouse_pct_relative(int8_t dx_pct, int8_t dy_pct); // in % of main monitor
 
-// Convenience: warp to the center of the active layout's main monitor.
+// Warp to the center of the layout's left / center / right monitor (clamps to
+// the monitors present). Pass a YL_SCREEN_* value.
+void warp_mouse_to_screen(uint8_t which);
+
+// Convenience: warp to the center of the active layout's primary monitor.
 void warp_mouse_to_center(void);
 
 // Select / query the live monitor layout. mon_layout_set() persists across
