@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* left thumb layer / mouse */
 [LTHUMB_2R] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_WRPC, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX, _______, _______, DBLCLK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, MS_ACL2, XXXXXXX,                   YL_WRPB, MS_BTN1, MS_BTN2, XXXXXXX, YL_WRPL, XXXXXXX,
+    _______, MS_WHLL, MS_WHLD, MS_WHLR, MS_ACL0, XXXXXXX,                   MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, YL_WRPC, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL1, XXXXXXX, _______, _______, DBLCLK,  XXXXXXX, XXXXXXX, XXXXXXX, YL_WRPR, XXXXXXX,
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -98,9 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Generally, also, things that you don't type very often or need rarely
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT(
-    QK_BOOT, _______, _______, _______, _______, _______,                   UG_TOGG, _______, _______, _______, _______, _______,
+    QK_BOOT, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     _______, _______, DT_UP  , _______, UC(0x0416), _______,                  _______, _______, _______, _______, _______, _______,
-    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   UG_PREV, UG_VALD, UG_VALU, UG_NEXT, _______, _______,
+    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
     _______, _______, DT_PRNT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -139,41 +139,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef OLED_ENABLE
-
+// Board-specific: rotate the slave display 180°. The actual OLED rendering
+// (layer/mods/logo) is shared across boards in users/yakloinsteak/myoled.c.
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if right side
   return rotation;
-}
-
-// When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-const char *yl_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-//const char *read_keylogs(void);
-
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-void set_timelog(void);
-const char *read_timelog(void);
-
-// 128x32?
-bool oled_task_user(void) {
-  if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    // oled_write_ln(read_keylogs(), false);
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    oled_write_ln(read_timelog(), false);
-  } else {
-    oled_write(read_logo(), false);
-    //oled_write(yl_logo(), false);
-    //yl_logo();
-  }
-  return false;
 }
 #endif // OLED_ENABLE

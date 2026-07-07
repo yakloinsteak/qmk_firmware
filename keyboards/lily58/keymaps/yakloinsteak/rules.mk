@@ -20,12 +20,5 @@ TAP_DANCE_ENABLE = yes
 
 CONVERT_TO=elite_pi
 
-# If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/rgb_state_reader.c \
-        ./lib/layer_state_reader.c \
-        ./lib/logo_reader.c \
-        ./lib/timelogger.c \
-        ./lib/keylogger.c \
-        ./logo.c
-        # ./lib/mode_icon_reader.c \
-        # ./lib/host_led_state_reader.c \
+# OLED rendering is shared in users/yakloinsteak/myoled.c; the lily58 logo font
+# is selected by keyboards/lily58/config.h (OLED_FONT_H "lib/glcdfont_lily.c").

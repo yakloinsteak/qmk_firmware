@@ -4,8 +4,6 @@
 #include "achordion.h"
 #include "mymouse.h"
 
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-
 /* tap_code(kc) to tap an individual key
    register_code(kc) and unregister_code(kc) to press down and release a key.
 
@@ -60,13 +58,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     else if (keycode == MO(MACROS))   rth3_pressed = record->event.pressed;
     if (lth3_pressed && rth3_pressed) { layer_on(SYMBOLS); lth3_held_with_combo = true; }
     else                                layer_off(SYMBOLS);
-
-#   ifdef OLED_ENABLE
-    if (record->event.pressed) {
-      set_keylog(keycode, record);
-      // set_timelog();
-    }
-#   endif
 
     switch (keycode) {
     case YL_CTLA:
