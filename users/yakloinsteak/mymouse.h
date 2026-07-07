@@ -23,10 +23,10 @@
 // center; if it lands at F% instead of 50%, multiply NUM/DEN by 50/F. Because
 // the walk moves one axis at a time (see mouse_walk), a single gain fixes both.
 #ifndef YL_WARP_GAIN_NUM
-#    define YL_WARP_GAIN_NUM 1
-#endif
+#    define YL_WARP_GAIN_NUM 5 // measured: laptop center landed at ~20% (0.4x),
+#endif                         // so scale commanded distance by 50/20 = 2.5x.
 #ifndef YL_WARP_GAIN_DEN
-#    define YL_WARP_GAIN_DEN 1
+#    define YL_WARP_GAIN_DEN 2
 #endif
 
 // Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
