@@ -19,7 +19,10 @@ static const struct {
     uint16_t    dw, dh;         // pin span; must cover the whole desktop union
 } LAYOUTS[MON_COUNT] = {
     [MON_LAPTOP] = {"Laptop", 1, {{0, 0, 1512, 982}}, 0, 1512, 982}, // 14" MBP, logical pts
-    [MON_HOME]   = {"Home", 2, {{0, 0, 1920, 1200}, {1920, 0, 1920, 1080}}, 0, 3840, 1253},
+    // Home (measured, logical pts): external @-1920,-368 1920x1200 is the primary
+    // work monitor, physically LEFT; laptop @0,0 1512x982 is the macOS main display,
+    // physically RIGHT. Ordered left-to-right, so mon[0]=external, mon[1]=laptop.
+    [MON_HOME]   = {"Home", 2, {{-1920, -368, 1920, 1200}, {0, 0, 1512, 982}}, 1, 3500, 1400},
     // Office (measured, logical pts): left=main @0,0 1800x1169 | center/VM @1800,89 1920x1080 | right @3720,-31 1600x1200
     [MON_OFFICE] = {"Office", 3, {{0, 0, 1800, 1169}, {1800, 89, 1920, 1080}, {3720, -31, 1600, 1200}}, 0, 5400, 1220},
 };
@@ -114,34 +117,32 @@ static void mouse_walk(int32_t dx, int32_t dy) {
     mouse_report(0, 0); // stop
 }
 
-// Pin the cursor to (0,0) of the virtual desktop using big 127-px jumps that
-// overshoot and clamp at each edge. Done one axis at a time on on-screen paths:
-// a diagonal up-left pin can wedge at a monitor seam when the monitors don't
-// share a top edge (e.g. office: left top y=0, center y=89, right y=-31) —
-// climbing up-left off the right monitor hits the void above the center monitor
-// and clamps mid-desktop, never reaching x=0.
+// Pin the cursor to the top-left corner of the LEFTMOST monitor (mon[0]) using
+// big 127-px jumps that overshoot and clamp at each edge. One axis at a time:
 //
-// DOWN then LEFT then UP: the bottom edge is the safe horizontal rail (office is
-// bottom-aligned; in home the main/left monitor is tallest so its bottom is the
-// lowest), and x=0 is the main monitor's full-height column for the final climb.
-// Assumes the main monitor reaches the lowest bottom of the arrangement — true
-// for laptop/home/office; a side monitor hanging below the main would break the
-// DOWN→LEFT rail. pin_w/pin_h must be >= the full desktop size.
+//   LEFT first, at the current row — right after a warp the cursor sits in the
+//   monitors' shared vertical band, so travelling left crosses every monitor
+//   continuously to the leftmost one's left edge; then UP that column to its top.
+//
+// Lands at (mon[0].x, mon[0].y), which may be NEGATIVE when a monitor sits left
+// of / above the macOS main display (e.g. home: external at -1920,-368).
+// warp_abs offsets targets by that corner. A diagonal pin can wedge at a seam
+// where monitors don't share a top edge; a down-first pin can't reach a monitor
+// that lives above the bottom rail. pin_w/pin_h must cover the whole union.
+//
+// Caveat: the LEFT pass assumes the current y is within all monitors' shared
+// vertical band (true post-warp / cursor mid-screen). A cursor parked in a
+// region only one monitor reaches could clamp early.
 static void mouse_pin_topleft(int32_t pin_w, int32_t pin_h) {
-    for (int32_t y = pin_h; y > 0;) { // DOWN to the bottom edge
-        mouse_xy_report_t dy = (y > 127) ? 127 : (mouse_xy_report_t)y;
-        mouse_report(0, dy);
-        y -= dy;
-    }
-    for (int32_t x = pin_w; x > 0;) { // LEFT along the bottom to x=0
+    for (int32_t x = pin_w; x > 0;) { // LEFT to the leftmost monitor's edge
         mouse_xy_report_t dx = (x > 127) ? -127 : (mouse_xy_report_t)-x;
         mouse_report(dx, 0);
-        x -= (int32_t)(dx < 0 ? -dx : dx);
+        x += dx; // dx <= 0
     }
-    for (int32_t y = pin_h; y > 0;) { // UP the x=0 column to y=0
+    for (int32_t y = pin_h; y > 0;) { // UP that column to the top
         mouse_xy_report_t dy = (y > 127) ? -127 : (mouse_xy_report_t)-y;
         mouse_report(0, dy);
-        y -= (int32_t)(dy < 0 ? -dy : dy);
+        y += dy; // dy <= 0
     }
 }
 
@@ -151,12 +152,14 @@ static const yl_mon_t *primary_mon(void) {
     return &LAYOUTS[idx].mon[LAYOUTS[idx].primary];
 }
 
-// Pin to the desktop top-left, then walk to a global desktop point (logical
-// points). Origin after the pin is the main display's top-left = global (0,0).
+// Pin to the corner, then walk to a global desktop point (logical points). The
+// pin lands at the leftmost monitor's top-left = (mon[0].x, mon[0].y), which may
+// be negative, so the walk delta is measured from that corner (both parts >= 0).
 static void warp_abs(int32_t gx, int32_t gy) {
     const uint8_t idx = mon_layout_get();
     mouse_pin_topleft(LAYOUTS[idx].dw, LAYOUTS[idx].dh);
-    mouse_walk(gx, gy);
+    const yl_mon_t *tl = &LAYOUTS[idx].mon[0]; // leftmost monitor = pin landing corner
+    mouse_walk(gx - (int32_t)tl->x, gy - (int32_t)tl->y);
 }
 
 // Absolute warp to pixel (x, y) within the active layout's primary monitor
