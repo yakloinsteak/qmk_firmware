@@ -49,11 +49,18 @@
 //   FLOW_TAP_TERM   - suppresses mods during fast typing (was ACHORDION_STREAK);
 //                     100 ms matches the old streak value. Its default only engages
 //                     between alpha-area keys, so Shift-rolled-into-symbol still holds.
-//   SPECULATIVE_HOLD - applies Shift/Ctrl eagerly on keydown (was achordion_eager_mod;
-//                     the default already covers exactly Shift/Ctrl/Shift+Ctrl).
+//   SPECULATIVE_HOLD - applied Shift/Ctrl eagerly on keydown (was achordion_eager_mod).
+//                     DISABLED: unlike Achordion (which buffered the whole chord and
+//                     replayed it as a unit), speculative hold presses Ctrl live at
+//                     keydown while Alt (never in the eager set) lags until the tap-hold
+//                     resolves. That left a bare Ctrl+Alt window mid-chord for Alt+Ctrl+*
+//                     shortcuts (copyq, clear-screen), which Parallels grabs as its
+//                     VM-release hotkey. Without it, the mods assemble together at settle
+//                     time. Trade-off: Shift/Ctrl on keydown (e.g. Shift+Click) is a hair
+//                     less eager. Re-enable with a narrowed get_speculative_hold if wanted.
 #define CHORDAL_HOLD
 #define FLOW_TAP_TERM 100
-#define SPECULATIVE_HOLD
+// #define SPECULATIVE_HOLD
 
 /*
  *
