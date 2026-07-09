@@ -66,8 +66,8 @@ static void render_status(void) {
         case SYMBOLS:
             oled_write_P(PSTR("Layer: Symbols\n"), false);
             break;
-        case CRYPT:
-            oled_write_P(PSTR("Layer: Crypt\n"), false);
+        case WARP:
+            oled_write_P(PSTR("Layer: Warp\n"), false);
             break;
         default:
             oled_write_P(PSTR("Layer: "), false);

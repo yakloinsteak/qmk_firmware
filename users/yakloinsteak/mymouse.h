@@ -71,6 +71,15 @@ void warp_mouse_to_screen(uint8_t which);
 // Convenience: warp to the center of the active layout's primary monitor.
 void warp_mouse_to_center(void);
 
+// Warp to (fx, fy) as a 0..255 fraction of the whole virtual-desktop union
+// (all monitors of the active layout), not just the primary monitor. Used by
+// the per-key WARP layer to mirror a key's physical position onto the desktop.
+void warp_mouse_desktop_frac(uint8_t fx, uint8_t fy);
+
+// Packed warp target (fx<<8 | fy, each 0..255) for the WARP-layer key at matrix
+// (row, col). Weak default = desktop center; each board's keymap overrides it.
+uint16_t yl_warp_target(uint8_t row, uint8_t col);
+
 // Select / query the live monitor layout. mon_layout_set() persists across
 // power cycles; mon_layout_get() lazy-loads from EEPROM on first use.
 void    mon_layout_set(uint8_t idx);

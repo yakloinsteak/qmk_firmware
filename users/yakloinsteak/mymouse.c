@@ -206,3 +206,33 @@ void warp_mouse_pct_relative(int8_t dx_pct, int8_t dy_pct) {
 void warp_mouse_to_center(void) {
     warp_mouse_pct(50, 50);
 }
+
+// Bounding box of the union of all monitors in the active layout, in global
+// logical points. Unlike warp_mouse_pct (which targets the primary monitor),
+// this spans the whole virtual desktop so a fraction maps across every screen.
+static void desktop_bbox(int32_t *ox, int32_t *oy, int32_t *ow, int32_t *oh) {
+    const uint8_t idx = mon_layout_get();
+    int32_t minx = INT32_MAX, miny = INT32_MAX, maxx = INT32_MIN, maxy = INT32_MIN;
+    for (uint8_t i = 0; i < LAYOUTS[idx].count; i++) {
+        const yl_mon_t *m = &LAYOUTS[idx].mon[i];
+        if (m->x < minx) minx = m->x;
+        if (m->y < miny) miny = m->y;
+        if (m->x + m->w > maxx) maxx = m->x + m->w;
+        if (m->y + m->h > maxy) maxy = m->y + m->h;
+    }
+    *ox = minx; *oy = miny; *ow = maxx - minx; *oh = maxy - miny;
+}
+
+// Warp to (fx, fy) as a 0..255 fraction of the whole virtual-desktop union.
+// Pins to the corner first (via warp_abs), so it hits a fixed point.
+void warp_mouse_desktop_frac(uint8_t fx, uint8_t fy) {
+    int32_t ox, oy, ow, oh;
+    desktop_bbox(&ox, &oy, &ow, &oh);
+    warp_abs(ox + (int32_t)fx * ow / 255, oy + (int32_t)fy * oh / 255);
+}
+
+// Packed warp target for the WARP-layer key at matrix (row, col). Weak default
+// = desktop center; each board's keymap overrides it with its own LAYOUT table.
+__attribute__((weak)) uint16_t yl_warp_target(uint8_t row, uint8_t col) {
+    return 0x8080;
+}

@@ -9,7 +9,7 @@ enum layer_number {
     MACROS,
     UTIL,
     SYMBOLS,
-    CRYPT,
+    WARP,
 };
 
 #define LOWER  LTHUMB_2R

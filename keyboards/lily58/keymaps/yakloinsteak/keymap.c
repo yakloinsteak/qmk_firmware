@@ -112,11 +112,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-[CRYPT] = LAYOUT(
+// Per-key mouse warp. Entered one-shot via YL_CRPT (OSL(WARP)) on the top-right
+// key. Every alpha key warps the cursor to the desktop point mirroring its
+// physical spot (targets in warp_frac below). Number row, the 2 inner Z-row
+// keys, and the thumb row stay transparent.
+[WARP] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP,                   YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP,
+  YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP,                   YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP,
+  YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, _______, _______, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP, YL_WARP,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -130,6 +134,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+
+// WARP-layer targets, authored in physical key order via the same LAYOUT macro
+// so QMK maps each to its matrix cell. WF(col, row): col 0..11 -> horizontal
+// fraction col/11, row 0..2 (top/home/bottom) -> vertical fraction row/2, each
+// scaled to 0..255 and packed (fx<<8 | fy). Non-alpha cells hold 0 (never read;
+// YL_WARP is only placed on the alpha keys). See yl_warp_target in mymouse.c.
+#define WF(c, r) (uint16_t)((((uint32_t)(c) * 255 / 11) << 8) | ((uint32_t)(r) * 255 / 2))
+static const uint16_t warp_frac[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
+  0,       0,       0,       0,       0,       0,                             0,       0,       0,       0,       0,        0,
+  WF(0,0), WF(1,0), WF(2,0), WF(3,0), WF(4,0), WF(5,0),                   WF(6,0), WF(7,0), WF(8,0), WF(9,0), WF(10,0), WF(11,0),
+  WF(0,1), WF(1,1), WF(2,1), WF(3,1), WF(4,1), WF(5,1),                   WF(6,1), WF(7,1), WF(8,1), WF(9,1), WF(10,1), WF(11,1),
+  WF(0,2), WF(1,2), WF(2,2), WF(3,2), WF(4,2), WF(5,2), 0,       0,       WF(6,2), WF(7,2), WF(8,2), WF(9,2), WF(10,2), WF(11,2),
+                             0,       0,       0,       0,       0,       0,       0,       0
+);
+#undef WF
+
+uint16_t yl_warp_target(uint8_t row, uint8_t col) { return warp_frac[row][col]; }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, LTHUMB_2R, RTHUMB_2L, THUMBS_INWARD);

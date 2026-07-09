@@ -175,6 +175,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         return false;
+    // Per-key warp (WARP layer): jump the cursor to the desktop point that
+    // mirrors this key's physical position. The target table is board-specific
+    // (keyed by matrix row/col via each keymap's yl_warp_target override).
+    case YL_WARP:
+        if (record->event.pressed) {
+            uint16_t t = yl_warp_target(record->event.key.row, record->event.key.col);
+            warp_mouse_desktop_frac((uint8_t)(t >> 8), (uint8_t)(t & 0xFF));
+        }
+        return false;
     case YL_MON1:
         if (record->event.pressed) { mon_layout_set(MON_LAPTOP); }
         return false;
