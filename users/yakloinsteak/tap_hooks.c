@@ -39,6 +39,21 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
     return 0;
 }
 
+// Chordal Hold's default rule only lets a mod-tap HOLD when the next key is on the
+// opposite hand, so stacking two same-hand home-row mods (e.g. A+S -> Alt+Ctrl for
+// copyq, or S+D -> Ctrl+Shift) collapsed the first mod into a tap and leaked a bare
+// Ctrl+Alt (which Parallels grabs as its VM-release chord). Achordion allowed such
+// same-hand mod stacking; restore it by permitting a hold whenever BOTH keys are
+// mod-taps. Fast same-hand *letter* rolls are still guarded by Flow Tap, and non-mod
+// chords still follow the default opposite-hands rule.
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t *other_record) {
+    if (IS_QK_MOD_TAP(tap_hold_keycode) && IS_QK_MOD_TAP(other_keycode)) {
+        return true;  // allow stacking modifiers, even on the same hand
+    }
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case YL_A:

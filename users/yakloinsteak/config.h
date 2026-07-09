@@ -23,6 +23,12 @@
 #define TAPPING_TERM 250
 #define TAPPING_TERM_PER_KEY
 
+// Hold threshold for the tmux ^a-prefix feature (YL_CTLA in process_record_user.c).
+// Kept separate from TAPPING_TERM so tuning the home-row mods doesn't change how long
+// you must hold the thumb before it starts prefixing keys. This is the pre-migration
+// TAPPING_TERM value, which is the feel this feature was dialed in against.
+#define TMUX_PREFIX_HOLD_TERM 205
+
 // tap-dance I think
 #define TAPPING_TOGGLE 2
 

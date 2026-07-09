@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Suppress the auto-^a prefix while LTH3+RTH3 is held (symbols-combo mode), and
     // also for the RTH3 press itself (which arrives before rth3_pressed is updated below).
-    if (tmux_on && timer_elapsed(tmux_timer) >= TAPPING_TERM && record->event.pressed
+    if (tmux_on && timer_elapsed(tmux_timer) >= TMUX_PREFIX_HOLD_TERM && record->event.pressed
         && keycode != MO(MACROS)
         && !(lth3_pressed && rth3_pressed)) {
         tap_code16(C(KC_A));
@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // Suppress the tap-^a when RTH3 was held at any point during this LTH3 hold —
             // it was a brief LTH3+RTH3 combo press, not a single-tap.
-            if (timer_elapsed(tmux_timer) < TAPPING_TERM && !lth3_held_with_combo) { tap_code16(C(KC_A)); }
+            if (timer_elapsed(tmux_timer) < TMUX_PREFIX_HOLD_TERM && !lth3_held_with_combo) { tap_code16(C(KC_A)); }
             tmux_on = false;
         }
         return false;
