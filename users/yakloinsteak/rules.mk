@@ -9,8 +9,6 @@ DYNAMIC_MACRO_ENABLE = yes
 UNICODE_COMMON = yes
 UNICODE_ENABLE = yes
 
-SRC += achordion.c
-SRC += achordion_hooks.c
 SRC += combos.c
 SRC += tap_hooks.c
 SRC += process_record_user.c

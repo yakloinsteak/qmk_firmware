@@ -295,7 +295,7 @@ const html = `<!doctype html>
   }
 </style></head>
 <body><div class="page">
-  <header class="title"><h1>Corne — yakloinsteak keymap</h1><span class="sub">crkbd/rev1 · split_3x6_3 · home-row mods (Achordion)</span></header>
+  <header class="title"><h1>Corne — yakloinsteak keymap</h1><span class="sub">crkbd/rev1 · split_3x6_3 · home-row mods (Chordal Hold)</span></header>
   <div class="grid">
     ${cards}
     ${legend}

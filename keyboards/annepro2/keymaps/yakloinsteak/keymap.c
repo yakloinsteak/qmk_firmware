@@ -2,7 +2,6 @@
 #include "mylayers.h"
 #include "mykeycodes.h"
 #include "combos.h"
-#include "achordion.h"
 
 // clang-format off
 // Key symbols are based on QMK. Use them to remap your keyboard

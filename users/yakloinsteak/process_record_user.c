@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "mykeycodes.h"
 #include "mylayers.h"
-#include "achordion.h"
 #include "mymouse.h"
 
 /* tap_code(kc) to tap an individual key
@@ -43,8 +42,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool lth3_pressed = false;
     static bool rth3_pressed = false;
     static bool lth3_held_with_combo = false;
-
-    if (!process_achordion(keycode, record)) { return false; }
 
     // Suppress the auto-^a prefix while LTH3+RTH3 is held (symbols-combo mode), and
     // also for the RTH3 press itself (which arrives before rth3_pressed is updated below).

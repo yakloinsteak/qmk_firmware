@@ -17,7 +17,10 @@
 // If you're getting the mod of the mod-tap behavior accidentially: increase
 // adjust on the fly for debug/testing on layer fn2 up/down/x
 //#undef TAPPING_TERM
-#define TAPPING_TERM 205
+// Chordal Hold folds the old achordion_timeout (250 ms) into the tapping term, so
+// Getreuer recommends a relatively high base here. Tunable back toward 205 if taps
+// feel sluggish. Per-key deltas in tap_hooks.c stay relative to this.
+#define TAPPING_TERM 250
 #define TAPPING_TERM_PER_KEY
 
 // tap-dance I think
@@ -30,14 +33,21 @@
 
 // Similar, but if you release the first key and still want the hold action:
 // These can be fine-tuned per key if needed. See https://docs.qmk.fm/tap_hold#hold-on-other-key-press
-// Might not work with achordion if you exclude the _per_key def as well?
+// Left off: PERMISSIVE_HOLD is the Chordal Hold pairing we use for opposite-hand holds.
 // #define HOLD_ON_OTHER_KEY_PRESS
 // #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
-// Try with and without. For fast typists like me, it may help. Mod-taps
-// bracketed by regular keys help not make the middle one a mod.
-// might prevent the home row mod of D from activating I think.
-#define ACHORDION_STREAK
+// Home-row-mod tuning, all in QMK core (replaces the vendored Achordion library):
+//   CHORDAL_HOLD    - "opposite hands rule": same-hand chords within the tapping
+//                     term settle as tap, killing accidental mods on rolls.
+//   FLOW_TAP_TERM   - suppresses mods during fast typing (was ACHORDION_STREAK);
+//                     100 ms matches the old streak value. Its default only engages
+//                     between alpha-area keys, so Shift-rolled-into-symbol still holds.
+//   SPECULATIVE_HOLD - applies Shift/Ctrl eagerly on keydown (was achordion_eager_mod;
+//                     the default already covers exactly Shift/Ctrl/Shift+Ctrl).
+#define CHORDAL_HOLD
+#define FLOW_TAP_TERM 100
+#define SPECULATIVE_HOLD
 
 /*
  *
