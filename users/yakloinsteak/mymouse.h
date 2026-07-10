@@ -32,6 +32,14 @@
 #    define YL_WARP_GAIN_DEN 2
 #endif
 
+// Inset (in logical points) applied to all four sides of the virtual-desktop
+// rectangle used by warp_mouse_desktop_frac (the per-key WARP layer). Keeps the
+// edge keys a bit in from the screen borders instead of exactly on them, so e.g.
+// the top row lands ~this far down from the top. Set 0 to warp to the true edges.
+#ifndef YL_WARP_INSET_PX
+#    define YL_WARP_INSET_PX 100
+#endif
+
 // Max monitors any one layout describes (sizes the LAYOUTS mon[] arrays).
 #define YL_MAX_MON 3
 

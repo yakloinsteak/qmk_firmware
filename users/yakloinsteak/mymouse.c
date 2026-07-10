@@ -224,11 +224,18 @@ static void desktop_bbox(int32_t *ox, int32_t *oy, int32_t *ow, int32_t *oh) {
 }
 
 // Warp to (fx, fy) as a 0..255 fraction of the whole virtual-desktop union.
-// Pins to the corner first (via warp_abs), so it hits a fixed point.
+// Pins to the corner first (via warp_abs), so it hits a fixed point. The target
+// rectangle is inset by YL_WARP_INSET_PX on all four sides so the edge keys land
+// a little in from the desktop border instead of exactly on it (e.g. the top row
+// sits ~inset px down from the top). Inset collapses gracefully on tiny desktops.
 void warp_mouse_desktop_frac(uint8_t fx, uint8_t fy) {
     int32_t ox, oy, ow, oh;
     desktop_bbox(&ox, &oy, &ow, &oh);
-    warp_abs(ox + (int32_t)fx * ow / 255, oy + (int32_t)fy * oh / 255);
+    int32_t ix = YL_WARP_INSET_PX, iy = YL_WARP_INSET_PX;
+    if (2 * ix >= ow) ix = 0; // desktop too narrow to inset; use full width
+    if (2 * iy >= oh) iy = 0; // desktop too short to inset; use full height
+    warp_abs(ox + ix + (int32_t)fx * (ow - 2 * ix) / 255, //
+             oy + iy + (int32_t)fy * (oh - 2 * iy) / 255);
 }
 
 // Packed warp target for the WARP-layer key at matrix (row, col). Weak default
