@@ -44,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool rth3_pressed = false;
     static bool lth3_held_with_combo = false;
 
-#ifdef CONSOLE_ENABLE
+#if defined(CONSOLE_ENABLE) && defined(KEYCODE_STRING_ENABLE)
     dprintf("KL: kc: 0x%04X, str: %s, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, get_keycode_string(keycode), record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 

@@ -17,6 +17,7 @@ SRC += tap_hooks.c
 SRC += process_record_user.c
 SRC += mymouse.c
 SRC += myoled.c
+SRC += mylayers.c
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	SRC += tapdance.c

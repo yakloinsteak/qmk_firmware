@@ -118,10 +118,4 @@ static const uint16_t warp_frac[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_split_3x6_3(
 
 uint16_t yl_warp_target(uint8_t row, uint8_t col) { return warp_frac[row][col]; }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, LTHUMB_2R, RTHUMB_2L, THUMBS_INWARD); // both thumbs inward
-  state = update_tri_layer_state(state, LTHUMB_2R, MACROS, UTIL);  // both thumbs to the right
-  return state;
-}
-
 // OLED rendering is shared across boards in users/yakloinsteak/myoled.c.

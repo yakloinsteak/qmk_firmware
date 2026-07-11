@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT(
     QK_BOOT, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, _______, DT_UP  , _______, UC(0x0416), _______,                  _______, _______, _______, _______, _______, _______,
-    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
+    _______, _______, DT_UP  , _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
+    _______, _______, DT_DOWN, DB_TOGG, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
     _______, _______, DT_PRNT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -151,12 +151,6 @@ static const uint16_t warp_frac[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
 #undef WF
 
 uint16_t yl_warp_target(uint8_t row, uint8_t col) { return warp_frac[row][col]; }
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, LTHUMB_2R, RTHUMB_2L, THUMBS_INWARD);
-  state = update_tri_layer_state(state, LTHUMB_2R, MACROS, UTIL);
-  return state;
-}
 
 #ifdef OLED_ENABLE
 // Board-specific: rotate the slave display 180°. The actual OLED rendering
