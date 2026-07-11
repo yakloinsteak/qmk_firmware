@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // https://docs.qmk.fm/features/rgblight#keycodes
 [UTIL] = LAYOUT_split_3x6_3(
     QK_BOOT, _______, DT_UP  , _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_BRID, DT_DOWN, KC_BRIU, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
+    _______, _______, DT_DOWN, DB_TOGG, _______, _______,                   _______, YL_MON1, YL_MON2, YL_MON3, _______, _______,
     _______, _______, DT_PRNT, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
                                _______, _______, _______,                   _______, _______, _______
 ),
