@@ -1,19 +1,16 @@
 #include QMK_KEYBOARD_H
 #include "mykeycodes.h"
 
-// TODO: maybe the shift/return mod tap would benefit?
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    return true;
-
-    /* switch (keycode) { */
-    /*     case KC_ESC: */
-    /*     case YL_ESC: */
-    /*         // Immediately select the hold action when another key is pressed. */
-    /*         return true; */
-    /*     default: */
-    /*         // Do not select the hold action when another key is pressed. */
-    /*         return false; */
-    /* } */
+    switch (keycode) {
+        // This is the fix for `git commit -m ""` resulting in `git commit -m d'"`
+        case YL_D:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
 }
 
 // Flow Tap decides at keydown based on the *previous* key, so when typing fast it

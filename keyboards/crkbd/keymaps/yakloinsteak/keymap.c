@@ -2,7 +2,9 @@
 #include "mykeycodes.h"
 #include "mylayers.h"
 #include "combos.h"
+#ifdef TAP_DANCE_ENABLE
 #include "tapdance.h"
+#endif
 #include "mymouse.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

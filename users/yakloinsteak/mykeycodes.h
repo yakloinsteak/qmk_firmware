@@ -47,6 +47,9 @@ enum custom_keycodes {
 #  define YL_GRAV TD(TD_GRAV)
 // #  define YL_U    TD(TD_U)
 #  define YL_QUOT TD(TD_QUOT)
+#else
+#  define YL_GRAV KC_GRV
+#  define YL_QUOT KC_QUOT
 #endif
 
 // YL == yakloin

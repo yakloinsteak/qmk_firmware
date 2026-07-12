@@ -40,8 +40,10 @@
 // Similar, but if you release the first key and still want the hold action:
 // These can be fine-tuned per key if needed. See https://docs.qmk.fm/tap_hold#hold-on-other-key-press
 // Left off: PERMISSIVE_HOLD is the Chordal Hold pairing we use for opposite-hand holds.
-// #define HOLD_ON_OTHER_KEY_PRESS
-// #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+// make permissive hold irrelevant for any key enabled. just HOLD_ON_OTHER_KEY_PRESS
+// would do this.
+#define HOLD_ON_OTHER_KEY_PRESS
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 // Home-row-mod tuning, all in QMK core (replaces the vendored Achordion library):
 //   CHORDAL_HOLD    - "opposite hands rule": same-hand chords within the tapping
