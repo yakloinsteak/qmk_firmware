@@ -45,6 +45,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool lth3_held_with_combo = false;
 
 #if defined(CONSOLE_ENABLE) && defined(KEYCODE_STRING_ENABLE)
+    // If this is actually too expensive to run this often, guard on the "-m " before it starts to
+    // try to catch my git commit -m "abc" issue (-m d'abc")
     dprintf("KL: kc: 0x%04X, str: %s, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, get_keycode_string(keycode), record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
@@ -176,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case MON_HOME:   // laptop is on the right; dialog opens on the left monitor
                     warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(330, -220); break; // TODO: tune
                 case MON_OFFICE: // center monitor
-                    warp_mouse_to_screen(YL_SCREEN_CENTER); warp_mouse_move_px(300, -220); break; // TODO: tune
+                    warp_mouse_to_screen(YL_SCREEN_CENTER); warp_mouse_move_px(400, -300); break; // TODO: tune
             }
         }
         return false;
