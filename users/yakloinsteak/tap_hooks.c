@@ -4,7 +4,9 @@
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // This is the fix for `git commit -m ""` resulting in `git commit -m d'"`
-        case YL_D:
+        //case YL_D:
+        // partial fix for 8- instead of _
+        case YL_8:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
@@ -37,16 +39,23 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 }
 
 // Chordal Hold's default rule only lets a mod-tap HOLD when the next key is on the
-// opposite hand, so stacking two same-hand home-row mods (e.g. A+S -> Alt+Ctrl for
+// oppsite hand, so stacking two same-hand home-row mods (e.g. A+S -> Alt+Ctrl for
 // copyq, or S+D -> Ctrl+Shift) collapsed the first mod into a tap and leaked a bare
 // Ctrl+Alt (which Parallels grabs as its VM-release chord). Achordion allowed such
 // same-hand mod stacking; restore it by permitting a hold whenever BOTH keys are
 // mod-taps. Fast same-hand *letter* rolls are still guarded by Flow Tap, and non-mod
-// chords still follow the default opposite-hands rule.
+// chors still follow the default opposite-hands rule.
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
                       uint16_t other_keycode, keyrecord_t *other_record) {
     if (IS_QK_MOD_TAP(tap_hold_keycode) && IS_QK_MOD_TAP(other_keycode)) {
         return true;  // allow stacking modifiers, even on the same hand
+
+    // This with HOLD_ON_OTHER_KEY_PRESS_PER_KEY on YL_D allows the d' roll
+    // to yield a quote while keeping di (for example) from becoming capital I
+    /* } else if (tap_hold_keycode == YL_D && other_keycode != YL_QUOT) { */
+    /*     return false; */
+    /* } else if (tap_hold_keycode == YL_8 && other_keycode != KC_MINS) { */
+    /*     return false; */
     }
     return get_chordal_hold_default(tap_hold_record, other_record);
 }
@@ -58,13 +67,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case YL_S:
             return g_tapping_term;
         case YL_D:
-            return g_tapping_term - 20;
+            return g_tapping_term - 70;
         case YL_F:
             return g_tapping_term;
         case YL_J:
             return g_tapping_term;
         case YL_K:
-            return g_tapping_term - 5;
+            return g_tapping_term - 15;
         case YL_L:
             // Was getting kl when I wanted ctrl-shift for ctrl-shift-v
             return g_tapping_term - 5;
