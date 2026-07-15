@@ -3,10 +3,9 @@
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // This is the fix for `git commit -m ""` resulting in `git commit -m d'"`
-        //case YL_D:
-        // partial fix for 8- instead of _
-        case YL_8:
+        case YL_ESC: // Rolls should always be okay since not every part of a word?
+        case YL_TAB: // Rolls should always be okay since not every part of a word?
+        case YL_8: // partial fix for 8- instead of _
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
