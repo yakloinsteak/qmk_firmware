@@ -8,10 +8,10 @@ enum layer_number {
     THUMBS_INWARD, // both the previous together
     MACROS,
     UTIL,
-    SYMBOLS,
+    THUMBS_OUTWARD,
     WARP,
 };
 
-#define LOWER  LTHUMB_2R
-#define UPPER  RTHUMB_2L
-#define ADJUST THUMBS_INWARD
+// #define LOWER  LTHUMB_2R
+// #define UPPER  RTHUMB_2L
+// #define ADJUST THUMBS_INWARD

@@ -55,7 +55,7 @@ static void render_status(void) {
             oled_write_P(PSTR("Layer: Num/Sym\n"), false);
             break;
         case THUMBS_INWARD:
-            oled_write_P(PSTR("Layer: Fn\n"), false);
+            oled_write_P(PSTR("Layer: Symbols\n"), false);
             break;
         case MACROS:
             oled_write_P(PSTR("Layer: Macros\n"), false);
@@ -63,8 +63,8 @@ static void render_status(void) {
         case UTIL:
             oled_write_P(PSTR("Layer: Util\n"), false);
             break;
-        case SYMBOLS:
-            oled_write_P(PSTR("Layer: Symbols\n"), false);
+        case THUMBS_OUTWARD:
+            oled_write_P(PSTR("Layer: Function Keys\n"), false);
             break;
         case WARP:
             oled_write_P(PSTR("Layer: Warp\n"), false);

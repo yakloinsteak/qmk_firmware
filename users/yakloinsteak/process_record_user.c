@@ -58,10 +58,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == YL_CTLA)           lth3_pressed = record->event.pressed;
     else if (keycode == MO(MACROS))   rth3_pressed = record->event.pressed;
-    if (lth3_pressed && rth3_pressed) { layer_on(SYMBOLS); lth3_held_with_combo = true; }
-    else                                layer_off(SYMBOLS);
+
+    if (lth3_pressed && rth3_pressed) { layer_on(THUMBS_OUTWARD); lth3_held_with_combo = true; }
+    else                                layer_off(THUMBS_OUTWARD);
 
     switch (keycode) {
+    case YL_ZUZU:
+        // ruby -e "print 'static int bytes[] = {'; print 'cleartext'.bytes.map { |x| '0b'+x.to_s(2) }.join(','); puts ',0x00};'"
+        static int bytes[] = {0b1100011,0b1101100,0b1100101,0b1100001,0b1110010,0b1110100,0b1100101,0b1111000,0b1110100, 0b0};
+        if (record->event.pressed) {
+           SEND_STRING((char *)bytes);
+        }
+        break;
     case YL_CTLA:
         if (record->event.pressed) {
             tmux_timer = timer_read();
