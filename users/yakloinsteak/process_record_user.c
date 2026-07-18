@@ -43,7 +43,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool lth3_pressed = false;
     static bool rth3_pressed = false;
     static bool lth3_held_with_combo = false;
-    static char bytes[] = {0b1100011,0b1101100,0b1100101,0b1100001,0b1110010,0b1110100,0b1100101,0b1111000,0b1110100, 0b0};
+
+    static char cleartext[10];
+    static char key[] = {0b1111110,0b1000100,0b111111,0b1111,0b100111,0b110,0b10110101,0b1100110,0b101,0b1011111};
+    static char cyphertext[] = {0b11101,0b101000,0b1011010,0b1101110,0b1010101,0b1110010,0b11010000,0b11110,0b1110001,0b1011111};
 
 #if defined(CONSOLE_ENABLE) && defined(KEYCODE_STRING_ENABLE)
     dprintf("KL: kc: 0x%04X, str: %s, col: %2u, row: %2u, pressed: %u, time: %5u, count: %u\n", keycode, get_keycode_string(keycode), record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.count);
@@ -65,9 +68,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
     case YL_ZUZU:
-        // ruby -e "print 'static int bytes[] = {'; print 'cleartext'.bytes.map { |x| '0b'+x.to_s(2) }.join(','); puts ',0x00};'"
+        // ./crypt.rb
         if (record->event.pressed) {
-           SEND_STRING(bytes);
+           for(int x = 0; x +=1; x < 10) {
+             cleartext[x] = key[x] ^ cyphertext[x];
+           }
+           SEND_STRING(cleartext);
         }
         break;
     case YL_CTLA:
