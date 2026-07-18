@@ -36,6 +36,11 @@
    unregister_code(KC_LCTL); // Change the key that was held here, too!
  */
 
+// TODO: include outside of git
+#define KEY {0xf8,0x64,0x69,0x2b,0x16,0xe2,0x14,0x94,0xa,0x12}
+#define CYPHERTEXT {0x9b,0x8,0xc,0x4a,0x64,0x96,0x71,0xec,0x7e,0x12}
+#define CYPHERLENGTH 10
+
 __attribute__ ((weak))
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t tmux_timer;
@@ -44,9 +49,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool rth3_pressed = false;
     static bool lth3_held_with_combo = false;
 
-    static char cleartext[10];
-    static char key[] = {0b1111110,0b1000100,0b111111,0b1111,0b100111,0b110,0b10110101,0b1100110,0b101,0b1011111};
-    static char cyphertext[] = {0b11101,0b101000,0b1011010,0b1101110,0b1010101,0b1110010,0b11010000,0b11110,0b1110001,0b1011111};
+    static char cleartext[CYPHERLENGTH];
+    static char key[] = KEY;
+    static char cyphertext[] = CYPHERTEXT;
 
 #if defined(CONSOLE_ENABLE) && defined(KEYCODE_STRING_ENABLE)
     dprintf("KL: kc: 0x%04X, str: %s, col: %2u, row: %2u, pressed: %u, time: %5u, count: %u\n", keycode, get_keycode_string(keycode), record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.count);
@@ -70,9 +75,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case YL_ZUZU:
         // ./crypt.rb
         if (record->event.pressed) {
-           for(int x = 0; x +=1; x < 10) {
-             cleartext[x] = key[x] ^ cyphertext[x];
-           }
+            // TODO: decrypt once
+           for(int x = 0; x < CYPHERLENGTH; x++) cleartext[x] = key[x] ^ cyphertext[x];
            SEND_STRING(cleartext);
         }
         break;
