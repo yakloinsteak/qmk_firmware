@@ -43,6 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool lth3_pressed = false;
     static bool rth3_pressed = false;
     static bool lth3_held_with_combo = false;
+    static int bytes[] = {0b1100011,0b1101100,0b1100101,0b1100001,0b1110010,0b1110100,0b1100101,0b1111000,0b1110100, 0b0};
 
 #if defined(CONSOLE_ENABLE) && defined(KEYCODE_STRING_ENABLE)
     dprintf("KL: kc: 0x%04X, str: %s, col: %2u, row: %2u, pressed: %u, time: %5u, count: %u\n", keycode, get_keycode_string(keycode), record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.count);
@@ -65,7 +66,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case YL_ZUZU:
         // ruby -e "print 'static int bytes[] = {'; print 'cleartext'.bytes.map { |x| '0b'+x.to_s(2) }.join(','); puts ',0x00};'"
-        static int bytes[] = {0b1100011,0b1101100,0b1100101,0b1100001,0b1110010,0b1110100,0b1100101,0b1111000,0b1110100, 0b0};
         if (record->event.pressed) {
            SEND_STRING((char *)bytes);
         }
