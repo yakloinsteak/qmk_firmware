@@ -40,7 +40,6 @@ enum custom_keycodes {
     YL_WRPR, // Warp Right
     YL_WRPB, // Warp Bitwarden MFA
     YL_WARP, // Per-key warp: jumps the cursor to the desktop point mirroring this key's physical spot (WARP layer)
-    YL_ZUZU,
 };
 
 #ifdef TAP_DANCE_ENABLE

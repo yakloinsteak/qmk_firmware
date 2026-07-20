@@ -20,7 +20,7 @@
 // Chordal Hold folds the old achordion_timeout (250 ms) into the tapping term, so
 // Getreuer recommends a relatively high base here. Tunable back toward 205 if taps
 // feel sluggish. Per-key deltas in tap_hooks.c stay relative to this.
-#define TAPPING_TERM 240
+#define TAPPING_TERM 230
 #define TAPPING_TERM_PER_KEY
 
 // Hold threshold for the tmux ^a-prefix feature (YL_CTLA in process_record_user.c).
