@@ -64,9 +64,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case YL_A:
             return g_tapping_term;
         case YL_S:
-            return g_tapping_term;
+            return g_tapping_term - 10;
         case YL_D:
-            return g_tapping_term - 70;
+            return g_tapping_term - 75;
         case YL_F:
             return g_tapping_term;
         case YL_J:
