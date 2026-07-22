@@ -75,7 +75,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return g_tapping_term - 15;
         case YL_L:
             // Was getting kl when I wanted ctrl-shift for ctrl-shift-v
-            return g_tapping_term - 5;
+            return g_tapping_term - 10;
         case YL_SCLN:
             return g_tapping_term;
         /* case YL_TAB: */
