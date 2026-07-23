@@ -27,7 +27,7 @@
 // Kept separate from TAPPING_TERM so tuning the home-row mods doesn't change how long
 // you must hold the thumb before it starts prefixing keys. This is the pre-migration
 // TAPPING_TERM value, which is the feel this feature was dialed in against.
-#define TMUX_PREFIX_HOLD_TERM 205
+#define TMUX_PREFIX_HOLD_TERM 190
 
 // tap-dance I think
 #define TAPPING_TOGGLE 2
