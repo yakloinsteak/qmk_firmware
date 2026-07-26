@@ -10,8 +10,6 @@ enum layer_number {
     UTIL,
     THUMBS_OUTWARD,
     WARP,
+    ESC_HOLD_LAYER,
+    SPC_HOLD_LAYER,
 };
-
-// #define LOWER  LTHUMB_2R
-// #define UPPER  RTHUMB_2L
-// #define ADJUST THUMBS_INWARD

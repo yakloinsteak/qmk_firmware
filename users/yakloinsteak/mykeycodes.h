@@ -58,17 +58,15 @@ enum custom_keycodes {
 // LT(layer, kc) - momentarily activates layer when held, and sends kc when tapped. Only supports layers 0-15.
 // MO == momentary layer
 
-// #define YL_ESC MT(MOD_LCTL, KC_ESC)
-#define YL_ESC LT(MACROS, KC_ESC)
+#define YL_ESC LT(ESC_HOLD_LAYER, KC_ESC)
 
-//#define YL_SPC LT(SYMBOLS, KC_SPC)
-#define YL_SPC KC_SPC
+#define YL_SPC LT(SPC_HOLD_LAYER, KC_SPC)
+// #define YL_SPC KC_SPC
 
 #define YL_RSFT KC_RSFT
 //MT(MOD_RSFT, KC_ENT)
 #define YL_TAB LT(TAB_HOLD_LAYER, KC_TAB)
 #define RRRRRRR _______
-#define YL_RUSN KC_APP
 
 /* Homerow mods */
 #define YL_A    MT(MOD_LALT, KC_A)

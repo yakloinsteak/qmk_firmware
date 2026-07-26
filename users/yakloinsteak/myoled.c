@@ -69,6 +69,12 @@ static void render_status(void) {
         case WARP:
             oled_write_P(PSTR("Layer: Warp\n"), false);
             break;
+        case ESC_HOLD_LAYER:
+            oled_write_P(PSTR("Layer: Esc\n"), false);
+            break;
+        case SPC_HOLD_LAYER:
+            oled_write_P(PSTR("Layer: Space\n"), false);
+            break;
         default:
             oled_write_P(PSTR("Layer: "), false);
             oled_write(get_u8_str(layer, ' '), false);

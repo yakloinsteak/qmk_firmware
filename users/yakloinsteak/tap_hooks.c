@@ -79,12 +79,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return g_tapping_term - 20;
         case YL_SCLN:
             return g_tapping_term;
-        /* case YL_TAB: */
+        case YL_TAB:
+            return g_tapping_term;
+        // Very long hold while I decide what to do with these
+        // probably should be very deliberate and/or rare actions?
         case YL_ESC:
-            // This key is mostly just esc, but if you hold it a long time, you can activate the hold action
-            return g_tapping_term + 30;
         case YL_SPC:
-            return g_tapping_term - 55;
+            return g_tapping_term + 150;
         default:
             return g_tapping_term;
     }
