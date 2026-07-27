@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_DELAY(100));
             unregister_code(KC_LALT);
             unregister_code(KC_LCTL);
-            mouse_walk(0,-120);
+            warp_mouse_move_px(0,-120);
             register_code(KC_RGUI);
             register_code(KC_RCTL);
             SEND_STRING("q");
