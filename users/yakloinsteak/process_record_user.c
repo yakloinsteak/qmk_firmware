@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if ( (get_mods() & (MOD_MASK_CTRL | MOD_MASK_GUI)) && record->event.pressed ) {
             register_code(KC_LALT);
             register_code(KC_LCTL);
-            SEND_STRING(SS_DELAY(1000));
+            SEND_STRING(SS_DELAY(1500));
             unregister_code(KC_LALT);
             unregister_code(KC_LCTL);
             warp_mouse_move_px(0,-520);
