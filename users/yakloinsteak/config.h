@@ -29,6 +29,18 @@
 // TAPPING_TERM value, which is the feel this feature was dialed in against.
 #define TMUX_PREFIX_HOLD_TERM 190
 
+// Ctrl+GUI+Q "lock the Mac host from inside the VM" macro (KC_Q in
+// process_record_user.c). Parallels only releases its input grab on a *bare*
+// Ctrl+Alt -- see the SPECULATIVE_HOLD note below, where an accidental bare
+// Ctrl+Alt was a bug -- so the macro drops the held mods, waits for the host to
+// see the all-clear, then holds a clean Ctrl+Alt.
+//
+// Both waits block the matrix scan (keys pressed during them are dropped), so
+// keep them as short as Parallels tolerates. If the escape stops working, widen
+// VM_RELEASE_CLEAR_MS first, then VM_RELEASE_HOLD_MS.
+#define VM_RELEASE_CLEAR_MS 50   // gap between the mods-cleared report and Ctrl+Alt
+#define VM_RELEASE_HOLD_MS 150   // how long the bare Ctrl+Alt is held
+
 // tap-dance I think
 #define TAPPING_TOGGLE 2
 

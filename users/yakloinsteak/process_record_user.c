@@ -166,22 +166,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-    case KC_Q:
-        if ( (get_mods() & (MOD_MASK_CTRL | MOD_MASK_GUI)) && record->event.pressed ) {
-            register_code(KC_LALT);
-            register_code(KC_LCTL);
-            SEND_STRING(SS_DELAY(1500));
-            unregister_code(KC_LALT);
-            unregister_code(KC_LCTL);
-            warp_mouse_move_px(0,-520);
-
-            tap_code16(G(C(KC_Q)));
-
-            return false;
-        } else {
-            // handle like normal Q otherwise
-            return true;
+    case KC_Q: {
+        // Ctrl+GUI+Q locks the Mac host from inside the Parallels VM: break out of
+        // the VM's input grab, park the cursor on the host, then send the macOS
+        // lock chord. Needs BOTH mods -- a plain get_mods() & (CTRL|GUI) is true for
+        // *either* one, which fired the whole macro on a bare GUI+Q.
+        uint8_t mods = get_mods();
+        if (!(record->event.pressed && (mods & MOD_MASK_CTRL) && (mods & MOD_MASK_GUI))) {
+            return true;  // handle like a normal Q otherwise
         }
+
+        // Parallels' release-input hotkey is a *bare* Ctrl+Alt. The Ctrl+GUI still
+        // physically held here is on the wire, so just adding Alt makes the host see
+        // Ctrl+Alt+Cmd and the grab never lifts. Drop every mod, let the host see the
+        // all-clear as its own report, then press a clean Ctrl+Alt.
+        clear_weak_mods();
+        clear_oneshot_mods();
+        clear_mods();
+        send_keyboard_report();
+        wait_ms(VM_RELEASE_CLEAR_MS);
+
+        register_mods(MOD_BIT_LCTRL | MOD_BIT_LALT);
+        wait_ms(VM_RELEASE_HOLD_MS);
+        unregister_mods(MOD_BIT_LCTRL | MOD_BIT_LALT);
+
+        warp_mouse_move_px(0,-520);
+
+        // Mods are deliberately left cleared: the host is about to lock, and
+        // re-asserting the still-held Ctrl+GUI would land on the lock screen.
+        tap_code16(G(C(KC_Q)));
+        return false;
+    }
 
     // Mouse warping: jump to the left / center / right physical monitor.
     case YL_WRPL:
