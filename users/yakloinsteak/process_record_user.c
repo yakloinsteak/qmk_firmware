@@ -168,16 +168,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_Q:
         if ( (get_mods() & MOD_MASK_CTRL & MOD_MASK_GUI) && (record->event.pressed) ) {
-              register_code(KC_LALT);
-              register_code(KC_LCTL);
-              SEND_STRING(SS_DELAY(50));
-              unregister_code(KC_LALT);
-              unregister_code(KC_LCTL);
+            register_code(KC_LALT);
+            register_code(KC_LCTL);
+            SEND_STRING(SS_DELAY(50));
+            unregister_code(KC_LALT);
+            unregister_code(KC_LCTL);
 
-              register_code(KC_RGUI);
-              SEND_STRING(SS_RCTL("q"));
-              unregister_code(KC_RGUI);
-              return false;
+            register_code(KC_RGUI);
+            SEND_STRING(SS_RCTL("q"));
+            unregister_code(KC_RGUI);
+            return true;
+        } else {
+            return false;
         }
 
     // Mouse warping: jump to the left / center / right physical monitor.
