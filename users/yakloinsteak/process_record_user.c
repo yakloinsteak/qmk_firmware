@@ -177,9 +177,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(KC_RGUI);
             SEND_STRING(SS_RCTL("q"));
             unregister_code(KC_RGUI);
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
 
     // Mouse warping: jump to the left / center / right physical monitor.
