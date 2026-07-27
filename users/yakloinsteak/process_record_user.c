@@ -170,15 +170,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if ( (get_mods() & MOD_MASK_CTRL & MOD_MASK_GUI) && (record->event.pressed) ) {
             register_code(KC_LALT);
             register_code(KC_LCTL);
-            SEND_STRING(SS_DELAY(50));
+            SEND_STRING(SS_DELAY(100));
             unregister_code(KC_LALT);
             unregister_code(KC_LCTL);
-
+            mouse_walk(0,-120);
             register_code(KC_RGUI);
-            SEND_STRING(SS_RCTL("q"));
+            register_code(KC_RCTL);
+            SEND_STRING("q");
             unregister_code(KC_RGUI);
+            unregister_code(KC_RCTL);
             return false;
         } else {
+            // handle like normal Q otherwise
             return true;
         }
 
