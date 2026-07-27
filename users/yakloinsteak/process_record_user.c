@@ -103,14 +103,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // neovim write
         if (record->event.pressed) { SEND_STRING(SS_TAP(X_ESC)":w"SS_TAP(X_ENT)); }
         break;
-    case YL_FIAP:
-        // firefox insecure approve
-        if (record->event.pressed) { send_string_with_delay("\t\t\t " SS_DELAY(400) "\t\t\t\t ", 100); }
-        break;
-    case YL_WSCH:
-        // sessionx in tmux but with choices for new session
-        if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s" SS_DELAY(20) SS_DOWN(X_LCTL)"x"SS_UP(X_LCTL)); }
-        break;
+    /* case YL_FIAP: */
+    /*     // firefox insecure approve */
+    /*     if (record->event.pressed) { send_string_with_delay("\t\t\t " SS_DELAY(400) "\t\t\t\t ", 100); } */
+    /*     break; */
+    /* case YL_WSCH: */
+    /*     // sessionx in tmux but with choices for new session */
+    /*     if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)"a"SS_UP(X_LCTL)"s" SS_DELAY(20) SS_DOWN(X_LCTL)"x"SS_UP(X_LCTL)); } */
+    /*     break; */
     case YL_ENT:
         if (record->event.pressed) { SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)"l"SS_UP(X_LCTL)SS_UP(X_LALT)"\n"); }
         break;
@@ -165,6 +165,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         return false;
+
+    case KC_Q:
+        if ( (get_mods() & MOD_MASK_CTRL & MOD_MASK_GUI) && (record->event.pressed) ) {
+              register_code(KC_LALT);
+              register_code(KC_LCTL);
+              SEND_STRING(SS_DELAY(50));
+              unregister_code(KC_LALT);
+              unregister_code(KC_LCTL);
+
+              register_code(KC_RGUI);
+              SEND_STRING(SS_RCTL("q"));
+              unregister_code(KC_RGUI);
+              return false;
+        }
 
     // Mouse warping: jump to the left / center / right physical monitor.
     case YL_WRPL:

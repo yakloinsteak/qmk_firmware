@@ -80,7 +80,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case YL_SCLN:
             return g_tapping_term;
         case YL_TAB:
-            return g_tapping_term;
+            return g_tapping_term - 5;
         // Very long hold while I decide what to do with these
         // probably should be very deliberate and/or rare actions?
         case YL_ESC:

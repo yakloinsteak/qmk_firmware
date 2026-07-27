@@ -26,7 +26,7 @@ enum custom_keycodes {
     YL_BSLS,
     YL_CTLA,
     YL_BACK,
-    YL_FIAP, // firefox insecure approve
+    // YL_FIAP, // firefox insecure approve
     YL_LSTS, // last session in tmux
     YL_SSHK, // ssh-agent and add key
     YL_SPC,  // spacebar
