@@ -59,6 +59,28 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
     return get_chordal_hold_default(tap_hold_record, other_record);
 }
 
+// Suppress "tap then hold repeats the tap" for keys whose hold action is a layer we
+// actually navigate from -- losing the layer to an accidental quick second tap drops the
+// nav keys through to BASE (see the QUICK_TAP_TERM note in config.h). Everything else,
+// notably the home-row letter mods, keeps the default so holding after a tap still
+// auto-repeats the letter.
+//
+// YL_ESC and YL_SPC are LT()s with the same exposure; add them here if the layer ever
+// feels like it "doesn't take" right after tapping the key.
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case YL_TAB:
+            return 0;
+        default:
+            // The compile-time constant (= TAPPING_TERM, 230), deliberately *not*
+            // g_tapping_term: this is exactly what the non-per-key macro expanded to, so
+            // every other key keeps its current feel. Note the consequence -- DT_UP/DT_DOWN
+            // move get_tapping_term but leave this window at 230. Switch to g_tapping_term
+            // if you ever want the two to track each other while tuning.
+            return QUICK_TAP_TERM;
+    }
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case YL_A:

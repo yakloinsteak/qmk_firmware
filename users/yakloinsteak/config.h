@@ -11,7 +11,21 @@
 // increase this value
 #define COMBO_TERM 35
 
+// Tap a dual-role key, then press it again within QUICK_TAP_TERM, and QMK treats the
+// second press as a repeat of the *tap* -- the hold action is never considered. Left
+// unset it defaults to TAPPING_TERM, and the window is measured from the release of the
+// previous tap, so any Tab tap (indent, completion) followed within ~230 ms by the
+// deliberate Tab hold silently lost TAB_HOLD_LAYER: the nav keys fell through to BASE,
+// where the layer's KC_BSPC sits on top of YL_SCLN, so backspacing typed ";;;;". Worse,
+// pressing that next key unregisters the repeated Tab, so you don't even get the tab
+// repeat that would have made the cause obvious -- the layer just stays dead until you
+// lift and re-press Tab.
+//
+// Per-key (see get_quick_tap_term in tap_hooks.c) rather than a global 0: the home-row
+// mods want to keep tap-then-hold letter repeat (aaaa from YL_A), which a global would
+// kill. That's why the two globals below stayed commented out.
 // #define QUICK_TAP_TERM 150
+#define QUICK_TAP_TERM_PER_KEY
 
 // https://docs.qmk.fm/tap_hold
 // If you're getting the mod of the mod-tap behavior accidentially: increase
