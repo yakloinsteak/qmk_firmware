@@ -224,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case MON_LAPTOP: // the only screen
                     warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(330, -220); break;
                 case MON_HOME:   // laptop is on the right; dialog opens on the left monitor
-                    warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(500, -280); break; // TODO: tune
+                    warp_mouse_to_screen(YL_SCREEN_LEFT);   warp_mouse_move_px(550, -300); break; // TODO: tune
                 case MON_OFFICE: // center monitor
                     warp_mouse_to_screen(YL_SCREEN_CENTER); warp_mouse_move_px(550, -350); break;
             }
