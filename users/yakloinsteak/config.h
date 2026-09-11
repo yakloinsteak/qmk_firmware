@@ -102,6 +102,12 @@
 // do we need this with the previous one?
 #define MK_KINETIC_SPEED
 
+// The kinesis board config sets its own mousekey tuning; ours wins (-Werror otherwise).
+#undef MOUSEKEY_DELAY
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_MAX_SPEED
+#undef MOUSEKEY_TIME_TO_MAX
+
 #define MOUSEKEY_DELAY 5 // Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_INTERVAL 10 // Time between cursor movements in milliseconds
 #define MOUSEKEY_MOVE_DELTA 16 // Step size for accelerating from initial to base speed
