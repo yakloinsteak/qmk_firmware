@@ -82,7 +82,7 @@
     },
     "python@3.13": {
       "last_modified": "2024-11-16T04:25:12Z",
-      "plugin_version": "0.0.4",
+      "plugin_version": "0.0.5",
       "resolved": "github:NixOS/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba#python313",
       "source": "devbox-search",
       "version": "3.13.0",
