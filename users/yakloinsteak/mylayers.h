@@ -12,4 +12,6 @@ enum layer_number {
     WARP,
     ESC_HOLD_LAYER,
     SPC_HOLD_LAYER,
+    KINESIS, // stock Kinesis, locked via Scroll Lock (kinesis only)
+    KEYPAD,  // stock embedded numpad (kinesis only)
 };
