@@ -25,10 +25,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     YL_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                                                                      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     YL_CRPT,
     YL_ESC,   YL_A,     YL_S,     YL_D,     YL_F,     KC_G,                                                                      KC_H,     YL_J,     YL_K,     YL_L,     YL_SCLN,  YL_QUOT,
     KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  YL_RSFT,
-              YL_GRAV,  KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
+              YL_GRAV,  KC_INS,   KC_LEFT,  YL_LTH3,                                                                                       YL_RTH3,  KC_DOWN,  KC_LBRC,  KC_RBRC,
                                                       KC_LCTL,  KC_LALT,                                               KC_RGUI,  KC_RCTL,
                                                                 YL_LTH4,                                               YL_RTH4,
-                                            YL_LTH3,  KC_ENT,   YL_LTH1,                                               YL_RTH1,  YL_SPC,   YL_RTH3
+                                            KC_ENT,  YL_LTH1,   YL_LTH4,                                               YL_RTH4,  YL_RTH1,   YL_SPC
 ),
 
 [TAB_HOLD_LAYER] = LAYOUT(
